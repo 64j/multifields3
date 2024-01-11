@@ -4,11 +4,11 @@ import Mf from './components/Mf.vue'
 
 import('../css/mf.css')
 
-window['mfComponents'] = {}
+window['mf3Components'] = {}
 
 Object.entries(import.meta.glob('./components/*/*.vue', { eager: true })).forEach(([, { default: module }]) => {
   if (module?.['__isStatic']) {
-    window['mfComponents'][module.name || module.__name] = module
+    window['mf3Components'][module.name || module.__name] = module
   }
 })
 

@@ -3,9 +3,15 @@
 @tailwind utilities;
 @layer base {
     .mf3-item {
-        @apply grow p-1 mx-0.5 mb-1 last:mb-0 border border-slate-200 hover:border-blue-500
+        @apply grow relative p-1 mx-0.5 mb-1 last:mb-0 border border-slate-200
     }
     .mf3-group {
-        @apply grow py-1 px-0.5 mx-0.5 mb-1 last:mb-0 border border-slate-200 hover:border-green-500
+        @apply grow relative py-1 px-0.5 mx-0.5 mb-1 last:mb-0 basis-full border border-slate-200
+    }
+    .mf3-item:hover > .mf3-actions, .mf3-group:hover > .mf3-actions, .mf3-draggable__chosen > .mf3-actions {
+        @apply opacity-100 visible
+    }
+    .mf3-item > *, .mf3-group > * {
+        @apply relative
     }
 }

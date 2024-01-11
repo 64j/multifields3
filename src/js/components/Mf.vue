@@ -1,5 +1,6 @@
 <script>
 import { h } from 'vue'
+import Sortable from 'sortablejs'
 
 export default {
   name: 'Mf',
@@ -17,6 +18,17 @@ export default {
       deep: true
     }
   },
+  mounted () {
+    Sortable.create(this.$el, {
+      draggable: '.mf3-item',
+      handle: '.mf3-actions__move',
+      ghostClass: 'mf3-draggable__active',
+      chosenClass: 'mf3-draggable__chosen',
+      onEnd: (event) => {
+        this.value.splice(event.oldIndex, 1, this.value[event.newIndex])
+      }
+    })
+  },
   methods: {
     build (data) {
       const slots = []
@@ -28,17 +40,17 @@ export default {
       data.forEach((item, key) => {
         const name = item['type'] ? 'mf:' + item['type'] : null
 
-        if (!name || !mfComponents[name]) {
+        if (!name || !mf3Components[name]) {
           return
         }
 
         slots.push(
             h(
-                mfComponents[name],
+                mf3Components[name],
                 {
                   ...item,
                   'onUpdate:value': (value) => item.value = value,
-                  'onDelete': () => data.splice(key, 1)
+                  'onAction': (action) => this.action(action, data, key)
                 },
                 item?.items ? () => this.build(item.items) : null
             )
@@ -46,6 +58,28 @@ export default {
       })
 
       return slots
+    },
+    action (action, data, key) {
+      switch (action) {
+        case 'del':
+          data.splice(key, 1)
+          break
+
+        case 'add':
+          data.splice(key + 1, 0, this.clearValue({ ...data[key] }))
+          break
+      }
+    },
+    clearValue (data) {
+      if (data.value !== undefined) {
+        data.value = ''
+      }
+
+      if (data.items) {
+        data.items = data.items.map(i => this.clearValue({ ...i }))
+      }
+
+      return data
     }
   }
 }

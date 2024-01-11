@@ -1,0 +1,65 @@
+<script>
+export default {
+  name: 'Actions',
+  props: {
+    actions: {
+      type: Array,
+      default: ['add', 'move', 'del']
+    }
+  }
+}
+</script>
+
+<template>
+  <div class="mf3-actions">
+    <div v-for="i in actions" :class="`mf3-actions__action mf3-actions__` + i" @click="$emit('action', i)"/>
+  </div>
+</template>
+
+<style scoped>
+.mf3-actions {
+  @apply absolute left-0 top-0 bottom-0 right-0 flex justify-center ring-blue-500 ring-2 ring-offset-0 opacity-0 invisible transition
+}
+.mf3-actions__action {
+  @apply w-4 h-4 z-10 cursor-pointer
+}
+.mf3-actions__add {
+  @apply absolute flex items-center justify-center -bottom-2 bg-blue-500 rounded-full
+}
+.mf3-actions__add::before, .mf3-actions__add::after {
+  @apply absolute w-2 h-0.5 bg-white content-[""]
+}
+.mf3-actions__add::after {
+  @apply rotate-90
+}
+.mf3-actions__del {
+  @apply flex items-center justify-center -mt-4 bg-rose-500
+}
+.mf3-actions__del::before, .mf3-actions__del::after {
+  @apply absolute w-2 h-0.5 bg-white content-[""] rotate-45
+}
+.mf3-actions__del::after {
+  @apply -rotate-45
+}
+.mf3-actions__move {
+  @apply flex items-center justify-center -mt-4 cursor-move bg-blue-500
+}
+.mf3-actions__move::before, .mf3-actions__move::after {
+  @apply w-2 content-[""]
+}
+.mf3-actions__move::before {
+  @apply h-2 border-t-2 border-b-2 border-white
+}
+.mf3-actions__move::after {
+  @apply absolute h-0.5 bg-white
+}
+</style>
+
+<style>
+.mf3-group > .mf3-actions > .mf3-actions__add {
+  @apply bg-green-500
+}
+.mf3-group > .mf3-actions {
+  @apply ring-green-500
+}
+</style>

@@ -1,14 +1,24 @@
 <script>
+import Actions from '../Actions.vue'
+
 export default {
+  components: { Actions },
   __isStatic: true,
   name: 'mf:file',
   props: ['type', 'name', 'title', 'value', 'items'],
-  emits: ['update:value']
+  methods: {
+    action (action) {
+      this.$emit('action', action)
+    }
+  }
 }
 </script>
 
 <template>
-  <div class="mf3-file mf3-item">File</div>
+  <div class="mf3-file mf3-item">
+    <actions @action="action"/>
+    File
+  </div>
 </template>
 
 <style scoped>

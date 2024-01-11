@@ -1,21 +1,22 @@
 <script>
+import Actions from '../Actions.vue'
+
 export default {
+  components: { Actions },
   __isStatic: true,
   name: 'mf:thumb:image',
   props: ['type', 'name', 'title', 'value', 'multi', 'thumb'],
-  emits: ['update:value', 'delete'],
   methods: {
-    remove () {
-      this.$emit('delete')
+    action (action) {
+      this.$emit('action', action)
     }
   }
 }
 </script>
 
 <template>
-  <div class="mf3-thumb__image mf3-item"
-       :style="{ backgroundImage: value ? 'url(' + value + ')' : null }">
-    <button @click="remove">Del</button>
+  <div class="mf3-thumb__image mf3-item" :style="{ backgroundImage: value ? 'url(' + value + ')' : null }">
+    <actions @action="action"/>
   </div>
 </template>
 
