@@ -25,7 +25,9 @@ export default {
       ghostClass: 'mf3-draggable__active',
       chosenClass: 'mf3-draggable__chosen',
       onEnd: (event) => {
-        this.value.splice(event.oldIndex, 1, this.value[event.newIndex])
+        const item = { ...this.value[event.oldIndex] }
+        this.value.splice(event.oldIndex, 1)
+        this.value.splice(event.newIndex + 1, 0, item)
       }
     })
   },
