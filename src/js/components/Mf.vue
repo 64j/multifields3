@@ -10,14 +10,14 @@ export default {
       value: this.el.value && JSON.parse(this.el.value) || []
     }
   },
-  watch: {
-    value: {
-      handler (value) {
-        this.el.innerHTML = value.length ? JSON.stringify(value) : ''
-      },
-      deep: true
-    }
-  },
+  // watch: {
+  //   value: {
+  //     handler (value) {
+  //       this.el.innerHTML = value.length ? JSON.stringify(value) : ''
+  //     },
+  //     deep: true
+  //   }
+  // },
   mounted () {
     Sortable.create(this.$el, {
       draggable: '.mf3-item',
@@ -25,9 +25,10 @@ export default {
       ghostClass: 'mf3-draggable__active',
       chosenClass: 'mf3-draggable__chosen',
       onEnd: (event) => {
-        const item = { ...this.value[event.oldIndex] }
-        this.value.splice(event.oldIndex, 1)
-        this.value.splice(event.newIndex + 1, 0, item)
+        this.value.splice(event.newIndex + 1, 0, { ...this.value[event.oldIndex] })
+        this.value.splice(event.newIndex + 1, 1)
+        console.log(this.value)
+        this.$nextTick(() => this.$forceUpdate())
       }
     })
   },
@@ -45,6 +46,8 @@ export default {
         if (!name || !mf3Components[name]) {
           return
         }
+
+        item.index = key
 
         slots.push(
             h(

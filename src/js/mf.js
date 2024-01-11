@@ -12,14 +12,17 @@ Object.entries(import.meta.glob('./components/*/*.vue', { eager: true })).forEac
   }
 })
 
-document.querySelectorAll('.mf3-data').forEach(i => {
-  axios.get('./assets/plugins/multifields3/config/' + i.dataset['tvName'] + '.json').then(({ data }) => {
-    const el = document.createElement('div')
-    createApp(Mf, {
-      ...eval(i.dataset || ''),
-      el: i,
-      config: data
-    }).mount(el)
-    i.after(el)
-  })
+document.querySelectorAll('.mf3-data').forEach(async i => {
+  let response = {}
+  try {
+    response = await axios.get('./assets/plugins/multifields3/config/' + i.dataset['tvName'] + '.json')
+  } catch (error) {}
+
+  const el = document.createElement('div')
+  createApp(Mf, {
+    ...eval(i.dataset || ''),
+    el: i,
+    config: response.config
+  }).mount(el)
+  i.after(el)
 })
