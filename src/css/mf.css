@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind screens;
+@tailwind utilities;
+@layer base {
+    .mf3-item {
+        @apply grow p-1 mx-0.5 mb-1 last:mb-0 border border-slate-200 hover:border-blue-500
+    }
+    .mf3-group {
+        @apply grow py-1 px-0.5 mx-0.5 mb-1 last:mb-0 border border-slate-200 hover:border-green-500
+    }
+}
