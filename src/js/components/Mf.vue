@@ -20,7 +20,7 @@ export default {
     }
   },
   methods: {
-    getComponents (elements) {
+    getElements (elements) {
       return h(
           draggable,
           {
@@ -33,12 +33,16 @@ export default {
             chosenClass: 'mf3-draggable__chosen'
           },
           {
-            item: ({ element, index }) => this.getComponent(element, index, elements)
+            item: ({ element, index }) => this.getElement(element, index, elements)
           }
       )
     },
-    getComponent (element, index, elements) {
+    getElement (element, index, elements) {
       const name = element['type'] ? 'mf:' + element['type'] : null
+
+      if (!mf3Components[name]) {
+        return
+      }
 
       return h(
           mf3Components[name],
@@ -48,7 +52,7 @@ export default {
             'onUpdate:value': (value) => element.value = value,
             onAction: (action) => this.action(action, elements, index)
           },
-          element?.items ? () => this.getComponents(element.items) : null
+          element?.items ? () => this.getElements(element.items) : null
       )
     },
     action (action, data, key) {
@@ -78,7 +82,7 @@ export default {
 </script>
 
 <template>
-  <component :is="() => getComponents(elements)" class="mf3"/>
+  <component :is="() => getElements(elements)" class="mf3"/>
 </template>
 
 <style scoped>
