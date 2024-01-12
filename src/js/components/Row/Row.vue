@@ -1,10 +1,8 @@
 <script>
 import Actions from '../Actions.vue'
-import draggable from 'vuedraggable'
-import { shallowRef } from 'vue'
 
 export default {
-  components: { draggable, Actions },
+  components: { Actions },
   __isStatic: true,
   name: 'mf:row',
   props: ['type', 'name', 'title', 'value', 'items'],
@@ -14,7 +12,6 @@ export default {
     }
   },
   methods: {
-    shallowRef,
     action (action) {
       this.$emit('action', action)
     }

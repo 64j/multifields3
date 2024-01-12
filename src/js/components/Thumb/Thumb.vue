@@ -17,9 +17,7 @@ export default {
 <template>
   <div class="mf3-thumb mf3-item" :style="{ backgroundImage: value ? 'url(' + value + ')' : null }">
     <actions @action="action"/>
-    <div class="mf3-items">
-      <slot/>
-    </div>
+    <slot/>
   </div>
 </template>
 

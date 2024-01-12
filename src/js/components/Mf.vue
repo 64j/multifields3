@@ -8,59 +8,47 @@ export default {
   props: ['el', 'config', 'tvName'],
   data () {
     return {
-      value: this.el.value && JSON.parse(this.el.value) || []
+      elements: this.el.value && JSON.parse(this.el.value) || []
     }
   },
   watch: {
-    value (value) {
-      this.el.innerHTML = value.length ? JSON.stringify(value) : ''
+    elements: {
+      handler (elements) {
+        this.el.innerHTML = elements.length ? JSON.stringify(elements) : ''
+      },
+      deep: true
     }
   },
   methods: {
-    getComponent (item, key) {
-      const name = item['type'] ? 'mf:' + item['type'] : null
-      item.index = key
+    getComponents (elements) {
+      return h(
+          draggable,
+          {
+            tag: 'div',
+            itemKey: '',
+            list: elements,
+            class: 'mf3-items',
+            handle: '.mf3-actions__move',
+            ghostClass: 'mf3-draggable__active',
+            chosenClass: 'mf3-draggable__chosen'
+          },
+          {
+            item: ({ element, index }) => this.getComponent(element, index, elements)
+          }
+      )
+    },
+    getComponent (element, index, elements) {
+      const name = element['type'] ? 'mf:' + element['type'] : null
 
       return h(
           mf3Components[name],
           {
-            ...item,
-            'onUpdate:value': (value) => item.value = value,
-            'onAction': (action) => this.action(action, this.value, key)
+            ...element,
+            index,
+            'onUpdate:value': (value) => element.value = value,
+            onAction: (action) => this.action(action, elements, index)
           },
-          item?.items ? () => this.getItems(item.items) : null
-      )
-    },
-    getItems (data) {
-      return h(
-          draggable,
-          {
-            modelValue: data,
-            class: 'mf3-items',
-            itemKey: ''
-          },
-          {
-            item: ({ element, index }) => {
-              const name = element['type'] ? 'mf:' + element['type'] : null
-
-              if (!name || !mf3Components[name]) {
-                delete data[index]
-                return
-              }
-
-              element.index = index
-
-              return h(
-                  mf3Components[name],
-                  {
-                    ...element,
-                    'onUpdate:value': (value) => element.value = value,
-                    'onAction': (action) => this.action(action, data, index)
-                  },
-                  element?.items ? () => this.getItems(element.items) : null
-              )
-            }
-          }
+          element?.items ? () => this.getComponents(element.items) : null
       )
     },
     action (action, data, key) {
@@ -90,17 +78,7 @@ export default {
 </script>
 
 <template>
-  <draggable
-      v-model="this.value"
-      class="mf3"
-      item-key=""
-      handle=".mf3-actions__move"
-      ghostClass="mf3-draggable__active"
-      chosenClass="mf3-draggable__chosen">
-    <template #item="{ element, index }">
-      <component :is="getComponent(element, index)"/>
-    </template>
-  </draggable>
+  <component :is="() => getComponents(elements)" class="mf3"/>
 </template>
 
 <style scoped>
