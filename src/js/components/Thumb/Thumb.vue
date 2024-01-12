@@ -15,7 +15,7 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-thumb mf3-item" :style="{ backgroundImage: value ? 'url(' + value + ')' : null }">
+  <div class="mf3-item mf3-thumb" :style="{ backgroundImage: value ? 'url(' + value + ')' : null }">
     <actions @action="action"/>
     <slot/>
   </div>
@@ -24,5 +24,11 @@ export default {
 <style scoped>
 .mf3-item {
   @apply w-24 h-24 max-w-24 bg-no-repeat bg-center bg-contain
+}
+</style>
+
+<style>
+.mf3-thumb > .mf3-items {
+  @apply hidden
 }
 </style>
