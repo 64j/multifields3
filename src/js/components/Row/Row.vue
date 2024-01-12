@@ -1,15 +1,14 @@
 <script>
 import Actions from '../Actions.vue'
+import Templates from '../Templates.vue'
 
 export default {
-  components: { Actions },
+  components: { Templates, Actions },
   __isStatic: true,
   name: 'mf:row',
-  props: ['type', 'name', 'title', 'value', 'items'],
-  data () {
-    return {
-      propItems: this.items
-    }
+  props: ['type', 'name', 'title', 'value', 'items', 'templates'],
+  mounted () {
+
   },
   methods: {
     action (action) {
@@ -22,6 +21,7 @@ export default {
 <template>
   <div class="mf3-row mf3-group mf3-item">
     <actions @action="action"/>
+    <templates :templates="templates"/>
     <div v-if="value !== undefined" class="mf3-row__value">
       <input type="text" :value="value" @input="$emit('update:value', $event.target.value)">
     </div>

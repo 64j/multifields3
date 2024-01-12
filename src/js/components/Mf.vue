@@ -1,11 +1,13 @@
 <script>
 import { h } from 'vue'
 import draggable from 'vuedraggable'
+import Actions from './Actions.vue'
+import Templates from './Templates.vue'
 
 export default {
   name: 'mf',
-  components: { draggable },
-  props: ['el', 'config', 'tvName'],
+  components: { Templates, Actions, draggable },
+  props: ['el', 'templates', 'settings', 'tvName'],
   data () {
     return {
       elements: this.el.value && JSON.parse(this.el.value) || []
@@ -64,6 +66,10 @@ export default {
         case 'add':
           data.splice(key + 1, 0, this.clearValue({ ...data[key] }))
           break
+
+        case 'tpl':
+          console.log('tpl')
+          break
       }
     },
     clearValue (data) {
@@ -82,11 +88,17 @@ export default {
 </script>
 
 <template>
-  <component :is="() => getElements(elements)" class="mf3"/>
+  <div class="mf3 mf3-group">
+    <templates :templates="true"/>
+    <component :is="() => getElements(elements)" class="grow"/>
+  </div>
 </template>
 
 <style scoped>
 .mf3 {
-  @apply flex flex-wrap mb-3 p-0
+  @apply relative flex flex-wrap mb-6 p-0 m-0 border-none
+}
+.mf3 > .mf3-templates {
+  @apply -bottom-3
 }
 </style>

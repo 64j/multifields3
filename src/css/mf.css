@@ -8,11 +8,14 @@
     .mf3-group {
         @apply p-0
     }
-    .mf3-item:hover > .mf3-actions, .mf3-group:hover > .mf3-actions, .mf3-draggable__chosen > .mf3-actions {
+    .mf3 > .mf3-templates, .mf3-group:hover > .mf3-templates, .mf3-item:hover > .mf3-actions, .mf3-group:hover > .mf3-actions, .mf3-draggable__chosen > .mf3-actions {
         @apply opacity-100 visible
     }
     .mf3-item > *, .mf3-group > * {
         @apply relative
+    }
+    .mf3 > .mf3-items {
+        @apply p-0
     }
     .mf3-items {
         @apply flex flex-wrap px-0.5

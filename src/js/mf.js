@@ -20,9 +20,10 @@ document.querySelectorAll('.mf3-data').forEach(async i => {
 
   const el = document.createElement('div')
   createApp(Mf, {
-    ...eval(i.dataset || ''),
     el: i,
-    config: response.config
+    ...eval(i.dataset || ''),
+    settings: response?.data?.['settings'],
+    templates: response?.data?.['templates'],
   }).mount(el)
   i.after(el)
 })
