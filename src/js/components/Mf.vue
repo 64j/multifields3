@@ -1,38 +1,36 @@
 <script>
 import { h } from 'vue'
-import Sortable from 'sortablejs'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'Mf',
+  components: { draggable },
   props: ['el', 'config', 'tvName'],
   data () {
     return {
       value: this.el.value && JSON.parse(this.el.value) || []
     }
   },
-  // watch: {
-  //   value: {
-  //     handler (value) {
-  //       this.el.innerHTML = value.length ? JSON.stringify(value) : ''
-  //     },
-  //     deep: true
-  //   }
-  // },
-  mounted () {
-    Sortable.create(this.$el, {
-      draggable: '.mf3-item',
-      handle: '.mf3-actions__move',
-      ghostClass: 'mf3-draggable__active',
-      chosenClass: 'mf3-draggable__chosen',
-      onEnd: (event) => {
-        this.value.splice(event.newIndex + 1, 0, { ...this.value[event.oldIndex] })
-        this.value.splice(event.newIndex + 1, 1)
-        console.log(this.value)
-        this.$nextTick(() => this.$forceUpdate())
-      }
-    })
+  watch: {
+    value (value) {
+      this.el.innerHTML = value.length ? JSON.stringify(value) : ''
+    }
   },
   methods: {
+    getComponent (item, key) {
+      const name = item['type'] ? 'mf:' + item['type'] : null
+      item.index = key
+
+      return h(
+          mf3Components[name],
+          {
+            ...item,
+            'onUpdate:value': (value) => item.value = value,
+            'onAction': (action) => this.action(action, this.value, key)
+          },
+          item?.items ? () => this.build(item.items) : null
+      )
+    },
     build (data) {
       const slots = []
 
@@ -44,6 +42,7 @@ export default {
         const name = item['type'] ? 'mf:' + item['type'] : null
 
         if (!name || !mf3Components[name]) {
+          delete data[key]
           return
         }
 
@@ -91,9 +90,17 @@ export default {
 </script>
 
 <template>
-  <div class="mf3">
-    <component :is="() => this.build(this.value)"/>
-  </div>
+  <draggable
+      v-model="this.value"
+      class="mf3"
+      item-key=""
+      handle=".mf3-actions__move"
+      ghostClass="mf3-draggable__active"
+      chosenClass="mf3-draggable__chosen">
+    <template #item="{ element, index }">
+      <component :is="getComponent(element, index)"/>
+    </template>
+  </draggable>
 </template>
 
 <style scoped>
