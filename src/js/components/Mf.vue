@@ -28,40 +28,40 @@ export default {
             'onUpdate:value': (value) => item.value = value,
             'onAction': (action) => this.action(action, this.value, key)
           },
-          item?.items ? () => this.build(item.items) : null
+          item?.items ? () => this.getItems(item.items) : null
       )
     },
-    build (data) {
-      const slots = []
+    getItems (data) {
+      return h(
+          draggable,
+          {
+            modelValue: data,
+            class: 'mf3-items',
+            itemKey: ''
+          },
+          {
+            item: ({ element, index }) => {
+              const name = element['type'] ? 'mf:' + element['type'] : null
 
-      if (!Array.isArray(data)) {
-        return slots
-      }
+              if (!name || !mf3Components[name]) {
+                delete data[index]
+                return
+              }
 
-      data.forEach((item, key) => {
-        const name = item['type'] ? 'mf:' + item['type'] : null
+              element.index = index
 
-        if (!name || !mf3Components[name]) {
-          delete data[key]
-          return
-        }
-
-        item.index = key
-
-        slots.push(
-            h(
-                mf3Components[name],
-                {
-                  ...item,
-                  'onUpdate:value': (value) => item.value = value,
-                  'onAction': (action) => this.action(action, data, key)
-                },
-                item?.items ? () => this.build(item.items) : null
-            )
-        )
-      })
-
-      return slots
+              return h(
+                  mf3Components[name],
+                  {
+                    ...element,
+                    'onUpdate:value': (value) => element.value = value,
+                    'onAction': (action) => this.action(action, data, index)
+                  },
+                  element?.items ? () => this.getItems(element.items) : null
+              )
+            }
+          }
+      )
     },
     action (action, data, key) {
       switch (action) {

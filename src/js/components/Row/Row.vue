@@ -1,21 +1,20 @@
 <script>
 import Actions from '../Actions.vue'
-import Sortable from 'sortablejs'
+import draggable from 'vuedraggable'
+import { shallowRef } from 'vue'
 
 export default {
-  components: { Actions },
+  components: { draggable, Actions },
   __isStatic: true,
   name: 'mf:row',
   props: ['type', 'name', 'title', 'value', 'items'],
-  mounted () {
-    Sortable.create(this.$refs.items, {
-      draggable: '.mf3-item',
-      handle: '.mf3-actions__move',
-      ghostClass: 'mf3-draggable__active',
-      chosenClass: 'mf3-draggable__chosen'
-    })
+  data () {
+    return {
+      propItems: this.items
+    }
   },
   methods: {
+    shallowRef,
     action (action) {
       this.$emit('action', action)
     }
@@ -29,9 +28,7 @@ export default {
     <div v-if="value !== undefined" class="mf3-row__value">
       <input type="text" :value="value" @input="$emit('update:value', $event.target.value)">
     </div>
-    <div class="mf3-items" ref="items">
-      <slot/>
-    </div>
+    <slot/>
   </div>
 </template>
 
