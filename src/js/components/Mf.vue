@@ -87,6 +87,6 @@ export default {
 
 <style scoped>
 .mf3 {
-  @apply flex flex-wrap mb-3
+  @apply flex flex-wrap mb-3 p-0
 }
 </style>

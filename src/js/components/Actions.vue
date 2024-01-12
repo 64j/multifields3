@@ -18,7 +18,7 @@ export default {
 
 <style scoped>
 .mf3-actions {
-  @apply absolute left-0 top-0 bottom-0 right-0 flex justify-center ring-blue-500 ring-2 ring-offset-0 opacity-0 invisible transition
+  @apply absolute left-0 top-0 bottom-0 right-0 flex justify-center ring-blue-500 ring-2 ring-offset-0 opacity-0 invisible transition-all
 }
 .mf3-actions__action {
   @apply w-4 h-4 z-10 cursor-pointer

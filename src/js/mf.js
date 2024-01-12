@@ -7,7 +7,7 @@ import('../css/mf.css')
 window['mf3Components'] = {}
 
 Object.entries(import.meta.glob('./components/*/*.vue', { eager: true })).forEach(([, { default: module }]) => {
-  if (module?.['__isStatic']) {
+  if (module?.['__isStatic'] || module?.extends?.['__isStatic']) {
     window['mf3Components'][module.name || module.__name] = module
   }
 })

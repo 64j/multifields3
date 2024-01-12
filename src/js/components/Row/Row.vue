@@ -31,7 +31,7 @@ export default {
 
 <style scoped>
 .mf3-row__value {
-  @apply relative px-1 pb-1
+  @apply relative py-1 px-1.5
 }
 .mf3-row__value input {
   @apply w-full text-sm
