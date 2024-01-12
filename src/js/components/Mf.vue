@@ -3,7 +3,7 @@ import { h } from 'vue'
 import draggable from 'vuedraggable'
 
 export default {
-  name: 'Mf',
+  name: 'mf',
   components: { draggable },
   props: ['el', 'config', 'tvName'],
   data () {

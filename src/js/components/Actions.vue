@@ -12,7 +12,10 @@ export default {
 
 <template>
   <div class="mf3-actions">
-    <div v-for="i in actions" :class="`mf3-actions__action mf3-actions__` + i" @click="$emit('action', i)"/>
+    <div v-for="i in actions" :class="`mf3-actions__action mf3-actions__` + i" @click="$emit('action', i)">
+      <i/>
+      <i/>
+    </div>
   </div>
 </template>
 
@@ -44,14 +47,20 @@ export default {
 .mf3-actions__move {
   @apply flex items-center justify-center -mt-4 cursor-move bg-blue-500
 }
-.mf3-actions__move::before, .mf3-actions__move::after {
-  @apply w-2 content-[""]
+.mf3-actions__move i {
+  @apply content-[""] absolute w-2.5 h-0.5 bg-white
 }
-.mf3-actions__move::before {
-  @apply h-2 border-t-2 border-b-2 border-white
+.mf3-actions__move i:last-of-type {
+  @apply rotate-90
 }
-.mf3-actions__move::after {
-  @apply absolute h-0.5 bg-white
+.mf3-actions__move i::before, .mf3-actions__move i::after {
+  @apply content-[""] absolute h-0 w-0 border-[3px] border-transparent border-r-white
+}
+.mf3-actions__move i::before {
+  @apply -left-1 -top-0.5
+}
+.mf3-actions__move i::after {
+  @apply -right-1 -bottom-0.5 rotate-180
 }
 </style>
 

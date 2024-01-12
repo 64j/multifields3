@@ -28,13 +28,10 @@ export default {
   @apply w-24 h-24 max-w-24 flex items-center justify-center bg-no-repeat bg-center bg-contain
 }
 .mf3-item button {
-  @apply relative flex items-center justify-center w-8 h-8 bg-white/50 rounded-full border-none
+  @apply relative flex items-center justify-center w-8 h-8 bg-white/50 rounded-full border-none opacity-65 hover:opacity-85
 }
 .mf3-item button i {
-  @apply flex relative justify-center w-4 h-4 overflow-hidden bg-cyan-200 rounded-[2px] border border-black opacity-65
-}
-.mf3-item button:hover i {
-  @apply opacity-85
+  @apply flex relative justify-center w-4 h-4 overflow-hidden bg-cyan-200 rounded-[2px] border border-black
 }
 .mf3-item button i::before {
   @apply content-[""] absolute left-1 top-2 w-3 h-3 border border-black bg-red-500 rotate-45
