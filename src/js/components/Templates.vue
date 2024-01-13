@@ -4,34 +4,44 @@ export default {
   props: ['templates'],
   data () {
     return {
-      showList: false
+      isShow: false
     }
   },
   computed: {
     getTemplates () {
-      if (this.templates) {
+      if (this.templates && Object.values(this.$root['templates']).length) {
+        const templates = []
+
         if (this.templates === true) {
-          return this.$root['templates']
-        } else if (Array.isArray(this.templates)) {
-          const templates = []
           for (const i in this.$root['templates']) {
-            const key = this.$root['templates'].key || i
+            const key = this.$root['templates'][i]['key'] || i
+            templates.push({ key, title: this.$root['templates'][i]['title'] || key })
+          }
+        } else if (Array.isArray(this.templates)) {
+          for (const i in this.$root['templates']) {
+            const key = this.$root['templates'][i]['key'] || i
             if (this.templates.includes(key)) {
-              templates.push({ key, ...this.$root['templates'][i] })
+              templates.push({ key, title: this.$root['templates'][i]['title'] || key })
             }
           }
+        }
 
-          if (templates.length) {
-            return templates
-          }
+        if (templates.length) {
+          return templates
         }
       }
     }
   },
+  mounted () {
+    document.addEventListener('click', () => this.isShow = false)
+  },
   methods: {
-    openList () {
-      this.showList = !this.showList
-      console.log('openList')
+    open () {
+      this.isShow = !this.isShow
+    },
+    select (key) {
+      this.isShow = false
+      this.$emit('select:template', key)
     }
   }
 }
@@ -40,13 +50,13 @@ export default {
 <template>
   <div class="mf3-templates" v-if="getTemplates">
     <transition>
-      <div class="mf3-templates__list" v-if="showList">
-        <div v-for="(i, k) in getTemplates">
-          {{ i['title'] || i['key'] || k }}
+      <div class="mf3-templates__list" v-show="isShow">
+        <div v-for="i in getTemplates" @click.stop="select(i['key'])">
+          {{ i['title'] || i['key'] }}
         </div>
       </div>
     </transition>
-    <div class="mf3-templates__add" @click="openList"/>
+    <div class="mf3-templates__add" @click.stop="open"/>
   </div>
 </template>
 
@@ -67,6 +77,6 @@ export default {
   @apply absolute bottom-2 z-20 w-52 py-1 bg-white rounded shadow-lg
 }
 .mf3-templates__list > div {
-  @apply px-2 py-1 text-sm hover:bg-blue-500 hover:text-white
+  @apply px-2 py-1 text-sm select-none cursor-pointer hover:bg-blue-500 hover:text-white
 }
 </style>

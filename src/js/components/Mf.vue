@@ -51,8 +51,9 @@ export default {
           {
             ...element,
             index,
+            'onAction': (action) => this.action(action, elements, index),
             'onUpdate:value': (value) => element.value = value,
-            onAction: (action) => this.action(action, elements, index)
+            'onSelect:template': (value) => this.selectTemplate(value)
           },
           element?.items ? () => this.getElements(element.items) : null
       )
@@ -72,6 +73,9 @@ export default {
           break
       }
     },
+    selectTemplate (value) {
+      console.log(value)
+    },
     clearValue (data) {
       if (data.value !== undefined) {
         data.value = ''
@@ -89,7 +93,7 @@ export default {
 
 <template>
   <div class="mf3 mf3-group">
-    <templates :templates="true"/>
+    <templates :templates="true" @select:template="selectTemplate"/>
     <component :is="() => getElements(elements)" class="grow"/>
   </div>
 </template>

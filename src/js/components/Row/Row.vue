@@ -13,6 +13,9 @@ export default {
   methods: {
     action (action) {
       this.$emit('action', action)
+    },
+    selectTemplate (key) {
+      this.$emit('select:template', key)
     }
   }
 }
@@ -21,7 +24,7 @@ export default {
 <template>
   <div class="mf3-row mf3-group mf3-item">
     <actions @action="action"/>
-    <templates :templates="templates"/>
+    <templates :templates="templates" @select:template="selectTemplate"/>
     <div v-if="value !== undefined" class="mf3-row__value">
       <input type="text" :value="value" @input="$emit('update:value', $event.target.value)">
     </div>
@@ -35,5 +38,14 @@ export default {
 }
 .mf3-row__value input {
   @apply w-full text-sm
+}
+</style>
+
+<style>
+.mf3-row > .mf3-templates > .mf3-templates__add {
+  @apply opacity-0 invisible
+}
+.mf3-row:hover > .mf3-templates > .mf3-templates__add {
+  @apply opacity-100 visible
 }
 </style>
