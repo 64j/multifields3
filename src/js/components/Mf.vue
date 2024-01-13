@@ -53,7 +53,7 @@ export default {
             index,
             'onAction': (action) => this.action(action, elements, index),
             'onUpdate:value': (value) => element.value = value,
-            'onSelect:template': (value) => this.selectTemplate(value)
+            'onSelect:template': (...args) => this.selectTemplate(element, ...args)
           },
           element?.items ? () => this.getElements(element.items) : null
       )
@@ -73,8 +73,16 @@ export default {
           break
       }
     },
-    selectTemplate (value) {
-      console.log(value)
+    selectTemplate (element, template, key) {
+      if (key !== undefined) {
+        if (!element.items) {
+          element.items = []
+        }
+
+        element.items.push(template)
+      } else {
+        this.elements.push(element)
+      }
     },
     clearValue (data) {
       if (data.value !== undefined) {

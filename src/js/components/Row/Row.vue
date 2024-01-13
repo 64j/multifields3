@@ -14,8 +14,8 @@ export default {
     action (action) {
       this.$emit('action', action)
     },
-    selectTemplate (key) {
-      this.$emit('select:template', key)
+    selectTemplate () {
+      this.$emit('select:template', ...arguments)
     }
   }
 }

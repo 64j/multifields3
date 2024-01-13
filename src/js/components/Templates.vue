@@ -41,7 +41,7 @@ export default {
     },
     select (key) {
       this.isShow = false
-      this.$emit('select:template', key)
+      this.$emit('select:template', { ...this.$root['templates'][key] }, key )
     }
   }
 }
