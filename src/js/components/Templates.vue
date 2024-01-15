@@ -1,24 +1,28 @@
 <script>
 export default {
   name: 'Templates',
-  props: ['templates'],
+  props: ['data'],
   data () {
     return {
+      templates: this.getTemplates(),
       isShow: false
     }
   },
-  computed: {
+  mounted () {
+    document.addEventListener('click', () => this.isShow = false)
+  },
+  methods: {
     getTemplates () {
-      if (this.templates && this.$root['templates'] && Object.values(this.$root['templates']).length) {
+      if (this.data && this.$root['templates'] && Object.values(this.$root['templates']).length) {
         const templates = []
 
-        if (this.templates === true) {
+        if (this.data === true) {
           for (const i in this.$root['templates']) {
             templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
           }
-        } else if (Array.isArray(this.templates)) {
+        } else if (Array.isArray(this.data)) {
           for (const i in this.$root['templates']) {
-            if (this.templates.includes(i)) {
+            if (this.data.includes(i)) {
               templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
             }
           }
@@ -28,12 +32,7 @@ export default {
           return templates
         }
       }
-    }
-  },
-  mounted () {
-    document.addEventListener('click', () => this.isShow = false)
-  },
-  methods: {
+    },
     open () {
       this.isShow = !this.isShow
     },
@@ -46,10 +45,10 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-templates" v-if="getTemplates">
+  <div class="mf3-templates" v-if="templates">
     <transition>
       <div class="mf3-templates__list" v-show="isShow">
-        <div v-for="i in getTemplates" @click.stop="select(i['key'])">
+        <div v-for="i in templates" @click.stop="select(i['key'])">
           {{ i['title'] || i['key'] }}
         </div>
       </div>

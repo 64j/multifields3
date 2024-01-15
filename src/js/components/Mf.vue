@@ -63,7 +63,21 @@ export default {
     },
     getElement (element, index, elements) {
       if (this.templates?.[element.name]) {
-        Object.assign(element, this.templates[element.name])
+        const template = { ...this.templates[element.name] }
+
+        if (template.items) {
+          delete template.items
+        }
+
+        if (template.value !== undefined) {
+          if (template.value === false) {
+            delete element.value
+          } else if (template.value === true) {
+            delete template.value
+          }
+        }
+
+        Object.assign(element, template)
       }
 
       const name = element.type ? 'mf:' + element.type : null
@@ -127,7 +141,7 @@ export default {
 
 <template>
   <div class="mf3 mf3-group">
-    <templates :templates="true" @select:template="selectTemplate"/>
+    <templates :data="true" @select:template="selectTemplate"/>
     <component :is="() => getElements(elements)" class="grow"/>
   </div>
 </template>

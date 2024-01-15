@@ -24,8 +24,8 @@ export default {
 <template>
   <div class="mf3-row mf3-group mf3-item">
     <actions @action="action"/>
-    <templates :templates="templates" @select:template="selectTemplate"/>
-    <div v-if="value !== undefined" class="mf3-row__value">
+    <templates :data="templates" @select:template="selectTemplate"/>
+    <div v-if="value !== false" class="mf3-row__value">
       <input type="text" :value="value" @input="$emit('update:value', $event.target.value)">
     </div>
     <slot/>
