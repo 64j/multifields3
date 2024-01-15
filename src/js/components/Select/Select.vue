@@ -6,10 +6,10 @@ export default {
   components: { Actions },
   __isStatic: true,
   name: 'mf:select',
-  props: ['type', 'name', 'title', 'value', 'elements', 'default'],
+  props: ['type', 'name', 'title', 'value', 'values', 'elements', 'default'],
   data () {
     return {
-      options: [],
+      options: this.values ? [this.values] : [],
       focus: false
     }
   },
@@ -18,7 +18,7 @@ export default {
       this.$emit('action', action)
     },
     updateValue (event) {
-      this.$emit('update:value', event.target.value)
+      this.$emit('update:value', event.target.value, { ...this.options.filter(i => i.key === event.target.value)[0] || {} })
     },
     getOptions () {
       if (this.elements[0] === '@') {

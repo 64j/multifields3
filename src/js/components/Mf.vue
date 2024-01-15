@@ -92,7 +92,7 @@ export default {
             ...element,
             index,
             'onAction': (action) => this.action(action, elements, index),
-            'onUpdate:value': (value) => element.value = value,
+            'onUpdate:value': (...args) => this.updateValue(element, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
           },
           element?.items ? () => this.getElements(element.items) : null
@@ -112,6 +112,10 @@ export default {
           console.log('tpl')
           break
       }
+    },
+    updateValue (element, value, values) {
+      element.value = value
+      element.values = values
     },
     selectTemplate (element, template, key) {
       if (key !== undefined) {
