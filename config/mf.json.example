@@ -1,0 +1,155 @@
+{
+  "templates": [
+    {
+      "key": "row",
+      "name": "row",
+      "title": "Row"
+    },
+    {
+      "key": "date",
+      "name": "input",
+      "title": "Date",
+      "type": "date"
+    },
+    {
+      "key": "datetime",
+      "name": "input",
+      "title": "Datetime",
+      "type": "datetime-local"
+    },
+    {
+      "key": "week",
+      "name": "input",
+      "title": "Week",
+      "type": "week"
+    },
+    {
+      "key": "month",
+      "name": "input",
+      "title": "Month",
+      "type": "month"
+    },
+    {
+      "key": "time",
+      "name": "input",
+      "title": "Time",
+      "type": "time"
+    },
+    {
+      "key": "email",
+      "name": "input",
+      "title": "Email",
+      "type": "email"
+    },
+    {
+      "key": "number",
+      "name": "input",
+      "title": "Number",
+      "type": "number"
+    },
+    {
+      "key": "text",
+      "name": "input",
+      "title": "Text",
+      "type": "text"
+    },
+    {
+      "key": "color",
+      "name": "input",
+      "title": "Color",
+      "type": "color"
+    },
+    {
+      "key": "file",
+      "name": "input",
+      "title": "File",
+      "type": "file"
+    },
+    {
+      "key": "hidden",
+      "name": "input",
+      "title": "Hidden",
+      "type": "hidden"
+    },
+    {
+      "key": "range",
+      "name": "input",
+      "title": "Range",
+      "type": "range"
+    },
+    {
+      "key": "url",
+      "name": "input",
+      "title": "Url",
+      "type": "url"
+    },
+    {
+      "key": "checkbox",
+      "name": "input",
+      "title": "Checkbox",
+      "type": "checkbox",
+      "elements": "1==qwe||2==asd||3==zxc"
+    },
+    {
+      "key": "checkbox one",
+      "name": "input",
+      "title": "Checkbox One",
+      "type": "checkbox",
+      "label": "Checkbox"
+    },
+    {
+      "key": "radio",
+      "name": "input",
+      "title": "Radio",
+      "type": "radio"
+    },
+    {
+      "key": "dropdown",
+      "name": "dropdown",
+      "title": "Dropdown",
+      "type": "dropdown",
+      "elements": "@SELECT id, message FROM [+PREFIX+]manager_log"
+    },
+    {
+      "key": "listbox",
+      "name": "listbox",
+      "title": "Listbox",
+      "type": "listbox",
+      "elements": "@SELECT id, message FROM [+PREFIX+]manager_log"
+    },
+    {
+      "key": "listbox:multiple",
+      "name": "listbox:multiple",
+      "title": "Listbox:multiple",
+      "type": "listbox-multiple",
+      "elements": "@SELECT id, message FROM [+PREFIX+]manager_log"
+    },
+    {
+      "key": "select",
+      "name": "select",
+      "title": "Select",
+      "type": "select",
+      "elements": "@SELECT id, message FROM [+PREFIX+]manager_log"
+    },
+    {
+      "key": "select:multiple",
+      "name": "select:multiple",
+      "title": "Select:multiple",
+      "type": "select",
+      "elements": "@SELECT id, message FROM [+PREFIX+]manager_log",
+      "multiple": true
+    },
+    {
+      "key": "c-image",
+      "name": "image",
+      "title": "Изображение",
+      "type": "image"
+    },
+    {
+      "key": "c-file",
+      "name": "file",
+      "title": "Файл",
+      "type": "file"
+    }
+  ]
+}
