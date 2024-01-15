@@ -9,7 +9,13 @@ export default {
     }
   },
   mounted () {
-    document.addEventListener('click', () => this.isShow = false)
+    if (this.templates) {
+      document.addEventListener('click', (event) => {
+        if (event.target.closest('.mf3-templates') !== this.$el) {
+          this.isShow = false
+        }
+      })
+    }
   },
   methods: {
     getTemplates () {
@@ -34,7 +40,11 @@ export default {
       }
     },
     open () {
-      this.isShow = !this.isShow
+      if (this.templates.length === 1) {
+        this.select(this.templates[0].key)
+      } else {
+        this.isShow = !this.isShow
+      }
     },
     select (key) {
       this.isShow = false
@@ -53,7 +63,7 @@ export default {
         </div>
       </div>
     </transition>
-    <div class="mf3-templates__add" @click.stop="open"/>
+    <div class="mf3-templates__add" @click="open"/>
   </div>
 </template>
 
