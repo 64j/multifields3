@@ -2,10 +2,10 @@
 import Actions from '../Actions.vue'
 
 export default {
-  components: { Actions },
   __isStatic: true,
-  name: 'mf:text',
-  props: ['type', 'name', 'title', 'value'],
+  name: 'mf:textarea',
+  components: { Actions },
+  props: ['type', 'name', 'title', 'value', 'rows'],
   methods: {
     action (action) {
       this.$emit('action', action)
@@ -20,12 +20,12 @@ export default {
 <template>
   <div class="mf3-item">
     <actions @action="action"/>
-    <input type="text" :value="value" @input="updateValue">
+    <textarea @input="updateValue" :rows="rows">{{ value }}</textarea>
   </div>
 </template>
 
 <style scoped>
-.mf3-item input {
-  @apply w-full border
+.mf3-item textarea {
+  @apply w-full border block resize-y min-h-7
 }
 </style>

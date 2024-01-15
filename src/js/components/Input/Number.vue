@@ -1,12 +1,9 @@
 <script>
-import Actions from '../Actions.vue'
-import MfText from '../Text/Text.vue'
+import Input from './Input.vue'
 
 export default {
-  components: { Actions },
-  __isStatic: true,
-  name: 'mf:number',
-  extends: MfText
+  name: 'mf:input:number',
+  extends: Input
 }
 </script>
 

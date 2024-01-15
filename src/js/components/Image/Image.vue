@@ -22,7 +22,7 @@ export default {
     <actions @action="action"/>
     <input type="text" :value="value" @input="updateValue">
     <button>
-      <i></i>
+      <i/>
     </button>
   </div>
 </template>
