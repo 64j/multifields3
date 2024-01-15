@@ -32,8 +32,8 @@ export default {
           templates = {}
 
           this.data.templates.forEach(i => {
-            if (i.name) {
-              templates[i.name] = i
+            if (i.key) {
+              templates[i.key] = i
             }
           })
         }
@@ -62,8 +62,8 @@ export default {
       )
     },
     getElement (element, index, elements) {
-      if (this.templates?.[element.name]) {
-        const template = { ...this.templates[element.name] }
+      if (this.templates?.[element.key]) {
+        const template = { ...this.templates[element.key] }
 
         if (template.items) {
           delete template.items
@@ -80,7 +80,7 @@ export default {
         Object.assign(element, template)
       }
 
-      const name = element.type ? 'mf:' + element.type : null
+      const name = element.name ? 'mf:' + element.name : null
 
       if (!mf3Components[name]) {
         return

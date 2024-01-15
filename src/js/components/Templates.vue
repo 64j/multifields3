@@ -4,25 +4,16 @@ export default {
   props: ['data'],
   data () {
     return {
-      templates: this.getTemplates(),
       isShow: false
     }
   },
-  mounted () {
-    if (this.templates) {
-      document.addEventListener('click', (event) => {
-        if (event.target.closest('.mf3-templates') !== this.$el) {
-          this.isShow = false
-        }
-      })
-    }
-  },
-  methods: {
-    getTemplates () {
-      if (this.data && this.$root['templates'] && Object.values(this.$root['templates']).length) {
+  computed: {
+    templates () {
+      if ((this.data || this.data === undefined) && this.$root['templates'] &&
+          Object.values(this.$root['templates']).length) {
         const templates = []
 
-        if (this.data === true) {
+        if (this.data === true || this.data === undefined) {
           for (const i in this.$root['templates']) {
             templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
           }
@@ -38,7 +29,18 @@ export default {
           return templates
         }
       }
-    },
+    }
+  },
+  mounted () {
+    if (this.templates) {
+      document.addEventListener('click', (event) => {
+        if (event.target.closest('.mf3-templates') !== this.$el) {
+          this.isShow = false
+        }
+      })
+    }
+  },
+  methods: {
     open () {
       if (this.templates.length === 1) {
         this.select(this.templates[0].key)
