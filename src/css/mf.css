@@ -2,9 +2,12 @@
 @tailwind screens;
 @tailwind utilities;
 @layer base {
-    .mf3 input {
-        @apply !m-0 !p-1 !h-7 !border !border-slate-300 !leading-3;
+    .mf3 input, .mf3 select, .mf3 textarea {
+        @apply block m-0 p-1 h-7 border border-slate-300 leading-3;
         border-style: solid;
+    }
+    .mf3 select:not([size="1"]), .mf3 select[multiple] {
+        @apply h-auto
     }
     .mf3-item, .mf3-group {
         @apply grow relative p-1 mx-0.5 mb-1 basis-full border border-solid border-slate-200

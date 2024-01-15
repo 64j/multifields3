@@ -1,31 +1,47 @@
 <script>
-import Actions from '../Actions.vue'
 import axios from 'axios'
+import Actions from '../Actions.vue'
+import Loader from '../Loader.vue'
 
 export default {
-  components: { Actions },
+  components: { Loader, Actions },
   __isStatic: true,
   name: 'mf:select',
-  props: ['type', 'name', 'title', 'value', 'values', 'elements', 'default'],
+  props: ['type', 'name', 'title', 'value', 'values', 'elements', 'default', 'multiple', 'size', 'load'],
   data () {
     return {
-      options: this.values ? [this.values] : [],
+      options: this.values && Object.values(this.values).length ? [this.values] : [],
+      loading: false,
       focus: false
+    }
+  },
+  computed: {
+    model: {
+      set (value) {
+        this.$emit('update:value', value, { ...this.options.filter(i => i.key === value)[0] || {} })
+      },
+      get () {
+        return this.value || (!this.value && this.multiple && [])
+      }
+    }
+  },
+  mounted () {
+    if (this.multiple || this.load) {
+      this.getOptions()
     }
   },
   methods: {
     action (action) {
       this.$emit('action', action)
     },
-    updateValue (event) {
-      this.$emit('update:value', event.target.value, { ...this.options.filter(i => i.key === event.target.value)[0] || {} })
-    },
     getOptions () {
       if (this.elements[0] === '@') {
-        if (!this.focus) {
+        if ((!this.focus && !this.load) || (this.load && !this.options.length)) {
+          this.loading = true
+          this.options = []
           axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
             this.options = this.parseOptions(data)
-          })
+          }).finally(() => this.loading = false)
         }
       } else {
         this.options = this.parseOptions(this.elements)
@@ -58,15 +74,27 @@ export default {
 <template>
   <div class="mf3-item">
     <actions @action="action"/>
-    <select @input="updateValue" @mousedown="getOptions" @focus="() => focus = true" @blur="() => focus = false">
-      <option/>
-      <option v-for="i in options" :value="i.key" :selected="i.selected">{{ i.value }}</option>
+    <select v-model="model"
+            :size="multiple ? (size || 8) : 1"
+            :multiple="multiple"
+            @mousedown="getOptions"
+            @focus="() => focus = true"
+            @blur="() => focus = false">
+      <option v-if="!multiple"/>
+      <option v-for="i in options" :value="i.key">{{ i.value }}</option>
     </select>
+    <loader v-if="loading" class="absolute left-2 top-2.5"/>
   </div>
 </template>
 
 <style scoped>
 .mf3-item select {
   @apply w-full
+}
+.mf3-item select:not([size="1"]) {
+  @apply h-auto
+}
+.mf3-item select option {
+  @apply checked:bg-blue-600 checked:text-white
 }
 </style>

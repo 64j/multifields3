@@ -10,7 +10,7 @@ export default {
 <template>
   <div class="mf3-item">
     <actions @action="action"/>
-    <input type="email" :value="value" @input="updateValue">
+    <input v-model="model" type="email">
   </div>
 </template>
 
