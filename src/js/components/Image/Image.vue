@@ -6,12 +6,20 @@ export default {
   __isStatic: true,
   name: 'mf:image',
   props: ['type', 'name', 'title', 'value', 'items'],
+  data () {
+    this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
+
+    return {}
+  },
   methods: {
     action (action) {
       this.$emit('action', action)
     },
     updateValue (event) {
       this.$emit('update:value', event.target.value)
+    },
+    select () {
+      return BrowseServer(this.id)
     }
   }
 }
@@ -20,8 +28,8 @@ export default {
 <template>
   <div class="mf3-item">
     <actions @action="action"/>
-    <input type="text" :value="value" @input="updateValue">
-    <button>
+    <input :id="this.id" type="text" :value="value" @change="updateValue">
+    <button type="button" @click="select">
       <i/>
     </button>
   </div>
@@ -32,10 +40,10 @@ export default {
   @apply w-full border
 }
 .mf3-item button {
-  @apply absolute right-1 top-1 bottom-1 flex items-center justify-center
+  @apply absolute z-10 right-1 top-1 bottom-1 p-0 flex items-center justify-center
 }
 .mf3-item button::before {
-  @apply content-[""] absolute left-0 top-1 bottom-1 border-l opacity-50
+  @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
 }
 .mf3-item button i {
   @apply flex relative justify-center mx-2 w-4 h-4 overflow-hidden bg-cyan-200 rounded-[2px] border border-black opacity-65

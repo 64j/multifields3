@@ -4,7 +4,16 @@ import vue from '@vitejs/plugin-vue'
 export default {
   base: './',
   build: {
-    target: 'esnext'
+    target: 'esnext',
+    manifest: true,
+    rollupOptions: {
+      output: {
+        format: 'module'
+      },
+      input: [
+        './src/js/mf.js'
+      ]
+    },
   },
   plugins: [
     splitVendorChunkPlugin(),

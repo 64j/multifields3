@@ -84,6 +84,6 @@ export default {
   @apply absolute bottom-2 z-20 w-52 py-1 bg-white rounded shadow-lg
 }
 .mf3-templates__list > div {
-  @apply px-2 py-1 text-sm select-none cursor-pointer hover:bg-blue-500 hover:text-white
+  @apply px-2 py-1 text-xs select-none cursor-pointer hover:bg-blue-500 hover:text-white
 }
 </style>

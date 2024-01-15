@@ -1,0 +1,24 @@
+{
+  "_vendor-85be42ae.js": {
+    "file": "assets/vendor-85be42ae.js"
+  },
+  "src/css/mf.css": {
+    "file": "assets/mf-e32158fd.css",
+    "src": "src/css/mf.css"
+  },
+  "src/js/mf.css": {
+    "file": "assets/mf-13b28785.css",
+    "src": "src/js/mf.css"
+  },
+  "src/js/mf.js": {
+    "css": [
+      "assets/mf-13b28785.css"
+    ],
+    "file": "assets/mf-8512bfc7.js",
+    "imports": [
+      "_vendor-85be42ae.js"
+    ],
+    "isEntry": true,
+    "src": "src/js/mf.js"
+  }
+}
