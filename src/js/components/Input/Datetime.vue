@@ -2,7 +2,7 @@
 import Input from './Input.vue'
 
 export default {
-  name: 'mf:input:datetime',
+  name: 'mf:datetime',
   extends: Input
 }
 </script>

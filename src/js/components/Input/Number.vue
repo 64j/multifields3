@@ -2,7 +2,7 @@
 import Input from './Input.vue'
 
 export default {
-  name: 'mf:input:number',
+  name: 'mf:number',
   extends: Input
 }
 </script>
