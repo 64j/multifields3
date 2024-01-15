@@ -7,21 +7,43 @@ import Templates from './Templates.vue'
 export default {
   name: 'mf',
   components: { Templates, Actions, draggable },
-  props: ['el', 'templates', 'settings', 'tvName'],
+  props: ['dataEl', 'data', 'tvName'],
   data () {
     return {
-      elements: this.el.value && JSON.parse(this.el.value) || []
+      elements: this.dataEl.value && JSON.parse(this.dataEl.value) || [],
+      templates: this.getTemplates(),
+      settings: this.getSettings()
     }
   },
   watch: {
     elements: {
       handler (elements) {
-        this.el.innerHTML = elements.length ? JSON.stringify(elements) : ''
+        this.dataEl.innerHTML = elements.length ? JSON.stringify(elements) : ''
       },
       deep: true
     }
   },
   methods: {
+    getTemplates () {
+      if (this.data?.templates) {
+        let templates
+
+        if (Array.isArray(this.data.templates)) {
+          templates = {}
+
+          this.data.templates.forEach(i => {
+            if (i.name) {
+              templates[i.name] = i
+            }
+          })
+        }
+
+        return templates || this.data.templates
+      }
+    },
+    getSettings () {
+      return this.data?.settings || {}
+    },
     getElements (elements) {
       return h(
           draggable,
@@ -40,7 +62,11 @@ export default {
       )
     },
     getElement (element, index, elements) {
-      const name = element['type'] ? 'mf:' + element['type'] : null
+      if (this.templates?.[element.name]) {
+        Object.assign(element, this.templates[element.name])
+      }
+
+      const name = element.type ? 'mf:' + element.type : null
 
       if (!mf3Components[name]) {
         return

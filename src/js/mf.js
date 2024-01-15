@@ -12,18 +12,18 @@ Object.entries(import.meta.glob('./components/*/*.vue', { eager: true })).forEac
   }
 })
 
-document.querySelectorAll('.mf3-data').forEach(async i => {
+document.querySelectorAll('.mf3-data').forEach(async dataEl => {
   let response = {}
   try {
-    response = await axios.get('./assets/plugins/multifields3/config/' + i.dataset['tvName'] + '.json')
+    response = await axios.get('./assets/plugins/multifields3/config/' + dataEl.dataset['tvName'] + '.json')
   } catch (error) {}
 
   const el = document.createElement('div')
+
   createApp(Mf, {
-    el: i,
-    ...eval(i.dataset || ''),
-    settings: response?.data?.['settings'],
-    templates: response?.data?.['templates'],
+    dataEl,
+    data: response?.data || {},
+    ...eval(dataEl.dataset || '')
   }).mount(el)
-  i.after(el)
+  dataEl.after(el)
 })

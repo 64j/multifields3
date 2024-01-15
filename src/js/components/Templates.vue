@@ -9,19 +9,17 @@ export default {
   },
   computed: {
     getTemplates () {
-      if (this.templates && Object.values(this.$root['templates']).length) {
+      if (this.templates && this.$root['templates'] && Object.values(this.$root['templates']).length) {
         const templates = []
 
         if (this.templates === true) {
           for (const i in this.$root['templates']) {
-            const key = this.$root['templates'][i]['key'] || i
-            templates.push({ key, title: this.$root['templates'][i]['title'] || key })
+            templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
           }
         } else if (Array.isArray(this.templates)) {
           for (const i in this.$root['templates']) {
-            const key = this.$root['templates'][i]['key'] || i
-            if (this.templates.includes(key)) {
-              templates.push({ key, title: this.$root['templates'][i]['title'] || key })
+            if (this.templates.includes(i)) {
+              templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
             }
           }
         }
