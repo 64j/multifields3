@@ -152,6 +152,7 @@ export default {
             'title',
             'label',
             'value',
+            'values',
             'elements',
             'default',
             'items'
