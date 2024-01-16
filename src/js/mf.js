@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { createApp } from 'vue'
 import Mf from './components/Mf.vue'
 
@@ -12,18 +11,12 @@ Object.entries(import.meta.glob('./components/*/*.vue', { eager: true })).forEac
   }
 })
 
-document.querySelectorAll('.mf3-data').forEach(async dataEl => {
-  let response = {}
-  try {
-    response = await axios.get('../assets/plugins/multifields3/config/' + dataEl.dataset['tvName'] + '.json')
-    //response = await axios.get('http://evo3x.local/manager/?a=mf3&action=config&config=' + dataEl.dataset['tvName'])
-  } catch (error) {}
-
+document.querySelectorAll('.mf3-data').forEach(dataEl => {
   const el = document.createElement('div')
 
   createApp(Mf, {
     dataEl,
-    data: response?.data || {},
+    data: mf3Config[dataEl.dataset['tvName']] ?? {},
     ...eval(dataEl.dataset || '')
   }).mount(el)
   dataEl.after(el)
