@@ -24,7 +24,9 @@ export default {
     'pattern',
     'required',
     'readonly',
-    'disabled'
+    'disabled',
+    'trueValue',
+    'falseValue'
   ],
   computed: {
     model: {
@@ -32,23 +34,42 @@ export default {
         this.$emit('update:value', value)
       },
       get () {
-        return this.value || (!this.value && this.elements && [])
-      }
-    }
-  },
-  data () {
-    return {
-      data: this.getData()
-    }
-  },
-  methods: {
-    action (action) {
-      this.$emit('action', action)
-    },
-    getData () {
-      const data = []
+        if (this.elements) {
+          if (this.value !== undefined) {
+            if (!Array.isArray(this.value)) {
+              return [this.value]
+            }
 
+            return this.value
+          } else {
+            return []
+          }
+        }
+
+        return this.value
+      }
+    },
+    data () {
       if (this.elements) {
+        const data = []
+
+        if (typeof this.elements === 'object') {
+          if (Array.isArray(this.elements)) {
+            return this.elements
+          }
+
+          for (const i in this.elements) {
+            data.push({ key: this.elements[i].key || i, ...this.elements[i] })
+          }
+
+          return data
+        }
+
+        if (this.elements[0] === '@') {
+
+          return data
+        }
+
         for (const i of this.elements.split('||')) {
           const key = i.split('==')[0] ?? null
           const value = i.split('==')[1] ?? null
@@ -63,6 +84,11 @@ export default {
         return data
       }
     }
+  },
+  methods: {
+    action (action) {
+      this.$emit('action', action)
+    }
   }
 }
 </script>
@@ -71,48 +97,54 @@ export default {
   <div class="mf3-item">
     <actions @action="action"/>
     <template v-if="data">
-      <label v-for="i in data">
+      <div v-for="i in data">
+        <label>
+          <input v-model="model"
+                 :type="type"
+                 :value="i.key"
+                 :list="i.list"
+                 :min="i.min"
+                 :max="i.max"
+                 :minlength="i.minlength"
+                 :maxlength="i.maxlength"
+                 :step="i.step"
+                 :size="i.size"
+                 :placeholder="i.placeholder"
+                 :pattern="i.pattern"
+                 :required="i.required"
+                 :readonly="i.readonly"
+                 :disabled="i.disabled">
+          {{ i.value }}
+        </label>
+      </div>
+    </template>
+    <div v-else>
+      <label>
         <input v-model="model"
                :type="type"
-               :value="i.key"
-               :list="i.list"
-               :min="i.min"
-               :max="i.max"
-               :minlength="i.minlength"
-               :maxlength="i.maxlength"
-               :step="i.step"
-               :size="i.size"
-               :placeholder="i.placeholder"
-               :pattern="i.pattern"
-               :required="i.required"
-               :readonly="i.readonly"
-               :disabled="i.disabled">
-        {{ i.value }}
+               :list="list"
+               :min="min"
+               :max="max"
+               :minlength="minlength"
+               :maxlength="maxlength"
+               :step="step"
+               :size="size"
+               :placeholder="placeholder"
+               :pattern="pattern"
+               :required="required"
+               :readonly="readonly"
+               :disabled="disabled"
+               :true-value="trueValue"
+               :false-value="falseValue">
+        {{ label }}
       </label>
-    </template>
-    <label v-else>
-      <input v-model="model"
-             :type="type"
-             :list="list"
-             :min="min"
-             :max="max"
-             :minlength="minlength"
-             :maxlength="maxlength"
-             :step="step"
-             :size="size"
-             :placeholder="placeholder"
-             :pattern="pattern"
-             :required="required"
-             :readonly="readonly"
-             :disabled="disabled">
-      {{ label }}
-    </label>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .mf3-item label {
-  @apply flex items-center m-0 w-full
+  @apply m-0 inline-flex items-center
 }
 .mf3-item input {
   @apply !w-full border

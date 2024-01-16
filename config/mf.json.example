@@ -133,7 +133,7 @@
     },
     {
       "key": "select:multiple",
-      "name": "select:multiple",
+      "name": "select",
       "title": "Select:multiple",
       "type": "select",
       "elements": "@SELECT id, message FROM [+PREFIX+]manager_log",

@@ -5,11 +5,16 @@ export default {
   components: { Actions },
   __isStatic: true,
   name: 'mf:image',
-  props: ['type', 'name', 'title', 'value', 'items'],
-  data () {
-    this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
-
-    return {}
+  props: ['type', 'name', 'title', 'value', 'elements'],
+  computed: {
+    model: {
+      set (value) {
+        this.$emit('update:value', value)
+      },
+      get () {
+        return this.value || (!this.value && this.elements && [])
+      }
+    }
   },
   methods: {
     action (action) {
@@ -19,7 +24,7 @@ export default {
       this.$emit('update:value', event.target.value)
     },
     select () {
-      return BrowseServer(this.id)
+      return BrowseServer(`input-${this.$.type['__hmrId']}`)
     }
   }
 }
@@ -28,7 +33,7 @@ export default {
 <template>
   <div class="mf3-item">
     <actions @action="action"/>
-    <input :id="this.id" type="text" :value="value" @change="updateValue">
+    <input v-model="model" :id="`input-${this.$.type['__hmrId']}`" type="text" @change="updateValue">
     <button type="button" @click="select">
       <i/>
     </button>

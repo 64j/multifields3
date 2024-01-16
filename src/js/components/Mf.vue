@@ -49,7 +49,7 @@ export default {
           draggable,
           {
             tag: 'div',
-            itemKey: '',
+            itemKey: 'index',
             list: elements,
             class: 'mf3-items',
             handle: '.mf3-actions__move',
@@ -72,7 +72,7 @@ export default {
         if (template.value !== undefined) {
           if (template.value === false) {
             delete element.value
-          } else if (template.value === true) {
+          } else {
             delete template.value
           }
         }
