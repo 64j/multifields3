@@ -15,7 +15,9 @@ export default {
 
         if (this.data === true || this.data === undefined) {
           for (const i in this.$root['templates']) {
-            templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
+            if (mf3Components[`mf:${this.$root['templates'][i]['name']}`]) {
+              templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
+            }
           }
         } else if (Array.isArray(this.data)) {
           for (const i in this.$root['templates']) {

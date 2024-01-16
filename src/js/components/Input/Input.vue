@@ -53,11 +53,40 @@ export default {
         this.$emit('update:value', value, values)
       },
       get () {
+        switch (this.type) {
+          case 'checkbox':
+            if (this.elements) {
+              if (this.value === undefined) {
+                return []
+              }
+
+              return Array.isArray(this.value) ? this.value : [this.value]
+            } else {
+              if (this.value !== undefined) {
+                return Array.isArray(this.value) ? this.value.toString() : this.value
+              }
+            }
+            break
+        }
+
         return this.value
       }
     },
     inputType () {
       return ['file', 'image'].includes(this.type) ? 'text' : this.type
+    },
+    bindAttributes () {
+      const attrs = {}
+
+      if (this.trueValue !== undefined) {
+        attrs['true-value'] = this.trueValue
+      }
+
+      if (this.falseValue !== undefined) {
+        attrs['false-value'] = this.falseValue
+      }
+
+      return attrs
     }
   },
   created () {
@@ -165,8 +194,7 @@ export default {
                :required="required"
                :readonly="readonly"
                :disabled="disabled"
-               :true-value="trueValue"
-               :false-value="falseValue"
+               v-bind="bindAttributes"
                @change="updateValue">
 
       <button v-if="['file', 'image'].includes(type)" type="button" @click="select">
@@ -199,8 +227,11 @@ export default {
 .mf3-item input[type="color"] {
   @apply !w-7 p-0
 }
+.mf3-item input[type="color"] + label {
+  @apply ml-2
+}
 .mf3-item input[type="range"] {
-  @apply p-0 appearance-auto outline-none
+  @apply px-0 py-1 appearance-auto outline-none
 }
 .mf3-item input[type="checkbox"], .mf3-item input[type="radio"] {
   @apply inline-block mr-2 !w-3.5 !h-3.5

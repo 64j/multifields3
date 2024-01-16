@@ -18,7 +18,7 @@ export default {
   watch: {
     elements: {
       handler (elements) {
-        this.dataEl.innerHTML = elements.length ? JSON.stringify(elements) : ''
+        this.dataEl.innerHTML = elements.length ? JSON.stringify(this.setData(elements)) : ''
       },
       deep: true
     }
@@ -93,7 +93,7 @@ export default {
             'onUpdate:value': (...args) => this.updateValue(element, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
           }),
-          element?.items ? this.getElements(element.items) : null
+          element?.items ? () => this.getElements(element.items) : null
       )
     },
     action (action, data, key) {
@@ -136,6 +136,38 @@ export default {
       }
 
       return data
+    },
+    setData (elements) {
+      elements = Object.assign([], elements)
+
+      for (let j in elements) {
+        const element = Object.assign({}, elements[j])
+
+        for (const i in element) {
+          if (![
+            'id',
+            'key',
+            'type',
+            'name',
+            'title',
+            'label',
+            'value',
+            'elements',
+            'default',
+            'items'
+          ].includes(i)) {
+            delete element[i]
+          }
+        }
+
+        if (element?.items) {
+          elements[j].items = this.setData(element.items)
+        }
+
+        elements[j] = element
+      }
+
+      return elements
     }
   }
 }
@@ -144,7 +176,7 @@ export default {
 <template>
   <div class="mf3 mf3-group">
     <templates :data="true" @select:template="selectTemplate"/>
-    <component :is="getElements(elements)" :key="0"/>
+    <component :is="() => getElements(elements)" :key="0"/>
   </div>
 </template>
 

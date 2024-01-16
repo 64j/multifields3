@@ -83,7 +83,7 @@ export default {
       <option v-if="!multiple"/>
       <option v-for="i in data" :value="i.key">{{ i.value }}</option>
     </select>
-    <loader v-if="loading" class="absolute left-2 top-2.5"/>
+    <loader v-if="loading" class="mf3-loader"/>
   </div>
 </template>
 
@@ -96,5 +96,8 @@ export default {
 }
 .mf3-item select option {
   @apply checked:bg-blue-600 checked:text-white
+}
+.mf3-loader {
+  @apply absolute left-2 top-2.5
 }
 </style>

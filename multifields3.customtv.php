@@ -14,4 +14,4 @@ if (file_exists($path = MODX_BASE_PATH . 'assets/plugins/multifields3/config/' .
 }
 
 echo '<textarea name="tv' . $row['id'] . '" class="mf3-data" data-id="mf2" data-tv-name="' . $row['name'] .
-    '" style="display: none">' . $row['value'] . '</textarea>';
+    '" style="display: none" rows="4">' . $row['value'] . '</textarea>';
