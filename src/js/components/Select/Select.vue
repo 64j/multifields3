@@ -10,7 +10,7 @@ export default {
   props: ['type', 'name', 'title', 'value', 'values', 'elements', 'default', 'multiple', 'size', 'load'],
   data () {
     return {
-      options: this.values && Object.values(this.values).length ? [this.values] : [],
+      data: this.values && Object.values(this.values).length ? [this.values] : [],
       loading: false,
       focus: false
     }
@@ -18,36 +18,36 @@ export default {
   computed: {
     model: {
       set (value) {
-        this.$emit('update:value', value, { ...this.options.filter(i => i.key === value)[0] || {} })
+        this.$emit('update:value', value, { ...this.data.filter(i => i.key === value)[0] || {} })
       },
       get () {
         return this.value || (!this.value && this.multiple && [])
       }
     }
   },
-  mounted () {
+  created () {
     if (this.multiple || this.load) {
-      this.getOptions()
+      this.getData()
     }
   },
   methods: {
     action (action) {
       this.$emit('action', action)
     },
-    getOptions () {
+    getData () {
       if (this.elements[0] === '@') {
-        if ((!this.focus && !this.load) || (this.load && !this.options.length)) {
+        if ((!this.focus && !this.load) || (this.load && !this.data.length)) {
           this.loading = true
-          this.options = []
+          this.data = []
           axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
-            this.options = this.parseOptions(data)
+            this.data = this.parseData(data)
           }).finally(() => this.loading = false)
         }
       } else {
-        this.options = this.parseOptions(this.elements)
+        this.data = this.parseData(this.elements)
       }
     },
-    parseOptions (data) {
+    parseData (data) {
       if (Array.isArray(data)) {
         return data
       }
@@ -77,11 +77,11 @@ export default {
     <select v-model="model"
             :size="multiple ? (size || 8) : 1"
             :multiple="multiple"
-            @mousedown="getOptions"
+            @mousedown="getData"
             @focus="() => focus = true"
             @blur="() => focus = false">
       <option v-if="!multiple"/>
-      <option v-for="i in options" :value="i.key">{{ i.value }}</option>
+      <option v-for="i in data" :value="i.key">{{ i.value }}</option>
     </select>
     <loader v-if="loading" class="absolute left-2 top-2.5"/>
   </div>

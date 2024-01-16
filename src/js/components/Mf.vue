@@ -49,7 +49,7 @@ export default {
           draggable,
           {
             tag: 'div',
-            itemKey: 'index',
+            itemKey: (a) => a,
             list: elements,
             class: 'mf3-items',
             handle: '.mf3-actions__move',
@@ -88,14 +88,12 @@ export default {
 
       return h(
           mf3Components[name],
-          {
-            ...element,
-            index,
+          Object.assign(element, {
             'onAction': (action) => this.action(action, elements, index),
             'onUpdate:value': (...args) => this.updateValue(element, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
-          },
-          element?.items ? () => this.getElements(element.items) : null
+          }),
+          element?.items ? this.getElements(element.items) : null
       )
     },
     action (action, data, key) {
@@ -146,7 +144,7 @@ export default {
 <template>
   <div class="mf3 mf3-group">
     <templates :data="true" @select:template="selectTemplate"/>
-    <component :is="() => getElements(elements)" class="grow"/>
+    <component :is="getElements(elements)" :key="0"/>
   </div>
 </template>
 

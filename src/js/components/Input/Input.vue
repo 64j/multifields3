@@ -1,9 +1,11 @@
 <script>
+import axios from 'axios'
+import Loader from '../Loader.vue'
 import Actions from '../Actions.vue'
 
 export default {
   __isStatic: true,
-  components: { Actions },
+  components: { Loader, Actions },
   name: 'mf:input',
   props: [
     'type',
@@ -29,66 +31,72 @@ export default {
     'falseValue'
   ],
   data () {
+    this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
     return {
-      id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36),
-      __type: ['file', 'image'].includes(this.type) ? 'text' : this.type
+      data: null,
+      loading: false
     }
   },
   computed: {
     model: {
       set (value) {
-        this.$emit('update:value', value)
-      },
-      get () {
-        if (this.elements) {
-          if (this.value !== undefined) {
-            if (!Array.isArray(this.value)) {
-              return [this.value]
-            }
+        let values
 
-            return this.value
+        if (this.data) {
+          if (Array.isArray(value)) {
+            values = [...this.data.filter(i => value.includes(i.key))]
           } else {
-            return []
+            values = { ...this.data.filter(i => i.key === value)[0] || {} }
           }
         }
 
+        this.$emit('update:value', value, values)
+      },
+      get () {
         return this.value
       }
     },
-    data () {
-      if (this.elements) {
-        const data = []
+    inputType () {
+      return ['file', 'image'].includes(this.type) ? 'text' : this.type
+    }
+  },
+  created () {
+    if (this.elements) {
+      this.data = []
 
-        if (typeof this.elements === 'object') {
-          if (Array.isArray(this.elements)) {
-            return this.elements
-          }
-
-          for (const i in this.elements) {
-            data.push({ key: this.elements[i].key || i, ...this.elements[i] })
-          }
-
-          return data
+      if (typeof this.elements === 'object') {
+        if (Array.isArray(this.elements)) {
+          return this.elements
         }
 
-        if (this.elements[0] === '@') {
-
-          return data
-        }
-
-        for (const i of this.elements.split('||')) {
-          const key = i.split('==')[0] ?? null
-          const value = i.split('==')[1] ?? null
-
-          data.push({
-            key: key ?? value,
-            value: value ?? key,
-            selected: (this.value ?? this.default) === (key ?? value)
-          })
+        for (const i in this.elements) {
+          this.data.push({ key: this.elements[i].key || i, ...this.elements[i] })
         }
 
         return data
       }
+
+      if (this.elements[0] === '@') {
+        this.loading = true
+        axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
+          this.data = data
+        }).finally(() => this.loading = false)
+
+        return
+      }
+
+      for (const i of this.elements.split('||')) {
+        const key = i.split('==')[0] ?? null
+        const value = i.split('==')[1] ?? null
+
+        this.data.push({
+          key: key ?? value,
+          value: value ?? key,
+          selected: (this.value ?? this.default) === (key ?? value)
+        })
+      }
+
+      return this.data
     }
   },
   methods: {
@@ -116,10 +124,11 @@ export default {
     <actions @action="action"/>
 
     <div v-if="data" class="mf3-items">
+      <loader v-if="loading" class="mf3-loader"/>
       <div v-for="(i, k) in data">
           <input v-model="model"
                  :id="id + '-' + k"
-                 :type="__type"
+                 :type="inputType"
                  :value="i.key"
                  :list="i.list"
                  :min="i.min"
@@ -132,18 +141,18 @@ export default {
                  :pattern="i.pattern"
                  :required="i.required"
                  :readonly="i.readonly"
-                 :disabled="i.disabled">
+                 :disabled="i.disabled"
+                 @change="updateValue">
 
         <label v-if="i.value" :for="id + '-' + k">
           {{ i.value }}
         </label>
-
       </div>
     </div>
     <div v-else class="mf3-items">
         <input v-model="model"
                :id="id"
-               :type="__type"
+               :type="inputType"
                :list="list"
                :min="min"
                :max="max"

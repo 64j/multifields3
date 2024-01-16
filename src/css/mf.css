@@ -22,7 +22,7 @@
         @apply relative
     }
     .mf3 > .mf3-items {
-        @apply p-0
+        @apply grow p-0
     }
     .mf3-items {
         @apply flex flex-wrap pt-1 px-0.5
