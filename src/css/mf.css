@@ -25,6 +25,6 @@
         @apply grow p-0
     }
     .mf3-items {
-        @apply flex flex-wrap pt-1 px-0.5
+        @apply flex flex-wrap grow pt-1 px-0.5
     }
 }

@@ -49,8 +49,8 @@ export default {
           draggable,
           {
             tag: 'div',
-            itemKey: (a) => a,
             list: elements,
+            itemKey: a => a,
             class: 'mf3-items',
             handle: '.mf3-actions__move',
             ghostClass: 'mf3-draggable__active',
