@@ -5,11 +5,21 @@ export default {
   components: { Actions },
   __isStatic: true,
   name: 'mf:thumb:image',
-  props: ['type', 'name', 'title', 'value', 'multi', 'thumb'],
+  props: ['type', 'name', 'title', 'value', 'elements', 'multi', 'thumb'],
   data () {
-    this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
-
-    return {}
+    return {
+      id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
+    }
+  },
+  computed: {
+    model: {
+      set (value) {
+        this.$emit('update:value', value)
+      },
+      get () {
+        return this.value || (!this.value && this.elements && [])
+      }
+    }
   },
   methods: {
     action (action) {
@@ -26,12 +36,12 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item" :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }">
+  <div class="mf3-item" :style="{ backgroundImage: model ? 'url(../' + model + ')' : null }">
     <actions @action="action"/>
     <button type="button" @click="select">
       <i/>
     </button>
-    <input :id="this.id" type="hidden" :value="value" @change="updateValue">
+    <input v-model="model" :id="this.id" type="hidden" @change="updateValue">
   </div>
 </template>
 

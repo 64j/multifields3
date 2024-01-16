@@ -6,6 +6,11 @@ export default {
   __isStatic: true,
   name: 'mf:thumb',
   props: ['type', 'name', 'title', 'value', 'multi', 'items'],
+  data () {
+    return {
+      id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
+    }
+  },
   methods: {
     action (action) {
       this.$emit('action', action)
