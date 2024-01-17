@@ -1,4 +1,13 @@
 @tailwind base;
+.mf3 {
+    @apply relative flex flex-wrap mb-6 p-0 m-0 border-none
+}
+.mf3::before {
+    @apply hidden
+}
+.mf3 > .mf3-templates {
+    @apply -bottom-3
+}
 .mf3 input, .mf3 select, .mf3 textarea {
     @apply block m-0 p-1 border border-slate-300 border-solid leading-5
 }
@@ -6,7 +15,10 @@
     @apply h-auto
 }
 .mf3-item, .mf3-group {
-    @apply grow relative p-1 mx-0.5 mb-1 basis-full border border-solid border-slate-200
+    @apply grow relative p-1 m-0 basis-full
+}
+.mf3-item::before, .mf3-group::before {
+    @apply content-[""] absolute left-1 top-1 right-1 bottom-1 ring-1 ring-slate-200
 }
 .mf3-group {
     @apply p-0
@@ -18,7 +30,7 @@
     @apply relative
 }
 .mf3 > .mf3-items {
-    @apply grow p-0
+    @apply grow p-0 -mx-1
 }
 .mf3-items {
     @apply flex flex-wrap grow pt-1 px-0.5

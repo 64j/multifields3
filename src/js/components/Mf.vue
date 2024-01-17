@@ -180,12 +180,3 @@ export default {
     <component :is="() => getElements(elements)" :key="0"/>
   </div>
 </template>
-
-<style scoped>
-.mf3 {
-  @apply relative flex flex-wrap mb-6 p-0 m-0 border-none
-}
-.mf3 > .mf3-templates {
-  @apply -bottom-3
-}
-</style>

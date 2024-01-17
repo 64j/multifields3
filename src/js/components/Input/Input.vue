@@ -152,9 +152,14 @@ export default {
   <div class="mf3-item" :class="`mf3-input__` + type">
     <actions @action="action"/>
 
-    <div v-if="data" class="mf3-items">
-      <loader v-if="loading" class="mf3-loader"/>
-      <div v-for="(i, k) in data">
+    <div v-if="title" class="mf3-title">
+      {{ title }}
+    </div>
+
+    <div class="mf3-items">
+      <template v-if="data">
+        <loader v-if="loading" class="mf3-loader"/>
+        <div v-for="(i, k) in data">
           <input v-model="model"
                  :id="id + '-' + k"
                  :type="inputType"
@@ -173,12 +178,12 @@ export default {
                  :disabled="i.disabled"
                  @change="updateValue">
 
-        <label v-if="i.value" :for="id + '-' + k">
-          {{ i.value }}
-        </label>
-      </div>
-    </div>
-    <div v-else class="mf3-items">
+          <label v-if="i.value" :for="id + '-' + k">
+            {{ i.value }}
+          </label>
+        </div>
+      </template>
+      <template v-else>
         <input v-model="model"
                :id="id"
                :type="inputType"
@@ -197,22 +202,29 @@ export default {
                v-bind="bindAttributes"
                @change="updateValue">
 
-      <button v-if="['file', 'image'].includes(type)" type="button" @click="select">
-        <i/>
-      </button>
+        <button v-if="['file', 'image'].includes(type)" type="button" @click="select">
+          <i/>
+        </button>
 
-      <label v-if="label" :for="id">
-        {{ label }}
-      </label>
+        <label v-if="label" :for="id">
+          {{ label }}
+        </label>
+      </template>
     </div>
   </div>
 </template>
 
 <style scoped>
-.mf3-item .mf3-items {
-  @apply relative p-0 flex-row items-center
+.mf3-item {
+  @apply flex-wrap
 }
-.mf3-item .mf3-items > div {
+.mf3-title {
+  @apply grow p-1 bg-slate-500/5 truncate
+}
+.mf3-items {
+  @apply relative p-1 w-full flex-row items-center
+}
+.mf3-items > div {
   @apply flex items-center w-full
 }
 .mf3-item label {
@@ -237,7 +249,7 @@ export default {
   @apply inline-block mr-2 !w-3.5 !h-3.5
 }
 .mf3-input__file button, .mf3-input__image button {
-  @apply absolute z-10 right-0.5 top-0.5 bottom-0.5 p-0 flex items-center justify-center border-none
+  @apply absolute z-10 right-1.5 top-1.5 bottom-1.5 p-0 flex items-center justify-center border-none
 }
 .mf3-input__file button::before {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
