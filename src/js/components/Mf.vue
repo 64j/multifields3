@@ -9,6 +9,7 @@ export default {
   components: { Templates, Actions, draggable },
   props: ['dataEl', 'data', 'tvName'],
   data () {
+    //this.elements = this.dataEl.value && JSON.parse(this.dataEl.value) || []
     return {
       elements: this.dataEl.value && JSON.parse(this.dataEl.value) || [],
       templates: this.getTemplates(),
@@ -62,8 +63,10 @@ export default {
       )
     },
     getElement (element, index, elements) {
+      let template = {}
+
       if (this.templates?.[element.key]) {
-        const template = { ...this.templates[element.key] }
+        template = { ...this.templates[element.key] }
 
         if (template.items) {
           delete template.items
@@ -76,8 +79,6 @@ export default {
             delete template.value
           }
         }
-
-        Object.assign(element, template)
       }
 
       const name = element.name ? 'mf:' + element.name : null
@@ -88,12 +89,14 @@ export default {
 
       return h(
           mf3Components[name],
-          Object.assign(element, {
-            'onAction': (action, args) => this.action(action, elements, index, args),
+          {
+            ...element,
+            ...template,
+            'onAction': (action, ...args) => this.action(action, elements, index, ...args),
             'onUpdate:value': (...args) => this.updateValue(element, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
-          }),
-          element?.items ? () => this.getElements(element.items) : null
+          },
+          element?.items && (() => this.getElements(element.items))
       )
     },
     action (action, data, key, values) {
@@ -159,7 +162,7 @@ export default {
         }
 
         if (element?.items) {
-          elements[j].items = this.setData(element.items)
+          element.items = this.setData(element.items)
         }
 
         elements[j] = element

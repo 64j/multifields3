@@ -73,7 +73,7 @@ export default {
 
 <style scoped>
 .mf3-templates {
-  @apply absolute left-0 top-0 right-0 bottom-0 flex items-center justify-center opacity-0 invisible
+  @apply absolute left-1 top-1 right-1 bottom-1 flex items-center justify-center opacity-0 invisible
 }
 .mf3-templates__add {
   @apply absolute w-4 h-4 z-10 flex items-center justify-center -bottom-2 bg-green-500 rounded-full cursor-pointer

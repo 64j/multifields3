@@ -22,7 +22,7 @@ export default {
 <template>
   <div class="mf3-item mf3-thumb" :style="{ backgroundImage: value ? 'url(' + value + ')' : null }">
     <actions @action="action"/>
-    <button>
+    <button type="button">
       <i/>
     </button>
     <slot/>
@@ -39,16 +39,16 @@ export default {
   background-image: inherit;
 }
 .mf3-item button {
-  @apply relative flex items-center justify-center w-8 h-8 bg-white/50 rounded-full border-none opacity-65 hover:opacity-85
+  @apply relative flex items-center justify-center w-8 h-8 p-0 bg-white/50 rounded-full border-none opacity-65 hover:opacity-85
 }
 .mf3-item button i {
-  @apply flex relative justify-center w-4 h-4 bg-cyan-200  rounded-[2px] border border-black
+  @apply flex relative justify-center w-4 h-4 bg-cyan-200  rounded-[2px] border border-solid border-black
 }
 .mf3-item button i::before {
   @apply content-[""] absolute left-0.5 top-1 w-3.5 h-0.5 outline-1 outline outline-black bg-black -rotate-45
 }
 .mf3-item button i::after {
-  @apply content-[""] absolute top-2.5 -left-0.5 w-0 h-0 border-[3px] border-transparent border-t-black rotate-45
+  @apply content-[""] absolute top-2.5 -left-0.5 w-0 h-0 border-[3px] border-transparent border-solid border-t-black rotate-45
 }
 </style>
 

@@ -21,7 +21,7 @@ export default {
   ],
   resolve: {
     alias: {
-      '@/': '/src/js/'
+      '@': '/src/js/'
     },
     extensions: ['.js', '.vue', '.json']
   }

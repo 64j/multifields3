@@ -20,7 +20,9 @@ export default {
 <template>
   <div class="mf3-item">
     <actions @action="action"/>
-    <textarea @input="updateValue" :rows="rows">{{ value }}</textarea>
+    <div class="mf3-items">
+      <textarea @input="updateValue" :rows="rows">{{ value }}</textarea>
+    </div>
   </div>
 </template>
 
