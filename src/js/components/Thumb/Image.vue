@@ -22,14 +22,34 @@ export default {
     }
   },
   methods: {
-    action (action) {
-      this.$emit('action', action)
+    action (action, values) {
+      this.$emit('action', action, values)
     },
     updateValue (event) {
       this.$emit('update:value', event.target.value)
     },
     select () {
-      return BrowseServer(this.id)
+      BrowseServer(this.id)
+      if (this.multi) {
+        this.MultiBrowseServer()
+      }
+    },
+    MultiBrowseServer () {
+      const self = this
+
+      this.interval = setInterval(() => {
+        if (window.KCFinder) {
+          clearInterval(this.interval)
+          window.KCFinder.callBackMultiple = (files) => {
+            window.KCFinder = null
+            window.SetUrl(files.shift())
+
+            for (let i of files) {
+              self.action('add', { value: i })
+            }
+          }
+        }
+      }, 100)
     }
   }
 }
@@ -47,7 +67,12 @@ export default {
 
 <style scoped>
 .mf3-item {
-  @apply w-24 h-24 max-w-24 flex items-center justify-center bg-white bg-no-repeat bg-center bg-contain
+  @apply w-24 h-24 max-w-24 flex items-center justify-center bg-no-repeat;
+  background-size: 0;
+}
+.mf3-item::before {
+  @apply bg-white bg-no-repeat bg-contain bg-center;
+  background-image: inherit;
 }
 .mf3-item button {
   @apply relative flex items-center justify-center w-8 h-8 p-0 bg-white/50 rounded-full border-none opacity-65 hover:opacity-85

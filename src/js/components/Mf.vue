@@ -89,14 +89,14 @@ export default {
       return h(
           mf3Components[name],
           Object.assign(element, {
-            'onAction': (action) => this.action(action, elements, index),
+            'onAction': (action, args) => this.action(action, elements, index, args),
             'onUpdate:value': (...args) => this.updateValue(element, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
           }),
           element?.items ? () => this.getElements(element.items) : null
       )
     },
-    action (action, data, key) {
+    action (action, data, key, values) {
       switch (action) {
         case 'del':
           data.splice(key, 1)
@@ -104,10 +104,10 @@ export default {
 
         case 'add':
           data.splice(key + 1, 0, this.clearValue({ ...data[key] }))
-          break
 
-        case 'tpl':
-          console.log('tpl')
+          if (values) {
+            Object.assign(data[key + 1], values)
+          }
           break
       }
     },

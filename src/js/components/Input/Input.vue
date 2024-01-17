@@ -22,6 +22,7 @@ export default {
     'maxlength',
     'size',
     'step',
+    'multi',
     'placeholder',
     'pattern',
     'required',
@@ -129,8 +130,8 @@ export default {
     }
   },
   methods: {
-    action (action) {
-      this.$emit('action', action)
+    action (action, values) {
+      this.$emit('action', action, values)
     },
     updateValue (event) {
       if (['file', 'image'].includes(this.type)) {
@@ -139,10 +140,30 @@ export default {
     },
     select (event) {
       if (this.type === 'image') {
-        return BrowseServer(event.target.previousElementSibling.id)
+        BrowseServer(event.target.previousElementSibling.id)
+        if (this.multi) {
+          this.MultiBrowseServer()
+        }
+      } else if (this.type === 'file') {
+        BrowseFileServer(event.target.previousElementSibling.id)
       }
+    },
+    MultiBrowseServer () {
+      const self = this
 
-      return BrowseFileServer(event.target.previousElementSibling.id)
+      this.interval = setInterval(() => {
+        if (window.KCFinder) {
+          clearInterval(this.interval)
+          window.KCFinder.callBackMultiple = (files) => {
+            window.KCFinder = null
+            window.SetUrl(files.shift())
+
+            for (let i of files) {
+              self.action('add', { value: i })
+            }
+          }
+        }
+      }, 100)
     }
   }
 }

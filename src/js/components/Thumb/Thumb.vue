@@ -31,7 +31,12 @@ export default {
 
 <style scoped>
 .mf3-item {
-  @apply w-24 h-24 max-w-24 flex items-center justify-center bg-no-repeat bg-center bg-contain
+  @apply w-24 h-24 max-w-24 flex items-center justify-center bg-no-repeat;
+  background-size: 0;
+}
+.mf3-item::before {
+  @apply bg-white bg-no-repeat bg-contain bg-center;
+  background-image: inherit;
 }
 .mf3-item button {
   @apply relative flex items-center justify-center w-8 h-8 bg-white/50 rounded-full border-none opacity-65 hover:opacity-85
