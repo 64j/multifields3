@@ -173,10 +173,6 @@ export default {
   <div class="mf3-item" :class="`mf3-input__` + type">
     <actions @action="action"/>
 
-    <div v-if="title" class="mf3-title">
-      {{ title }}
-    </div>
-
     <div class="mf3-items">
       <template v-if="data">
         <loader v-if="loading" class="mf3-loader"/>
@@ -249,13 +245,16 @@ export default {
   @apply flex items-center w-full
 }
 .mf3-item label {
-  @apply m-0 inline-flex items-center
+  @apply order-3 m-0 inline-flex items-center
+}
+.mf3-input__file label, .mf3-input__image label {
+  @apply order-1 grow p-1 -m-1 mb-1 bg-slate-500/5 truncate
 }
 .mf3-input__checkbox label, .mf3-input__radio label {
   @apply w-auto
 }
 .mf3-item input {
-  @apply !w-full border
+  @apply order-2 !w-full border
 }
 .mf3-item input[type="color"] {
   @apply !w-7 p-0
@@ -270,7 +269,7 @@ export default {
   @apply inline-block mr-2 !w-3.5 !h-3.5
 }
 .mf3-input__file button, .mf3-input__image button {
-  @apply absolute z-10 right-1.5 top-1.5 bottom-1.5 p-0 flex items-center justify-center border-none
+  @apply absolute z-10 right-1.5 bottom-1.5 h-7 p-0 flex items-center justify-center border-none bg-transparent
 }
 .mf3-input__file button::before {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50

@@ -149,8 +149,6 @@ export default {
             'key',
             'type',
             'name',
-            'title',
-            'label',
             'value',
             'values',
             'elements',
