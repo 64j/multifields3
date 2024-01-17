@@ -180,7 +180,6 @@ export default {
       return data
     },
     setData (elements) {
-      return elements
       elements = Object.assign([], elements)
 
       for (let j in elements) {
