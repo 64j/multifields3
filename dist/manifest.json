@@ -7,14 +7,14 @@
     "src": "src/css/mf.css"
   },
   "src/js/mf.css": {
-    "file": "assets/mf-541f7712.css",
+    "file": "assets/mf-7324d148.css",
     "src": "src/js/mf.css"
   },
   "src/js/mf.js": {
     "css": [
-      "assets/mf-541f7712.css"
+      "assets/mf-7324d148.css"
     ],
-    "file": "assets/mf-366db39f.js",
+    "file": "assets/mf-2069ec32.js",
     "imports": [
       "_vendor-d07baee0.js"
     ],

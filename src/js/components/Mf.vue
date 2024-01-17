@@ -9,11 +9,10 @@ export default {
   components: { Templates, Actions, draggable },
   props: ['dataEl', 'data', 'tvName'],
   data () {
-    //this.elements = this.dataEl.value && JSON.parse(this.dataEl.value) || []
     return {
-      elements: this.dataEl.value && JSON.parse(this.dataEl.value) || [],
-      templates: this.getTemplates(),
-      settings: this.getSettings()
+      elements: this.setElements(),
+      settings: this.setSettings(),
+      templates: this.setTemplates()
     }
   },
   watch: {
@@ -25,7 +24,40 @@ export default {
     }
   },
   methods: {
-    getTemplates () {
+    setElements () {
+      return this.setElementFromTemplates(
+          this.dataEl.value && JSON.parse(this.dataEl.value) || [],
+          this.data.templates
+      )
+    },
+    setElementFromTemplates (elements, templates) {
+      templates = typeof templates === 'object' ? (Array.isArray(templates)
+          ? Object.fromEntries(templates.map(item => [item.key, item]))
+          : templates) : {}
+
+      elements.forEach(element => {
+        let template = {}
+
+        if (templates[element.key]) {
+          template = { ...templates[element.key] }
+
+          if (template.items) {
+            element.items = this.setElementFromTemplates(element.items || [], template.items)
+            delete template.items
+          } else if (element.items) {
+            delete element.items
+          }
+        }
+
+        return Object.assign(element, template)
+      })
+
+      return elements
+    },
+    setSettings () {
+      return this.data?.settings || {}
+    },
+    setTemplates () {
       if (this.data?.templates) {
         let templates
 
@@ -41,9 +73,6 @@ export default {
 
         return templates || this.data.templates
       }
-    },
-    getSettings () {
-      return this.data?.settings || {}
     },
     getElements (elements) {
       return h(
@@ -63,23 +92,23 @@ export default {
       )
     },
     getElement (element, index, elements) {
-      let template = {}
-
-      if (this.templates?.[element.key]) {
-        template = { ...this.templates[element.key] }
-
-        if (template.items) {
-          delete template.items
-        }
-
-        if (template.value !== undefined) {
-          if (template.value === false) {
-            delete element.value
-          } else {
-            delete template.value
-          }
-        }
-      }
+      // let template = {}
+      //
+      // if (this.templates?.[element.key]) {
+      //   template = { ...this.templates[element.key] }
+      //
+      //   if (template.items) {
+      //     delete template.items
+      //   }
+      //
+      //   if (template.value !== undefined) {
+      //     if (template.value === false) {
+      //       delete element.value
+      //     } else {
+      //       delete template.value
+      //     }
+      //   }
+      // }
 
       const name = element.name ? 'mf:' + element.name : null
 
@@ -91,7 +120,7 @@ export default {
           mf3Components[name],
           {
             ...element,
-            ...template,
+            //...template,
             'onAction': (action, ...args) => this.action(action, elements, index, ...args),
             'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
@@ -151,6 +180,7 @@ export default {
       return data
     },
     setData (elements) {
+      return elements
       elements = Object.assign([], elements)
 
       for (let j in elements) {

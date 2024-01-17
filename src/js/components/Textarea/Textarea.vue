@@ -5,7 +5,7 @@ export default {
   __isStatic: true,
   name: 'mf:textarea',
   components: { Actions },
-  props: ['type', 'name', 'title', 'value', 'rows'],
+  props: ['type', 'name', 'title', 'value', 'actions', 'rows'],
   methods: {
     action (action) {
       this.$emit('action', action)
@@ -19,7 +19,7 @@ export default {
 
 <template>
   <div class="mf3-item">
-    <actions @action="action"/>
+    <actions @action="action" :actions="actions"/>
     <div class="mf3-items">
       <textarea @input="updateValue" :rows="rows">{{ value }}</textarea>
     </div>

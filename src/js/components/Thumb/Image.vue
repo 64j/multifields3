@@ -5,7 +5,7 @@ export default {
   components: { Actions },
   __isStatic: true,
   name: 'mf:thumb:image',
-  props: ['type', 'name', 'title', 'value', 'actions', 'elements', 'multi', 'thumb'],
+  props: ['type', 'name', 'title', 'value', 'actions', 'elements', 'multi', 'input'],
   data () {
     return {
       id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
@@ -26,7 +26,7 @@ export default {
       this.$emit('action', action, values)
     },
     updateValue (event) {
-      this.$emit('update:value', event.target.value)
+      this.$emit('update:value', event.target.value, undefined, this.input)
     },
     select () {
       BrowseServer(this.id)
