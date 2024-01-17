@@ -93,30 +93,40 @@ export default {
             ...element,
             ...template,
             'onAction': (action, ...args) => this.action(action, elements, index, ...args),
-            'onUpdate:value': (...args) => this.updateValue(element, ...args),
+            'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
           },
           element?.items && (() => this.getElements(element.items))
       )
     },
-    action (action, data, key, values) {
+    action (action, data, index, values) {
       switch (action) {
         case 'del':
-          data.splice(key, 1)
+          data.splice(index, 1)
           break
 
         case 'add':
-          data.splice(key + 1, 0, this.clearValue({ ...data[key] }))
+          data.splice(index + 1, 0, this.clearValue({ ...data[index] }))
 
           if (values) {
-            Object.assign(data[key + 1], values)
+            Object.assign(data[index + 1], values)
           }
           break
       }
     },
-    updateValue (element, value, values) {
+    updateValue (element, elements, value, values, keys) {
       element.value = value
       element.values = values
+
+      if (keys !== undefined) {
+        keys = typeof keys !== 'object' ? [keys] : keys
+
+        elements.forEach(i => {
+          if (keys.includes(i.key)) {
+            i.value = value
+          }
+        })
+      }
     },
     selectTemplate (element, template, key) {
       if (key !== undefined) {

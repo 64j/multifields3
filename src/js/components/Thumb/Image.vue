@@ -5,7 +5,7 @@ export default {
   components: { Actions },
   __isStatic: true,
   name: 'mf:thumb:image',
-  props: ['type', 'name', 'title', 'value', 'elements', 'multi', 'thumb'],
+  props: ['type', 'name', 'title', 'value', 'actions', 'elements', 'multi', 'thumb'],
   data () {
     return {
       id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
@@ -57,7 +57,7 @@ export default {
 
 <template>
   <div class="mf3-item" :style="{ backgroundImage: model ? 'url(../' + model + ')' : null }">
-    <actions @action="action"/>
+    <actions @action="action" :actions="actions"/>
     <button type="button" @click="select">
       <i/>
     </button>

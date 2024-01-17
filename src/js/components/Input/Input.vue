@@ -23,6 +23,7 @@ export default {
     'size',
     'step',
     'multi',
+    'thumb',
     'placeholder',
     'pattern',
     'required',
@@ -136,7 +137,7 @@ export default {
     },
     updateValue (event) {
       if (['file', 'image'].includes(this.type)) {
-        this.$emit('update:value', event.target.value)
+        this.$emit('update:value', event.target.value, undefined, this.thumb)
       }
     },
     select (event) {
