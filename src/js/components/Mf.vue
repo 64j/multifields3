@@ -151,7 +151,6 @@ export default {
             'name',
             'value',
             'values',
-            'elements',
             'default',
             'items'
           ].includes(i)) {
@@ -178,3 +177,7 @@ export default {
     <component :is="() => getElements(elements)" :key="0"/>
   </div>
 </template>
+
+<style scoped>
+@tailwind base;
+</style>

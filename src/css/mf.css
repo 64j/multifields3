@@ -1,4 +1,3 @@
-@tailwind base;
 .mf3 {
     @apply relative flex flex-wrap mb-6 p-0 m-0 border-none
 }
@@ -33,5 +32,5 @@
     @apply grow p-0 -mx-1
 }
 .mf3-items {
-    @apply flex flex-wrap grow pt-1 px-0.5
+    @apply relative p-1 w-full flex flex-wrap flex-row items-center grow
 }

@@ -3,18 +3,18 @@
     "file": "assets/vendor-ceb6f4ac.js"
   },
   "src/css/mf.css": {
-    "file": "assets/mf-383344bf.css",
+    "file": "assets/mf-4c099922.css",
     "src": "src/css/mf.css"
   },
   "src/js/mf.css": {
-    "file": "assets/mf-6f1402d2.css",
+    "file": "assets/mf-2c672fce.css",
     "src": "src/js/mf.css"
   },
   "src/js/mf.js": {
     "css": [
-      "assets/mf-6f1402d2.css"
+      "assets/mf-2c672fce.css"
     ],
-    "file": "assets/mf-4fc14f56.js",
+    "file": "assets/mf-834e0a32.js",
     "imports": [
       "_vendor-ceb6f4ac.js"
     ],

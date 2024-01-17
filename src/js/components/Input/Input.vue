@@ -29,7 +29,8 @@ export default {
     'readonly',
     'disabled',
     'trueValue',
-    'falseValue'
+    'falseValue',
+    'actions'
   ],
   data () {
     this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
@@ -171,7 +172,7 @@ export default {
 
 <template>
   <div class="mf3-item" :class="`mf3-input__` + type">
-    <actions @action="action"/>
+    <actions @action="action" :actions="actions"/>
 
     <div class="mf3-items">
       <template v-if="data">
@@ -235,12 +236,6 @@ export default {
 .mf3-item {
   @apply flex-wrap
 }
-.mf3-title {
-  @apply grow p-1 bg-slate-500/5 truncate
-}
-.mf3-items {
-  @apply relative p-1 w-full flex-row items-center
-}
 .mf3-items > div {
   @apply flex items-center w-full
 }
@@ -275,30 +270,30 @@ export default {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
 }
 .mf3-input__file button i {
-  @apply flex relative justify-center mx-2.5 w-3 h-4 overflow-hidden bg-blue-300 rounded-[2px] rounded-tr-[5px] border border-black opacity-65 pointer-events-none
+  @apply flex relative justify-center mx-2.5 w-3 h-4 overflow-hidden bg-blue-300 rounded-[2px] rounded-tr-[5px] border border-solid border-black opacity-65 pointer-events-none
 }
 .mf3-input__file button:hover i {
   @apply opacity-85
 }
 .mf3-input__file button i::before {
-  @apply content-[""] absolute left-0.5 top-1.5 w-1.5 h-1 border-t border-b border-black
+  @apply content-[""] absolute left-0.5 top-1.5 w-1.5 h-1 border-solid border-t border-b border-l-0 border-r-0 border-black
 }
 .mf3-input__file button i::after {
-  @apply content-[""] absolute -right-0.5 -top-0.5 w-1.5 h-1.5 bg-white border border-black
+  @apply content-[""] absolute -right-0.5 -top-0.5 w-1.5 h-1.5 bg-white border border-solid border-black
 }
 .mf3-input__image button::before {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
 }
 .mf3-input__image button i {
-  @apply flex relative justify-center mx-2 w-4 h-4 overflow-hidden bg-cyan-200 rounded-[2px] border border-black opacity-65 pointer-events-none
+  @apply flex relative justify-center mx-2 w-4 h-4 overflow-hidden bg-cyan-200 rounded-[2px] border border-solid border-black opacity-65 pointer-events-none
 }
 .mf3-input__image button:hover i {
   @apply opacity-85
 }
 .mf3-input__image button i::before {
-  @apply content-[""] absolute left-1 top-2 w-3 h-3 border border-black bg-red-500 rotate-45
+  @apply content-[""] absolute left-1 top-2 w-3 h-3 border border-solid border-black bg-red-500 rotate-45
 }
 .mf3-input__image button i::after {
-  @apply content-[""] absolute left-0.5 top-0.5 w-1 h-1 border border-amber-800 bg-amber-400 rounded-full
+  @apply content-[""] absolute left-0.5 top-0.5 w-1 h-1 border border-solid border-amber-800 bg-amber-400 rounded-full
 }
 </style>

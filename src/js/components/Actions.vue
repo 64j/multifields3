@@ -3,7 +3,7 @@ export default {
   name: 'Actions',
   props: {
     actions: {
-      type: Array,
+      type: [null, Array, Boolean],
       default: ['add', 'move', 'del']
     }
   }
@@ -11,7 +11,7 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-actions">
+  <div v-if="actions?.length" class="mf3-actions">
     <div v-for="i in actions" :class="`mf3-actions__action mf3-actions__` + i" @click="$emit('action', i)">
       <i/>
       <i/>
@@ -54,7 +54,7 @@ export default {
   @apply rotate-90
 }
 .mf3-actions__move i::before, .mf3-actions__move i::after {
-  @apply content-[""] absolute h-0 w-0 border-[3px] border-transparent border-r-white
+  @apply content-[""] absolute h-0 w-0 border-[3px] border-solid border-transparent border-r-white
 }
 .mf3-actions__move i::before {
   @apply -left-1 -top-0.5

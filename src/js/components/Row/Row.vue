@@ -6,7 +6,7 @@ export default {
   components: { Templates, Actions },
   __isStatic: true,
   name: 'mf:row',
-  props: ['type', 'name', 'title', 'value', 'items', 'templates'],
+  props: ['type', 'name', 'title', 'value', 'items', 'templates', 'actions'],
   mounted () {
 
   },
@@ -23,7 +23,7 @@ export default {
 
 <template>
   <div class="mf3-row mf3-group mf3-item">
-    <actions @action="action"/>
+    <actions @action="action" :actions="actions"/>
     <templates :data="templates" @select:template="selectTemplate"/>
     <div v-if="value !== false" class="mf3-row__value">
       <input type="text" :value="value" @input="$emit('update:value', $event.target.value)">
