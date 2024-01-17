@@ -7,8 +7,10 @@ import Templates from './Templates.vue'
 export default {
   name: 'mf',
   components: { Templates, Actions, draggable },
-  props: ['dataEl', 'data', 'tvName'],
+  props: ['dataEl', 'tvId', 'tvName'],
   data () {
+    this.data = window['mf3Config'][this.tvName] ?? {}
+
     return {
       elements: this.setElements(),
       settings: this.setSettings(),
@@ -74,14 +76,15 @@ export default {
         return templates || this.data.templates
       }
     },
-    getElements (elements) {
+    getElements (elements, element) {
       return h(
           draggable,
           {
             tag: 'div',
             list: elements,
             itemKey: a => a,
-            class: 'mf3-items',
+            class: ['mf3-items', element?.['itemsClass']],
+            style: element?.['itemsStyle'],
             handle: '.mf3-actions__move',
             ghostClass: 'mf3-draggable__active',
             chosenClass: 'mf3-draggable__chosen'
@@ -125,7 +128,7 @@ export default {
             'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
           },
-          element?.items && (() => this.getElements(element.items))
+          element?.items && (() => this.getElements(element.items, element))
       )
     },
     action (action, data, index, values) {

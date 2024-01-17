@@ -6,7 +6,7 @@ export default {
   components: { Templates, Actions },
   __isStatic: true,
   name: 'mf:row',
-  props: ['type', 'name', 'title', 'value', 'placeholder', 'items', 'templates', 'actions'],
+  props: ['type', 'name', 'title', 'value', 'placeholder', 'items', 'templates', 'actions', 'itemsClass', 'itemsStyle'],
   mounted () {
 
   },

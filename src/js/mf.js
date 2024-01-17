@@ -16,8 +16,8 @@ document.querySelectorAll('.mf3-data').forEach(dataEl => {
 
   createApp(Mf, {
     dataEl,
-    data: mf3Config[dataEl.dataset['tvName']] ?? {},
-    ...eval(dataEl.dataset || '')
+    tvId: dataEl.dataset['tvId'],
+    tvName: dataEl.dataset['tvName']
   }).mount(el)
   dataEl.after(el)
 })
