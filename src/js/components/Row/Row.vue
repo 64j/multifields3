@@ -6,7 +6,21 @@ export default {
   components: { Templates, Actions },
   __isStatic: true,
   name: 'mf:row',
-  props: ['type', 'name', 'title', 'value', 'placeholder', 'items', 'templates', 'actions', 'itemsClass', 'itemsStyle'],
+  props: {
+    type: String,
+    name: String,
+    title: String,
+    value: [Boolean, String],
+    placeholder: String,
+    items: Array,
+    templates: [Boolean, Array],
+    actions: {
+      type: [Boolean, Array],
+      default: ['add', 'move', 'del', 'resize', 'hide', 'expand']
+    },
+    itemsClass: [String, Array],
+    itemsStyle: Object
+  },
   mounted () {
 
   },
@@ -50,5 +64,14 @@ export default {
 }
 .mf3-row > .mf3-items {
   @apply px-1.5 pb-1.5
+}
+.mf3-row .mf3-actions__resize {
+  @apply absolute z-10 left-0 top-0 w-full h-full cursor-default
+}
+.mf3-row .mf3-actions__resize i {
+  @apply absolute top-0 bottom-0 first:left-0 last:right-0 flex items-center w-1 bg-green-500 leading-[0] text-white text-lg font-medium cursor-col-resize overflow-hidden
+}
+.mf3-row .mf3-actions__resize i::before {
+  @apply content-["..."] block rotate-90
 }
 </style>

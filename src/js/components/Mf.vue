@@ -49,6 +49,14 @@ export default {
           } else if (element.items) {
             delete element.items
           }
+
+          if (template.value !== undefined) {
+            if (template.value === false) {
+              delete element.value
+            } else {
+              delete template.value
+            }
+          }
         }
 
         return Object.assign(element, template)
@@ -95,35 +103,12 @@ export default {
       )
     },
     getElement (element, index, elements) {
-      // let template = {}
-      //
-      // if (this.templates?.[element.key]) {
-      //   template = { ...this.templates[element.key] }
-      //
-      //   if (template.items) {
-      //     delete template.items
-      //   }
-      //
-      //   if (template.value !== undefined) {
-      //     if (template.value === false) {
-      //       delete element.value
-      //     } else {
-      //       delete template.value
-      //     }
-      //   }
-      // }
-
       const name = element.name ? 'mf:' + element.name : null
 
-      if (!mf3Components[name]) {
-        return
-      }
-
-      return h(
+      return mf3Components[name] && h(
           mf3Components[name],
           {
             ...element,
-            //...template,
             'onAction': (action, ...args) => this.action(action, elements, index, ...args),
             'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)

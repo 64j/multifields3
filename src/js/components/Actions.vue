@@ -24,10 +24,10 @@ export default {
   @apply absolute left-1 top-1 bottom-1 right-1 flex justify-center ring-blue-500 ring-2 ring-offset-0 opacity-0 invisible transition-all
 }
 .mf3-actions__action {
-  @apply w-4 h-4 z-10 cursor-pointer
+  @apply w-4 h-4 cursor-pointer
 }
 .mf3-actions__add {
-  @apply absolute flex items-center justify-center -bottom-2 bg-blue-500 rounded-full
+  @apply absolute z-10 flex items-center justify-center -bottom-2 bg-blue-500 rounded-full
 }
 .mf3-actions__add::before, .mf3-actions__add::after {
   @apply absolute w-2 h-0.5 bg-white content-[""]

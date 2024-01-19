@@ -240,6 +240,9 @@ export default {
 .mf3-items > div {
   @apply flex items-center w-full
 }
+.mf3-loader {
+  @apply relative
+}
 .mf3-item label {
   @apply order-3 m-0 inline-flex items-center
 }
