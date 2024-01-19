@@ -8,7 +8,10 @@ export default {
     manifest: true,
     rollupOptions: {
       output: {
-        format: 'module'
+        format: 'module',
+        chunkFileNames: '[name].[hash].js',
+        entryFileNames: '[name].[hash].js',
+        assetFileNames: '[name].[hash][extname]',
       },
       input: [
         './src/js/mf.js'

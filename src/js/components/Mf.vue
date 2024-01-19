@@ -12,9 +12,9 @@ export default {
     this.data = window['mf3Config'][this.tvName] ?? {}
 
     return {
-      elements: this.setElements(),
+      templates: this.setTemplates(),
       settings: this.setSettings(),
-      templates: this.setTemplates()
+      elements: null,
     }
   },
   watch: {
@@ -24,6 +24,9 @@ export default {
       },
       deep: true
     }
+  },
+  created () {
+    this.elements = this.setElements()
   },
   methods: {
     setElements () {
@@ -38,17 +41,23 @@ export default {
           : templates) : {}
 
       elements.forEach(element => {
-        let template = {}
+        let template = this.templates?.[element.key] ?? templates?.[element.key] ?? null
 
-        if (templates[element.key]) {
-          template = { ...templates[element.key] }
+        if (template) {
+          template = { ...template }
 
-          if (template.items) {
+          const items = template.items || element.items
+
+          if (items) {
+            element.items = this.setElementFromTemplates(element.items || [], items)
+          }
+
+          /*if (template.items) {
             element.items = this.setElementFromTemplates(element.items || [], template.items)
             delete template.items
           } else if (element.items) {
             delete element.items
-          }
+          }*/
 
           if (template.value !== undefined) {
             if (template.value === false) {
@@ -57,9 +66,11 @@ export default {
               delete template.value
             }
           }
+
+          Object.assign(element, template)
         }
 
-        return Object.assign(element, template)
+        return element
       })
 
       return elements

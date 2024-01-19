@@ -10,19 +10,22 @@ export default {
     type: String,
     name: String,
     title: String,
-    value: [Boolean, String],
+    value: {
+      type: [Boolean, String],
+      default: undefined
+    },
     placeholder: String,
     items: Array,
-    templates: [Boolean, Array],
+    templates: {
+      type: [Boolean, Array],
+      default: true
+    },
     actions: {
       type: [Boolean, Array],
       default: ['add', 'move', 'del', 'resize', 'hide', 'expand']
     },
     itemsClass: [String, Array],
     itemsStyle: Object
-  },
-  mounted () {
-
   },
   methods: {
     action (action) {
@@ -47,6 +50,9 @@ export default {
 </template>
 
 <style scoped>
+.mf3-row {
+  @apply min-h-[2.3rem]
+}
 .mf3-row__value {
   @apply relative m-1 mb-0 py-1 px-1 bg-slate-500/5 border-0 border-b border-solid border-slate-200
 }
@@ -65,13 +71,22 @@ export default {
 .mf3-row > .mf3-items {
   @apply px-1.5 pb-1.5
 }
-.mf3-row .mf3-actions__resize {
-  @apply absolute z-10 left-0 top-0 w-full h-full cursor-default
+.mf3-row > .mf3-items:empty {
+  @apply p-0
 }
-.mf3-row .mf3-actions__resize i {
-  @apply absolute top-0 bottom-0 first:left-0 last:right-0 flex items-center w-1 bg-green-500 leading-[0] text-white text-lg font-medium cursor-col-resize overflow-hidden
+.mf3-row > .mf3-actions .mf3-actions__ {
+  @apply bg-green-500
 }
-.mf3-row .mf3-actions__resize i::before {
-  @apply content-["..."] block rotate-90
+.mf3-row > .mf3-actions .mf3-actions__resize {
+  @apply absolute left-0 top-0 w-full h-full cursor-default
+}
+.mf3-row > .mf3-actions .mf3-actions__resize i {
+  @apply absolute z-10 top-0 bottom-0 first:left-[-1px] last:right-[-1px] flex items-center w-[0.2rem] bg-green-500 leading-[0] text-white text-lg font-medium cursor-col-resize overflow-hidden
+}
+.mf3-row > .mf3-actions .mf3-actions__resize i::before {
+  @apply content-["..."] block -ml-[1px] rotate-90
+}
+.mf3-row > .mf3-actions .mf3-actions__hide, .mf3-row > .mf3-actions .mf3-actions__expand {
+  @apply bg-green-500
 }
 </style>

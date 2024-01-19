@@ -12,6 +12,7 @@ export default {
 
 <template>
   <div v-if="actions?.length" class="mf3-actions">
+    <div v-if="actions.filter(i => i !== 'add').length" class="mf3-actions__"/>
     <div v-for="i in actions" :class="`mf3-actions__action mf3-actions__` + i" @click="$emit('action', i)">
       <i/>
       <i/>
@@ -21,7 +22,10 @@ export default {
 
 <style scoped>
 .mf3-actions {
-  @apply absolute left-1 top-1 bottom-1 right-1 flex justify-center ring-blue-500 ring-2 ring-offset-0 opacity-0 invisible transition-all
+  @apply absolute left-1 top-1 bottom-1 right-1 flex justify-center ring-blue-500 ring-1 ring-offset-0 opacity-0 invisible transition-all
+}
+.mf3-actions__ {
+  @apply absolute z-10 -left-[1px] -top-5 -right-[1px] -mt-0 h-5 rounded-t bg-blue-500
 }
 .mf3-actions__action {
   @apply w-4 h-4 cursor-pointer
@@ -36,7 +40,7 @@ export default {
   @apply rotate-90
 }
 .mf3-actions__del {
-  @apply flex items-center justify-center -mt-4 bg-rose-500
+  @apply relative z-10 flex items-center justify-center -mt-[1.125rem] bg-rose-500
 }
 .mf3-actions__del::before, .mf3-actions__del::after {
   @apply absolute w-2 h-0.5 bg-white content-[""] rotate-45
@@ -45,7 +49,7 @@ export default {
   @apply -rotate-45
 }
 .mf3-actions__move {
-  @apply flex items-center justify-center -mt-4 cursor-move bg-blue-500
+  @apply relative z-10 flex items-center justify-center -mt-[1.125rem] cursor-move bg-blue-500
 }
 .mf3-actions__move i {
   @apply content-[""] absolute w-2.5 h-0.5 bg-white
@@ -61,6 +65,12 @@ export default {
 }
 .mf3-actions__move i::after {
   @apply -right-1 -bottom-0.5 rotate-180
+}
+.mf3-actions__hide {
+  @apply absolute z-10 left-0 bottom-full bg-blue-500
+}
+.mf3-actions__expand {
+  @apply absolute z-10 right-0 bottom-full bg-blue-500
 }
 </style>
 
