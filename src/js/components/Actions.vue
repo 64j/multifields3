@@ -22,40 +22,31 @@ export default {
 
 <style scoped>
 .mf3-actions {
-  @apply absolute left-1 top-1 bottom-1 right-1 flex justify-center ring-blue-500 ring-1 ring-offset-0 opacity-0 invisible transition-all
+  @apply absolute left-1 top-1 bottom-1 right-1 flex justify-end ring-blue-500 ring-1 ring-offset-0 opacity-0 invisible
 }
 .mf3-actions__ {
   @apply absolute z-10 -left-[1px] -top-5 -right-[1px] -mt-0 h-5 rounded-t bg-blue-500
 }
 .mf3-actions__action {
-  @apply w-4 h-4 cursor-pointer
+  @apply w-4 h-4 mr-0.5 cursor-pointer
 }
 .mf3-actions__add {
-  @apply absolute z-10 flex items-center justify-center -bottom-2 bg-blue-500 rounded-full
+  @apply absolute z-10 flex items-center justify-center -bottom-2 left-1/2 -translate-x-1/2 bg-blue-500 rounded-full
 }
-.mf3-actions__add::before, .mf3-actions__add::after {
-  @apply absolute w-2 h-0.5 bg-white content-[""]
-}
-.mf3-actions__add::after {
-  @apply rotate-90
+.mf3-actions__add i {
+  @apply absolute w-2 h-0.5 bg-white last:rotate-90 translate-x-0
 }
 .mf3-actions__del {
-  @apply relative z-10 flex items-center justify-center -mt-[1.125rem] bg-rose-500
+  @apply relative z-10 flex items-center justify-center -mt-[1.125rem]
 }
-.mf3-actions__del::before, .mf3-actions__del::after {
-  @apply absolute w-2 h-0.5 bg-white content-[""] rotate-45
-}
-.mf3-actions__del::after {
-  @apply -rotate-45
+.mf3-actions__del i {
+  @apply absolute w-3 h-0.5 bg-white rotate-45 last:-rotate-45
 }
 .mf3-actions__move {
-  @apply relative z-10 flex items-center justify-center -mt-[1.125rem] cursor-move bg-blue-500
+  @apply relative z-10 flex items-center justify-center -mt-[1.125rem] cursor-move
 }
 .mf3-actions__move i {
-  @apply content-[""] absolute w-2.5 h-0.5 bg-white
-}
-.mf3-actions__move i:last-of-type {
-  @apply rotate-90
+  @apply absolute w-3 h-0.5 bg-white last:rotate-90
 }
 .mf3-actions__move i::before, .mf3-actions__move i::after {
   @apply content-[""] absolute h-0 w-0 border-[3px] border-solid border-transparent border-r-white
@@ -67,10 +58,10 @@ export default {
   @apply -right-1 -bottom-0.5 rotate-180
 }
 .mf3-actions__hide {
-  @apply absolute z-10 left-0 bottom-full bg-blue-500
+  @apply absolute z-10 left-0 bottom-full rounded-full bg-white
 }
 .mf3-actions__expand {
-  @apply absolute z-10 right-0 bottom-full bg-blue-500
+  @apply absolute z-10 right-0 bottom-full
 }
 </style>
 
