@@ -28,7 +28,7 @@ export default {
   @apply absolute z-10 -left-[1px] -top-5 -right-[1px] -mt-0 h-5 rounded-t bg-blue-500
 }
 .mf3-actions__action {
-  @apply w-4 h-4 mr-0.5 cursor-pointer
+  @apply w-4 h-4 cursor-pointer
 }
 .mf3-actions__add {
   @apply absolute z-10 flex items-center justify-center -bottom-2 left-1/2 -translate-x-1/2 bg-blue-500 rounded-full
@@ -43,7 +43,7 @@ export default {
   @apply absolute w-3 h-0.5 bg-white rotate-45 last:-rotate-45
 }
 .mf3-actions__move {
-  @apply relative z-10 flex items-center justify-center -mt-[1.125rem] cursor-move
+  @apply absolute left-0 z-10 flex items-center justify-center -mt-[1.125rem] cursor-move
 }
 .mf3-actions__move i {
   @apply absolute w-3 h-0.5 bg-white last:rotate-90
@@ -58,10 +58,10 @@ export default {
   @apply -right-1 -bottom-0.5 rotate-180
 }
 .mf3-actions__hide {
-  @apply absolute z-10 left-0 bottom-full rounded-full bg-white
+  @apply relative z-10 -mt-[1.125rem] rounded-full bg-white
 }
 .mf3-actions__expand {
-  @apply absolute z-10 right-0 bottom-full
+  @apply relative z-10 -mt-[1.125rem] rounded-full bg-white
 }
 </style>
 
