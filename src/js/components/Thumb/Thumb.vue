@@ -16,7 +16,7 @@ export default {
     value: String,
     actions: Array,
     elements: [String,Array],
-    multi: String,
+    multi: Boolean,
     input: String,
     items: Array,
   },
@@ -36,8 +36,8 @@ export default {
     }
   },
   methods: {
-    action (action) {
-      this.$emit('action', action)
+    action (action, ...args) {
+      this.$emit('action', action, ...args)
     },
     updateValue (event) {
       this.$emit('update:value', event.target.value, undefined, this.input)

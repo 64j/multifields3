@@ -59,6 +59,9 @@ export default {
 .mf3-templates__add {
   @apply absolute w-4 h-4 p-0 z-10 flex items-center justify-center -bottom-2 bg-green-500 border-none rounded-full cursor-pointer
 }
+.darkness .mf3-templates__add {
+  @apply bg-green-500
+}
 .mf3-templates__add::before, .mf3-templates__add::after {
   @apply absolute w-2 h-0.5 bg-white content-[""]
 }

@@ -69,7 +69,7 @@ export default {
 </style>
 
 <style>
-.mf3-group > .mf3-actions > .mf3-actions__add {
+.mf3-group > .mf3-actions > .mf3-actions__add, .darkness .mf3-group > .mf3-actions > .mf3-actions__add {
   @apply bg-green-500
 }
 .mf3-group > .mf3-actions {
