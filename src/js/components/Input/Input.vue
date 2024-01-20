@@ -4,10 +4,11 @@ import Loader from '../Loader.vue'
 import Actions from '../Actions.vue'
 
 export default {
+  name: 'mf:input',
   __isStatic: true,
   components: { Loader, Actions },
-  name: 'mf:input',
   props: [
+    'key',
     'type',
     'name',
     'title',

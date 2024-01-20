@@ -122,7 +122,8 @@ export default {
             ...element,
             'onAction': (action, ...args) => this.action(action, elements, index, ...args),
             'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
-            'onSelect:template': (...args) => this.selectTemplate(element, ...args)
+            'onSelect:template': (...args) => this.selectTemplate(element, ...args),
+            'onClick': this.select
           },
           element?.items && (() => this.getElements(element.items, element))
       )
@@ -207,6 +208,11 @@ export default {
       }
 
       return elements
+    },
+    select (event) {
+      this.$el.querySelectorAll('.mf3-item.active').forEach(i => i.classList.remove('active'))
+      event.currentTarget.classList.add('active')
+      event.stopPropagation()
     }
   }
 }

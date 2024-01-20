@@ -3,10 +3,11 @@ import Actions from '../Actions.vue'
 import Templates from '../Templates.vue'
 
 export default {
-  components: { Templates, Actions },
-  __isStatic: true,
   name: 'mf:row',
+  __isStatic: true,
+  components: { Templates, Actions },
   props: {
+    key: String,
     type: String,
     name: String,
     title: String,
@@ -56,6 +57,9 @@ export default {
 .mf3-row__value {
   @apply relative m-1 mb-0 py-1 px-1 bg-slate-500/5 border-0 border-b border-solid border-slate-200
 }
+.darkness .mf3-row__value {
+  @apply border-gray-600
+}
 .mf3-row__value input {
   @apply w-full text-xs px-1 py-0.5 h-5
 }
@@ -74,7 +78,7 @@ export default {
 .mf3-row > .mf3-items:empty {
   @apply p-0
 }
-.mf3-row > .mf3-actions .mf3-actions__ {
+.mf3-row > .mf3-actions .mf3-actions__panel {
   @apply bg-green-500
 }
 .mf3-row > .mf3-actions .mf3-actions__resize {

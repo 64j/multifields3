@@ -2,9 +2,9 @@
 import Actions from '../Actions.vue'
 
 export default {
-  components: { Actions },
+  name: 'mf:table',
   __isStatic: true,
-  name: 'mf:table'
+  components: { Actions }
 }
 </script>
 

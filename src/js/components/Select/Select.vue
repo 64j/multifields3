@@ -4,10 +4,10 @@ import Actions from '../Actions.vue'
 import Loader from '../Loader.vue'
 
 export default {
-  components: { Loader, Actions },
-  __isStatic: true,
   name: 'mf:select',
-  props: ['type', 'name', 'title', 'value', 'values', 'elements', 'default', 'multiple', 'size', 'load', 'actions'],
+  __isStatic: true,
+  components: { Loader, Actions },
+  props: ['key', 'type', 'name', 'title', 'value', 'values', 'elements', 'default', 'multiple', 'size', 'load', 'actions'],
   data () {
     return {
       data: this.values && Object.values(this.values).length ? [this.values] : [],
@@ -76,6 +76,7 @@ export default {
     <actions @action="action" :actions="actions"/>
 
     <div class="mf3-items">
+      <loader v-if="loading" class="mf3-loader"/>
       <select v-model="model"
               :size="multiple ? (size || 8) : 1"
               :multiple="multiple"
@@ -85,7 +86,6 @@ export default {
         <option v-if="!multiple"/>
         <option v-for="i in data" :value="i.key">{{ i.value }}</option>
       </select>
-      <loader v-if="loading" class="mf3-loader"/>
     </div>
   </div>
 </template>

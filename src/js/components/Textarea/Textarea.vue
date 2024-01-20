@@ -2,10 +2,10 @@
 import Actions from '../Actions.vue'
 
 export default {
-  __isStatic: true,
   name: 'mf:textarea',
+  __isStatic: true,
   components: { Actions },
-  props: ['type', 'name', 'title', 'value', 'actions', 'rows'],
+  props: ['key', 'type', 'name', 'title', 'value', 'actions', 'rows'],
   methods: {
     action (action) {
       this.$emit('action', action)

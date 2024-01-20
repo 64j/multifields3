@@ -17,7 +17,10 @@
     @apply grow relative p-1 m-0 basis-full
 }
 .mf3-item::before, .mf3-group::before {
-    @apply content-[""] absolute left-1 top-1 right-1 bottom-1 ring-1 ring-slate-200
+    @apply content-[""] absolute left-1 top-1 right-1 bottom-1 ring-1 ring-slate-200 dark:ring-slate-500
+}
+.darkness .mf3-item::before, .darkness .mf3-group::before {
+    @apply ring-gray-600
 }
 .mf3-group {
     @apply p-0

@@ -2,9 +2,9 @@
 import Actions from '../Actions.vue'
 
 export default {
-  components: { Actions },
+  name: 'mf:richtext',
   __isStatic: true,
-  name: 'mf:richtext'
+  components: { Actions }
 }
 </script>
 

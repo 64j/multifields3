@@ -1,22 +1,22 @@
 {
-  "_vendor.54efe6c8.js": {
-    "file": "vendor.54efe6c8.js"
+  "_vendor.38188d16.js": {
+    "file": "vendor.38188d16.js"
   },
   "src/css/mf.css": {
-    "file": "mf.62c85264.css",
+    "file": "mf.f0e2b7ee.css",
     "src": "src/css/mf.css"
   },
   "src/js/mf.css": {
-    "file": "mf.ed7da33f.css",
+    "file": "mf.11c734b9.css",
     "src": "src/js/mf.css"
   },
   "src/js/mf.js": {
     "css": [
-      "mf.ed7da33f.css"
+      "mf.11c734b9.css"
     ],
-    "file": "mf.09ec4c56.js",
+    "file": "mf.ac3a9a8e.js",
     "imports": [
-      "_vendor.54efe6c8.js"
+      "_vendor.38188d16.js"
     ],
     "isEntry": true,
     "src": "src/js/mf.js"
