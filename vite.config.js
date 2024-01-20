@@ -9,13 +9,17 @@ export default {
     rollupOptions: {
       output: {
         format: 'module',
+        // globals: {
+        //   vue: 'vue'
+        // },
         chunkFileNames: '[name].[hash].js',
         entryFileNames: '[name].[hash].js',
         assetFileNames: '[name].[hash][extname]',
       },
       input: [
         './src/js/mf.js'
-      ]
+      ],
+      // external: ['vue'],
     },
   },
   plugins: [
@@ -24,7 +28,7 @@ export default {
   ],
   resolve: {
     alias: {
-      '@': '/src/js/'
+      vue: 'vue/dist/vue.esm-bundler.js'
     },
     extensions: ['.js', '.vue', '.json']
   }

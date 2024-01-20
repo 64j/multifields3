@@ -8,19 +8,23 @@ class Multifields3
     {
     }
 
-    public function getStartScripts()
+    /**
+     * @return string
+     */
+    public function getStartScripts(): string
     {
-        return str_replace(
-            MGR_DIR . '/assets/',
-            'assets/',
-            Vite::useManifestFilename('manifest.json')
-                ->useHotFile(MODX_BASE_PATH . 'assets/plugins/multifields3/hot')
-                ->useBuildDirectory('assets/plugins/multifields3/dist')
-                ->withEntryPoints([
-                    'src/js/mf.js',
-                ])
-                ->toHtml()
-        );
+        return //'<script src="https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js"></script>' .
+            str_replace(
+                MGR_DIR . '/assets/',
+                'assets/',
+                Vite::useManifestFilename('manifest.json')
+                    ->useHotFile(MODX_BASE_PATH . 'assets/plugins/multifields3/hot')
+                    ->useBuildDirectory('assets/plugins/multifields3/dist')
+                    ->withEntryPoints([
+                        'src/js/mf.js',
+                    ])
+                    ->toHtml()
+            );
     }
 
     /**

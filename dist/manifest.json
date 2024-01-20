@@ -1,6 +1,6 @@
 {
-  "_vendor.38188d16.js": {
-    "file": "vendor.38188d16.js"
+  "_vendor.50dea423.js": {
+    "file": "vendor.50dea423.js"
   },
   "src/css/mf.css": {
     "file": "mf.f0e2b7ee.css",
@@ -14,9 +14,9 @@
     "css": [
       "mf.8fee6eba.css"
     ],
-    "file": "mf.759e07f5.js",
+    "file": "mf.f5237303.js",
     "imports": [
-      "_vendor.38188d16.js"
+      "_vendor.50dea423.js"
     ],
     "isEntry": true,
     "src": "src/js/mf.js"
