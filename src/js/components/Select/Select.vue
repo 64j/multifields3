@@ -18,13 +18,13 @@ export default {
     'default',
     'multiple',
     'size',
-    'load',
     'actions'
   ],
   data () {
     return {
       data: this.values && Object.values(this.values).length ? [this.values] : [],
       loading: false,
+      load: this.multiple || this.size > 1,
       focus: false
     }
   },
@@ -34,12 +34,26 @@ export default {
         this.$emit('update:value', value, { ...this.data.filter(i => i.key === value)[0] || {} })
       },
       get () {
-        return this.value || (!this.value && this.multiple && [])
+        if (this.multiple) {
+          if (this.elements) {
+            if (this.value === undefined) {
+              return []
+            }
+
+            return Array.isArray(this.value) ? this.value : [this.value]
+          } else {
+            if (this.value !== undefined) {
+              return Array.isArray(this.value) ? this.value.toString() : this.value
+            }
+          }
+        }
+
+        return this.value
       }
     }
   },
   created () {
-    if (this.multiple || this.load) {
+    if (this.load) {
       this.getData()
     }
   },
@@ -47,18 +61,21 @@ export default {
     action (action) {
       this.$emit('action', action)
     },
-    getData () {
+    getOptions () {
       if (this.elements[0] === '@') {
-        if ((!this.focus && !this.load) || (this.load && !this.data.length)) {
-          this.loading = true
-          this.data = []
-          axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
-            this.data = this.parseData(data)
-          }).finally(() => this.loading = false)
+        if (!this.focus && !this.load) {
+          this.getData()
         }
       } else {
         this.data = this.parseData(this.elements)
       }
+    },
+    getData () {
+      this.loading = true
+      this.data = []
+      axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
+        this.data = this.parseData(data)
+      }).finally(() => this.loading = false)
     },
     parseData (data) {
       if (Array.isArray(data)) {
@@ -91,9 +108,9 @@ export default {
     <div class="mf3-items">
       <loader v-if="loading" class="mf3-loader"/>
       <select v-model="model"
-              :size="multiple ? (size || 8) : 1"
+              :size="multiple ? (size || 8) : (size || 1)"
               :multiple="multiple"
-              @mousedown="getData"
+              @mousedown="getOptions"
               @focus="() => focus = true"
               @blur="() => focus = false">
         <option v-if="!multiple"/>
