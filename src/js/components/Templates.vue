@@ -69,7 +69,7 @@ export default {
   @apply rotate-90
 }
 .mf3-templates__list {
-  @apply absolute bottom-2 z-20 w-52 py-1 bg-white text-gray-900 rounded shadow-lg invisible opacity-0
+  @apply absolute z-20 top-5 w-52 max-h-52 overflow-auto py-1 bg-white text-gray-900 rounded shadow-lg invisible opacity-0
 }
 .mf3-templates__add:focus + .mf3-templates__list {
   @apply visible opacity-100

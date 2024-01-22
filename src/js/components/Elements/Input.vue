@@ -59,6 +59,7 @@ export default {
       },
       get () {
         switch (this.type) {
+          case 'color':
           case 'checkbox':
             if (this.elements) {
               if (this.value === undefined) {
@@ -255,7 +256,10 @@ export default {
   @apply w-auto
 }
 .mf3-item input {
-  @apply order-2 w-full border
+  @apply order-2 w-full h-7 border
+}
+.mf3-item input[type="date"] {
+  @apply !w-full
 }
 .mf3-item input[type="color"] {
   @apply w-7 p-0
