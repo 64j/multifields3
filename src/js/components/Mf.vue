@@ -141,10 +141,10 @@ export default {
           if (data[index]['key'] && this.templates[data[index]['key']]) {
             element = { ...this.templates[data[index]['key']] }
           } else {
-            element = { ...data[index] }
+            element = this.clearValue({ ...data[index] })
           }
 
-          data.splice(index + 1, 0, this.clearValue(element))
+          data.splice(index + 1, 0, element)
 
           if (values) {
             Object.assign(data[index + 1], values)
