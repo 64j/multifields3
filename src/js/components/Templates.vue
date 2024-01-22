@@ -10,7 +10,7 @@ export default {
 
         if (this.data === true || this.data === undefined) {
           for (const i in this.$root['templates']) {
-            if (mf3Components[`mf:${this.$root['templates'][i]['name']}`]) {
+            if (mf3Elements[`mf:${this.$root['templates'][i]['name']}`]) {
               templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
             }
           }

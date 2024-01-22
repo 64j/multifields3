@@ -3,12 +3,10 @@ import Mf from './components/Mf.vue'
 
 import('../css/mf.css')
 
-window['mf3Components'] = {}
+window['mf3Elements'] = {}
 
-Object.entries(import.meta.glob('./components/*/*.vue', { eager: true })).forEach(([, { default: module }]) => {
-  if (module?.['__isStatic'] || module?.extends?.['__isStatic']) {
-    window['mf3Components'][module.name || module.__name] = module
-  }
+Object.entries(import.meta.glob('./components/Elements/*.vue', { eager: true })).forEach(([, { default: module }]) => {
+  window['mf3Elements'][module.name || module.__name] = module
 })
 
 document.querySelectorAll('.mf3-data').forEach(dataEl => {

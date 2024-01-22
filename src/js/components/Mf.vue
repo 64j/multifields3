@@ -115,8 +115,8 @@ export default {
     getElement (element, index, elements) {
       const name = element.name ? 'mf:' + element.name : null
 
-      return mf3Components[name] && h(
-          mf3Components[name],
+      return mf3Elements[name] && h(
+          mf3Elements[name],
           {
             ...element,
             'itemKey': element.name + '-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36),
