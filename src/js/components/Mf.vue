@@ -230,10 +230,19 @@ export default {
 <template>
   <div class="mf3 mf3-group">
     <templates :data="true" @select:template="selectTemplate"/>
-    <component :is="() => getElements(elements)" :key="0"/>
+    <component :is="() => getElements(elements)"/>
   </div>
 </template>
 
 <style scoped>
 @tailwind base;
+.mf3 {
+  @apply relative flex flex-wrap mb-6 p-0 m-0 border-none
+}
+.mf3::before {
+  @apply hidden
+}
+.mf3 > .mf3-templates {
+  @apply -bottom-3
+}
 </style>

@@ -1,12 +1,3 @@
-.mf3 {
-    @apply relative flex flex-wrap mb-6 p-0 m-0 border-none
-}
-.mf3::before {
-    @apply hidden
-}
-.mf3 > .mf3-templates {
-    @apply -bottom-3
-}
 .mf3 input, .mf3 select, .mf3 textarea {
     @apply block m-0 p-1 border border-slate-300 border-solid leading-5
 }

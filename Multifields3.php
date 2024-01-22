@@ -13,7 +13,7 @@ class Multifields3
      */
     public function getStartScripts(): string
     {
-        return '<script>window["Vue"] || document.write("<script src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>")</script>' .
+        return '<script>window["mf3Config"] = []; window["Vue"] || document.write("<script src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>")</script>' .
             str_replace(
                 MGR_DIR . '/assets/',
                 'assets/',

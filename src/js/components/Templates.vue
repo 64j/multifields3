@@ -44,7 +44,7 @@ export default {
 <template>
   <div class="mf3-templates" v-if="templates">
     <button type="button" class="mf3-templates__add" @click="open"/>
-    <div class="mf3-templates__list">
+    <div v-if="templates.length > 1" class="mf3-templates__list">
       <div v-for="i in templates" @mousedown="select(i['key'])">
         {{ i['title'] || i['key'] }}
       </div>
