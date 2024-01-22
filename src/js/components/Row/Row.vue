@@ -90,6 +90,6 @@ export default {
   @apply content-["..."] block -ml-[1px] rotate-90
 }
 .mf3-row > .mf3-actions .mf3-actions__hide, .mf3-row > .mf3-actions .mf3-actions__expand {
-  @apply left-0
+  @apply left-0 hidden
 }
 </style>
