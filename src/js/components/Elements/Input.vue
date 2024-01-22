@@ -33,7 +33,8 @@ export default {
     'disabled',
     'trueValue',
     'falseValue',
-    'actions'
+    'actions',
+    'modelValue'
   ],
   data () {
     this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
@@ -45,6 +46,30 @@ export default {
   computed: {
     model: {
       set (value) {
+        this.$emit('update:value', value)
+      },
+      get () {
+        switch (this.type) {
+          case 'checkbox':
+            if (this.elements) {
+              if (this.value === undefined) {
+                return []
+              }
+
+              return Array.isArray(this.value) ? this.value : [this.value]
+            } else {
+              if (this.value !== undefined) {
+                return Array.isArray(this.value) ? this.value.toString() : this.value
+              }
+            }
+            break
+        }
+
+        return this.value
+      }
+    },
+    model2: {
+      set (value) {
         let values
 
         if (this.data) {
@@ -55,11 +80,12 @@ export default {
           }
         }
 
+        console.log(value)
+
         this.$emit('update:value', value, values)
       },
       get () {
         switch (this.type) {
-          case 'color':
           case 'checkbox':
             if (this.elements) {
               if (this.value === undefined) {
@@ -95,6 +121,14 @@ export default {
       return attrs
     }
   },
+  // watch: {
+  //   data: {
+  //     handler (data) {
+  //       this.model = [...data.map(i => i.key)]
+  //     },
+  //     deep: true
+  //   }
+  // },
   created () {
     if (this.elements) {
       this.data = []
@@ -120,16 +154,15 @@ export default {
         return
       }
 
-      for (const i of this.elements.split('||')) {
+      this.elements.split('||').forEach((i, k) => {
         const key = i.split('==')[0] ?? null
         const value = i.split('==')[1] ?? null
 
         this.data.push({
-          key: key ?? value,
-          value: value ?? key,
-          selected: (this.value ?? this.default) === (key ?? value)
+          key: this.value?.[k] ?? key ?? value,
+          value: value ?? key
         })
-      }
+      })
 
       return this.data
     }
@@ -138,7 +171,53 @@ export default {
     action (action, values) {
       this.$emit('action', action, values)
     },
-    updateValue (event) {
+    checked (element) {
+      switch (this.type) {
+        case 'checkbox':
+          return this.model.indexOf(element.key) > -1
+
+        default:
+          return this.model === element.value
+      }
+    },
+    onInput (event, element, key) {
+      let model
+      let index
+
+      switch (this.type) {
+        case 'checkbox':
+          model = Object.assign([], this.model || [])
+          index = model.indexOf(element.key)
+
+          if (index > -1) {
+            model.splice(index, 1)
+          } else {
+            model.push(element.key)
+          }
+
+          this.model = model
+          break
+
+        case 'radio':
+          this.model = element.value
+          break
+
+        default:
+          model = []
+
+          this.data.forEach((i, k) => {
+            if (key === k) {
+              i.key = event.target.value
+            }
+
+            model[k] = i.key
+          })
+
+          this.model = model
+          break
+      }
+    },
+    onChange (event) {
       if (['file', 'image'].includes(this.type)) {
         this.$emit('update:value', event.target.value, undefined, this.thumb)
       }
@@ -182,8 +261,7 @@ export default {
       <template v-if="data">
         <loader v-if="loading" class="mf3-loader"/>
         <div v-for="(i, k) in data">
-          <input v-model="model"
-                 :id="id + '-' + k"
+          <input :id="id + '-' + k"
                  :type="inputType"
                  :value="i.key"
                  :list="i.list"
@@ -194,11 +272,13 @@ export default {
                  :step="i.step"
                  :size="i.size"
                  :placeholder="i.placeholder"
-                 :pattern="i.pattern"
+                 :pattern="pattern"
                  :required="i.required"
                  :readonly="i.readonly"
+                 :checked="checked(i)"
                  :disabled="i.disabled"
-                 @change="updateValue">
+                 @input="onInput($event, i, k)"
+                 @change="onChange">
 
           <label v-if="i.value" :for="id + '-' + k">
             {{ i.value }}
@@ -206,8 +286,7 @@ export default {
         </div>
       </template>
       <template v-else>
-        <input v-model="model"
-               :id="id"
+        <input :id="id"
                :type="inputType"
                :list="list"
                :min="min"
@@ -222,7 +301,8 @@ export default {
                :readonly="readonly"
                :disabled="disabled"
                v-bind="bindAttributes"
-               @change="updateValue">
+               v-model="model"
+               @change="onChange">
 
         <button v-if="['file', 'image'].includes(type)" type="button" @click="select">
           <i/>
@@ -242,6 +322,9 @@ export default {
 }
 .mf3-items > div {
   @apply flex items-center w-full
+}
+.mf3-item > .mf3-items > div + div {
+  @apply mt-1
 }
 .mf3-loader {
   @apply relative
