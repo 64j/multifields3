@@ -1,23 +1,6 @@
 {
-  "_vendor.50dea423.js": {
-    "file": "vendor.50dea423.js"
-  },
-  "src/css/mf.css": {
-    "file": "mf.f0e2b7ee.css",
-    "src": "src/css/mf.css"
-  },
-  "src/js/mf.css": {
-    "file": "mf.8fee6eba.css",
-    "src": "src/js/mf.css"
-  },
   "src/js/mf.js": {
-    "css": [
-      "mf.8fee6eba.css"
-    ],
-    "file": "mf.f5237303.js",
-    "imports": [
-      "_vendor.50dea423.js"
-    ],
+    "file": "mf.b332bd4c.js",
     "isEntry": true,
     "src": "src/js/mf.js"
   }

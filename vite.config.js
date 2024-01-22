@@ -7,11 +7,12 @@ export default {
     target: 'esnext',
     manifest: true,
     rollupOptions: {
+      external: ['vue'],
       output: {
-        format: 'module',
-        // globals: {
-        //   vue: 'vue'
-        // },
+        format: 'umd',
+        globals: {
+          vue: 'Vue'
+        },
         chunkFileNames: '[name].[hash].js',
         entryFileNames: '[name].[hash].js',
         assetFileNames: '[name].[hash][extname]',
@@ -19,7 +20,6 @@ export default {
       input: [
         './src/js/mf.js'
       ],
-      // external: ['vue'],
     },
   },
   plugins: [

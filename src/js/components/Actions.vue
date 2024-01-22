@@ -3,17 +3,29 @@ export default {
   name: 'Actions',
   props: {
     actions: {
-      type: [null, Array, Boolean],
+      type: [Array, Boolean],
       default: ['add', 'move', 'del']
+    }
+  },
+  data () {
+    return {
+      data: []
+    }
+  },
+  created () {
+    if (Array.isArray(this.actions)) {
+      this.data = this.actions
+    } else if (this.actions) {
+      this.data = this.$parent.$options.props?.actions?.default ?? this.$options.props.actions.default
     }
   }
 }
 </script>
 
 <template>
-  <div v-if="actions?.length" class="mf3-actions">
-    <div v-if="actions.filter(i => i !== 'add').length" class="mf3-actions__panel" :data-title="$parent['title']"/>
-    <div v-for="i in actions" :class="`mf3-actions__action mf3-actions__` + i" @click.stop="$emit('action', i)">
+  <div v-if="data.length" class="mf3-actions">
+    <div v-if="data.filter(i => i !== 'add').length" class="mf3-actions__panel" :data-title="$parent['title']"/>
+    <div v-for="i in data" :class="`mf3-actions__action mf3-actions__` + i" @click.stop="$emit('action', i)">
       <i/>
       <i/>
     </div>

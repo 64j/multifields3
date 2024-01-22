@@ -14,11 +14,13 @@ export default {
     name: String,
     title: String,
     value: String,
-    actions: Array,
-    elements: [String,Array],
+    actions: {
+      default: ['add', 'move', 'del']
+    },
+    elements: [String, Array],
     multi: Boolean,
     input: String,
-    items: Array,
+    items: Array
   },
   data () {
     return {
@@ -70,7 +72,8 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item mf3-thumb" :class="`mf3-thumb__` + this.type" :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }">
+  <div class="mf3-item mf3-thumb" :class="`mf3-thumb__` + this.type"
+       :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }">
     <actions @action="action" :actions="actions"/>
     <button type="button" @click="select">
       <i/>

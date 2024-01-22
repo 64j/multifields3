@@ -22,7 +22,6 @@ export default {
       default: true
     },
     actions: {
-      type: [Boolean, Array],
       default: ['add', 'move', 'resize', 'hide', 'expand', 'del']
     },
     itemsClass: [String, Array],

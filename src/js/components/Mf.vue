@@ -41,15 +41,16 @@ export default {
           : templates) : {}
 
       elements.forEach(element => {
-        let template = this.templates?.[element.key] ?? templates?.[element.key] ?? null
+        let template = templates?.[element.key] ?? this.templates?.[element.key] ?? null
 
         if (template) {
           template = { ...template }
 
-          const items = template.items || element.items
+          const items = template.items// || element.items
 
           if (items) {
             element.items = this.setElementFromTemplates(element.items || [], items)
+            delete template.items
           }
 
           /*if (template.items) {
@@ -69,8 +70,6 @@ export default {
 
           Object.assign(element, template)
         }
-
-        return element
       })
 
       return elements
@@ -120,6 +119,7 @@ export default {
           mf3Components[name],
           {
             ...element,
+            'itemKey': element.name + '-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36),
             'onAction': (action, ...args) => this.action(action, elements, index, ...args),
             'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args),
@@ -129,13 +129,22 @@ export default {
       )
     },
     action (action, data, index, values) {
+      index ??= data.length
+
       switch (action) {
         case 'del':
           data.splice(index, 1)
           break
 
         case 'add':
-          data.splice(index + 1, 0, this.clearValue({ ...data[index] }))
+          let element = {}
+          if (data[index]['key'] && this.templates[data[index]['key']]) {
+            element = { ...this.templates[data[index]['key']] }
+          } else {
+            element = { ...data[index] }
+          }
+
+          data.splice(index + 1, 0, this.clearValue(element))
 
           if (values) {
             Object.assign(data[index + 1], values)
@@ -170,7 +179,7 @@ export default {
     },
     clearValue (data) {
       if (data.value !== undefined) {
-        data.value = ''
+        data.value = data.value === false ? data.value : ''
       }
 
       if (data.items) {

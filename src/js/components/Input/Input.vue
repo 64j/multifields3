@@ -14,6 +14,7 @@ export default {
     'title',
     'label',
     'value',
+    'values',
     'elements',
     'default',
     'list',
@@ -254,10 +255,10 @@ export default {
   @apply w-auto
 }
 .mf3-item input {
-  @apply order-2 !w-full border
+  @apply order-2 w-full border
 }
 .mf3-item input[type="color"] {
-  @apply !w-7 p-0
+  @apply w-7 p-0
 }
 .mf3-item input[type="color"] + label {
   @apply ml-2
@@ -266,7 +267,10 @@ export default {
   @apply px-0 py-1 appearance-auto outline-none
 }
 .mf3-item input[type="checkbox"], .mf3-item input[type="radio"] {
-  @apply inline-block mr-2 !w-3.5 !h-3.5
+  @apply inline-block mr-2 w-3.5 h-3.5
+}
+.mf3-input__file input, .mf3-input__image input {
+  @apply pr-7
 }
 .mf3-input__file button, .mf3-input__image button {
   @apply absolute z-10 right-1.5 bottom-1.5 h-7 p-0 flex items-center justify-center border-none bg-transparent

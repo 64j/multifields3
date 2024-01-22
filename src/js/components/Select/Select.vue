@@ -7,7 +7,20 @@ export default {
   name: 'mf:select',
   __isStatic: true,
   components: { Loader, Actions },
-  props: ['key', 'type', 'name', 'title', 'value', 'values', 'elements', 'default', 'multiple', 'size', 'load', 'actions'],
+  props: [
+    'key',
+    'type',
+    'name',
+    'title',
+    'value',
+    'values',
+    'elements',
+    'default',
+    'multiple',
+    'size',
+    'load',
+    'actions'
+  ],
   data () {
     return {
       data: this.values && Object.values(this.values).length ? [this.values] : [],
