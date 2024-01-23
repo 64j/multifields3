@@ -140,6 +140,7 @@ export default {
           let element = {}
           if (data[index]['key'] && this.templates[data[index]['key']]) {
             element = { ...this.templates[data[index]['key']] }
+            element.key = data[index]['key']
           } else {
             element = this.clearValue({ ...data[index] })
           }
@@ -174,6 +175,7 @@ export default {
 
         element.items.push(template)
       } else {
+        element.key = template
         this.elements.push(element)
       }
     },

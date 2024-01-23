@@ -46,30 +46,6 @@ export default {
   computed: {
     model: {
       set (value) {
-        this.$emit('update:value', value)
-      },
-      get () {
-        switch (this.type) {
-          case 'checkbox':
-            if (this.elements) {
-              if (this.value === undefined) {
-                return []
-              }
-
-              return Array.isArray(this.value) ? this.value : [this.value]
-            } else {
-              if (this.value !== undefined) {
-                return Array.isArray(this.value) ? this.value.toString() : this.value
-              }
-            }
-            break
-        }
-
-        return this.value
-      }
-    },
-    model2: {
-      set (value) {
         let values
 
         if (this.data) {
@@ -79,8 +55,6 @@ export default {
             values = { ...this.data.filter(i => i.key === value)[0] || {} }
           }
         }
-
-        console.log(value)
 
         this.$emit('update:value', value, values)
       },
@@ -105,7 +79,17 @@ export default {
       }
     },
     inputType () {
-      return ['file', 'image'].includes(this.type) ? 'text' : this.type
+      switch (this.type) {
+        case 'file':
+        case 'image':
+          return 'text'
+
+        case 'datetime':
+          return 'datetime-local'
+
+        default:
+          return this.type
+      }
     },
     bindAttributes () {
       const attrs = {}
@@ -121,14 +105,16 @@ export default {
       return attrs
     }
   },
-  // watch: {
-  //   data: {
-  //     handler (data) {
-  //       this.model = [...data.map(i => i.key)]
-  //     },
-  //     deep: true
-  //   }
-  // },
+  watch: {
+    data: {
+      handler (data) {
+        if (!['radio', 'checkbox'].includes(this.type)) {
+          this.model = [...data.map(i => i.key)]
+        }
+      },
+      deep: true
+    }
+  },
   created () {
     if (this.elements) {
       this.data = []
@@ -157,9 +143,14 @@ export default {
       this.elements.split('||').forEach((i, k) => {
         const key = i.split('==')[0] ?? null
         const value = i.split('==')[1] ?? null
+        let keyData = key ?? value
+
+        if (!['radio', 'checkbox'].includes(this.type) && this.value?.[k] !== undefined) {
+          keyData = this.value[k]
+        }
 
         this.data.push({
-          key: this.value?.[k] ?? key ?? value,
+          key: keyData,
           value: value ?? key
         })
       })
@@ -171,61 +162,15 @@ export default {
     action (action, values) {
       this.$emit('action', action, values)
     },
-    checked (element) {
-      switch (this.type) {
-        case 'checkbox':
-          return this.model.indexOf(element.key) > -1
-
-        default:
-          return this.model === element.value
-      }
-    },
-    onInput (event, element, key) {
-      let model
-      let index
-
-      switch (this.type) {
-        case 'checkbox':
-          model = Object.assign([], this.model || [])
-          index = model.indexOf(element.key)
-
-          if (index > -1) {
-            model.splice(index, 1)
-          } else {
-            model.push(element.key)
-          }
-
-          this.model = model
-          break
-
-        case 'radio':
-          this.model = element.value
-          break
-
-        default:
-          model = []
-
-          this.data.forEach((i, k) => {
-            if (key === k) {
-              i.key = event.target.value
-            }
-
-            model[k] = i.key
-          })
-
-          this.model = model
-          break
-      }
-    },
-    onChange (event) {
+    onChange (event, i, k) {
       if (['file', 'image'].includes(this.type)) {
-        this.$emit('update:value', event.target.value, undefined, this.thumb)
+        i.key = event.target.value
       }
     },
     select (event) {
       if (this.type === 'image') {
         BrowseServer(event.target.previousElementSibling.id)
-        if (this.multi) {
+        if (this.multi || this.elements) {
           this.MultiBrowseServer()
         }
       } else if (this.type === 'file') {
@@ -240,10 +185,16 @@ export default {
           clearInterval(this.interval)
           window.KCFinder.callBackMultiple = (files) => {
             window.KCFinder = null
-            window.SetUrl(files.shift())
+            if (self.elements) {
+              for (let i in files) {
+                self.data[i].key = files[i]
+              }
+            } else {
+              window.SetUrl(files.shift())
 
-            for (let i of files) {
-              self.action('add', { value: i })
+              for (let i of files) {
+                self.action('add', { value: i })
+              }
             }
           }
         }
@@ -261,24 +212,40 @@ export default {
       <template v-if="data">
         <loader v-if="loading" class="mf3-loader"/>
         <div v-for="(i, k) in data">
-          <input :id="id + '-' + k"
-                 :type="inputType"
-                 :value="i.key"
-                 :list="i.list"
-                 :min="i.min"
-                 :max="i.max"
-                 :minlength="i.minlength"
-                 :maxlength="i.maxlength"
-                 :step="i.step"
-                 :size="i.size"
-                 :placeholder="i.placeholder"
-                 :pattern="pattern"
-                 :required="i.required"
-                 :readonly="i.readonly"
-                 :checked="checked(i)"
-                 :disabled="i.disabled"
-                 @input="onInput($event, i, k)"
-                 @change="onChange">
+          <template v-if="['radio', 'checkbox'].includes(type)">
+            <input :id="id + '-' + k"
+                   :type="type"
+                   :value="i.key"
+                   :placeholder="i.placeholder"
+                   :required="i.required"
+                   :readonly="i.readonly"
+                   :disabled="i.disabled"
+                   v-model="model"
+                   :data-type="type">
+          </template>
+          <template v-else>
+            <input :id="id + '-' + k"
+                   :type="inputType"
+                   :value="i.key"
+                   :list="i.list"
+                   :min="i.min"
+                   :max="i.max"
+                   :minlength="i.minlength"
+                   :maxlength="i.maxlength"
+                   :step="i.step"
+                   :size="i.size"
+                   :placeholder="i.placeholder"
+                   :pattern="pattern"
+                   :required="i.required"
+                   :readonly="i.readonly"
+                   :disabled="i.disabled"
+                   v-model="i.key"
+                   @change="onChange($event, i, k)">
+
+            <button v-if="['file', 'image'].includes(type)" type="button" @click="select">
+              <i/>
+            </button>
+          </template>
 
           <label v-if="i.value" :for="id + '-' + k">
             {{ i.value }}
@@ -321,7 +288,7 @@ export default {
   @apply flex-wrap
 }
 .mf3-items > div {
-  @apply flex items-center w-full
+  @apply relative flex items-center w-full
 }
 .mf3-item > .mf3-items > div + div {
   @apply mt-1
@@ -330,10 +297,7 @@ export default {
   @apply relative
 }
 .mf3-item label {
-  @apply order-3 m-0 inline-flex items-center
-}
-.mf3-input__file label, .mf3-input__image label {
-  @apply order-1 grow p-1 -m-1 mb-1 bg-slate-500/5 truncate
+  @apply order-3 m-0 shrink-0 inline-flex items-center
 }
 .mf3-input__checkbox label, .mf3-input__radio label {
   @apply w-auto
@@ -343,6 +307,9 @@ export default {
 }
 .mf3-item input[type="date"] {
   @apply !w-full
+}
+.mf3-item > .mf3-items > div > input ~ label {
+  @apply order-1 mr-2
 }
 .mf3-item input[type="color"] {
   @apply w-7 p-0
@@ -361,6 +328,9 @@ export default {
 }
 .mf3-input__file button, .mf3-input__image button {
   @apply absolute z-10 right-1.5 bottom-1.5 h-7 p-0 flex items-center justify-center border-none bg-transparent
+}
+.mf3-input__file > .mf3-items > div button, .mf3-input__image > .mf3-items > div button {
+  @apply right-0 top-0
 }
 .mf3-input__file button::before {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
