@@ -29,7 +29,7 @@ export default {
     }
   },
   methods: {
-    open () {
+    open (event) {
       if (this.templates.length === 1) {
         this.select(this.templates[0].key)
       }
@@ -43,8 +43,8 @@ export default {
 
 <template>
   <div class="mf3-templates" v-if="templates">
-    <button type="button" class="mf3-templates__add" @click="open"/>
-    <div v-if="templates.length > 1" class="mf3-templates__list">
+    <button type="button" class="mf3-templates__add" @mousedown="open"/>
+    <div v-if="templates.length > 1" class="mf3-templates__list" ref="list">
       <div v-for="i in templates" @mousedown="select(i['key'])">
         {{ i['title'] || i['key'] }}
       </div>
@@ -54,7 +54,7 @@ export default {
 
 <style scoped>
 .mf3-templates {
-  @apply absolute left-1 top-1 right-1 bottom-1 flex items-center justify-center opacity-0 invisible
+  @apply absolute left-0 right-0 bottom-1 flex items-center justify-center opacity-0 invisible
 }
 .mf3-templates__add {
   @apply absolute w-4 h-4 p-0 z-10 flex items-center justify-center -bottom-2 bg-green-500 border-none rounded-full cursor-pointer
@@ -69,7 +69,7 @@ export default {
   @apply rotate-90
 }
 .mf3-templates__list {
-  @apply absolute z-20 top-5 w-52 max-h-52 overflow-auto py-1 bg-white text-gray-900 rounded shadow-lg invisible opacity-0
+  @apply absolute z-20 mt-3 w-52 max-h-52 overflow-auto py-1 bg-white text-gray-900 rounded shadow-lg invisible opacity-0
 }
 .mf3-templates__add:focus + .mf3-templates__list {
   @apply visible opacity-100

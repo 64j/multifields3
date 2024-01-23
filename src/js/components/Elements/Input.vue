@@ -48,11 +48,13 @@ export default {
       set (value) {
         let values
 
-        if (this.data) {
-          if (Array.isArray(value)) {
-            values = [...this.data.filter(i => value.includes(i.key))]
-          } else {
-            values = { ...this.data.filter(i => i.key === value)[0] || {} }
+        if (this.type === 'checkbox') {
+          if (this.data) {
+            if (Array.isArray(value)) {
+              values = [...this.data.filter(i => value.includes(i.key))]
+            } else {
+              values = { ...this.data.filter(i => i.key === value)[0] || {} }
+            }
           }
         }
 
@@ -82,6 +84,7 @@ export default {
       switch (this.type) {
         case 'file':
         case 'image':
+        case 'datepicker':
           return 'text'
 
         case 'datetime':
@@ -89,6 +92,14 @@ export default {
 
         default:
           return this.type
+      }
+    },
+    inputClass () {
+      if (this.elements) {
+        switch (this.type) {
+          case 'datepicker':
+            return 'DatePicker'
+        }
       }
     },
     bindAttributes () {
@@ -158,12 +169,33 @@ export default {
       return this.data
     }
   },
+  mounted () {
+    if (this.type === 'datepicker') {
+      this.$el.querySelectorAll('input.DatePicker').forEach(i => {
+        let format = i.getAttribute('data-format')
+        const datepicker = new DatePicker(i, {
+          yearOffset: dpOffset,
+          format: format !== null ? format : dpformat,
+          dayNames: dpdayNames,
+          monthNames: dpmonthNames,
+          startDay: dpstartDay
+        })
+
+        const updateValue = datepicker.constructor.updateValue
+
+        datepicker.constructor.updateValue = (input) => {
+          updateValue.call(datepicker.constructor, input)
+          input.dispatchEvent(new Event('change'))
+        }
+      })
+    }
+  },
   methods: {
     action (action, values) {
       this.$emit('action', action, values)
     },
     onChange (event, i, k) {
-      if (['file', 'image'].includes(this.type)) {
+      if (['file', 'image', 'datepicker'].includes(this.type)) {
         i.key = event.target.value
       }
     },
@@ -239,6 +271,7 @@ export default {
                    :required="i.required"
                    :readonly="i.readonly"
                    :disabled="i.disabled"
+                   :class="inputClass"
                    v-model="i.key"
                    @change="onChange($event, i, k)">
 
@@ -309,7 +342,10 @@ export default {
   @apply !w-full
 }
 .mf3-item > .mf3-items > div > input ~ label {
-  @apply order-1 mr-2
+  @apply order-1 mr-2 min-w-20
+}
+.mf3-item.mf3-input__checkbox > .mf3-items > div > input ~ label, .mf3-item.mf3-input__radio > .mf3-items > div > input ~ label, .mf3-item.mf3-input__color > .mf3-items > div > input ~ label {
+  @apply order-3 mr-0 min-w-fit
 }
 .mf3-item input[type="color"] {
   @apply w-7 p-0
