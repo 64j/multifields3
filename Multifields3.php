@@ -13,27 +13,22 @@ class Multifields3
      */
     public function getStartScripts(): string
     {
-        $hot = MODX_BASE_PATH . 'assets/plugins/multifields3/hot';
-        $version = !file_exists($hot) ? filemtime(MODX_BASE_PATH . 'assets/plugins/multifields3/dist/mf.js') : 1;
+        $path = str_replace(MODX_BASE_PATH, '', str_replace(DIRECTORY_SEPARATOR, '/', __DIR__));
+        $out = '<script>window["mf3Config"] = []; window["Vue"] || document.write("<script src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>")</script>';
 
-        return '<script>window["mf3Config"] = []; window["Vue"] || document.write("<script src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>")</script>' .
-            (file_exists($hot)
-                ? str_replace(
-                MGR_DIR . '/assets/',
-                'assets/',
-                Vite::useManifestFilename('manifest.json')
-                    ->useHotFile($hot)
-                    ->useBuildDirectory('assets/plugins/multifields3/dist')
-                    ->withEntryPoints([
-                        'src/js/mf.js',
-                    ])
-                    ->toHtml()
-                )
-                : '<link rel="modulepreload" href="' . MODX_SITE_URL . 'assets/plugins/multifields3/dist/mf.js?v=' .
-                $version .
-                '"><script type="module" src="' . MODX_SITE_URL . '/assets/plugins/multifields3/dist/mf.js?v=' .
-                $version .
-                '"></script>');
+        if (file_exists($hot = MODX_BASE_PATH . $path . '/hot')) {
+            $v = '?v=' . time();
+            $hot = trim(file_get_contents($hot));
+            $out .= '<script type="module" src="' . $hot . '/@vite/client"></script>';
+            $out .= '<script type="module" src="' . $hot . '/src/js/mf.js'. $v .'"></script>';
+        } else {
+            $script = $path . '/dist/mf.js';
+            $v = '?v=' . filemtime(MODX_BASE_PATH . $script);
+            $out .= '<link rel="modulepreload" href="' . MODX_SITE_URL . $script . $v . '">';
+            $out .= '<script type="module" src="' . MODX_SITE_URL . $script . $v . '"></script>';
+        }
+
+        return $out;
     }
 
     /**

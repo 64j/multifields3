@@ -4,21 +4,589 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>MF3</title>
-    <script type="module" src="./src/js/mf3.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../../manager/media/style/default/css/styles.min.css?v=3.3.1"/>
+    <script>
+      window['mf3Config'] = []
+      window['Vue'] || document.write('<script src=//unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>')
+    </script>
+    <link rel="modulepreload" href="./dist/mf.js">
+    <script type="module" src="./dist/mf.js"></script>
+    <style>
+        .container {
+            min-width: 1140px;
+        }
+    </style>
 </head>
-<body style="padding: 2rem;">
+<body>
 
-<textarea class="mf3-data" data-id="mf0" data-tv-name="mf0"
-          style="display: none">[{"name":"select","type":"select"},{"name":"row","type":"row","templates":["text"],"value":"123","items":[{"type":"textarea"},{"type":"file","value":""},{"type":"image","value":""},{"type":"input:time","value":""},{"type":"input:number","value":""},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_234938.jpg"}]}]</textarea>
+<div class="container py-3">
+    <div class="row">
+        <div class="col">
+            <h1 class="h1 p-0 mb-3">Configuration Multifields 3</h1>
+            <h2 class="mb-3" id="mf3:elements">Elements</h2>
 
-<textarea class="mf3-data" data-id="mf1" data-tv-name="mf1"
-          style="display: none">[{"type":"thumb","name":"video","title":"Видео","value":"assets/images/gallery/1647298568_15-vsegda-pomnim-com-p-ozero-kuito-foto-15.jpg","items":[{"type":"thumb:image","name":"thumb","thumb":"video","value":"assets/images/gallery/1647298568_15-vsegda-pomnim-com-p-ozero-kuito-foto-15.jpg"},{"type":"file","name":"url","value":"https://www.youtube.com/embed/zBdqSSyHJrU"}]},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/1647298571_7-vsegda-pomnim-com-p-ozero-kuito-foto-7.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/1649115527_28-vsegda-pomnim-com-p-kareliya-priroda-dostoprimechatelnosti-fot-28.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/2018-09-07-12-43-10.JPG"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/2018-09-07-19-32-00.JPG"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/672781_main.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/766864_main.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_184529.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_193035.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_193711.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_193956.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_205310.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_220101.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_232127.jpg"},{"type":"thumb:image","name":"image","multi":"image","value":"assets/images/gallery/img_20220727_234938.jpg"}]</textarea>
 
-<textarea class="mf3-data" data-id="mf2" data-tv-name="mf2"
-          style="display: none"></textarea>
+            <h3 class="mb-4">Name: <strong id="mf3:input">input</strong></h3>
 
-<textarea class="mf3-data" data-id="mf3" data-tv-name="mf3"
-          style="display: none"></textarea>
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:text">text</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-text'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'text',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'text',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-text" data-tv-name="input-text" style="display: none" rows="4">[{"name":"input","type":"text","key":"item"},{"name":"input","type":"text","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-text-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:number">number</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-number'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'number',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'number',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-number" data-tv-name="input-number" style="display: none" rows="4">[{"name":"input","type":"number","key":"item"},{"name":"input","type":"number","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-number-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:tel">tel</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-tel'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'tel',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'tel',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-tel" data-tv-name="input-tel" style="display: none" rows="4">[{"name":"input","type":"tel","key":"item"},{"name":"input","type":"tel","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-tel-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:email">email</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-email'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'email',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'email',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-email" data-tv-name="input-email" style="display: none" rows="4">[{"name":"input","type":"email","key":"item"},{"name":"input","type":"email","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-email-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:url">url</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-url'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'url',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'url',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-url" data-tv-name="input-url" style="display: none" rows="4">[{"name":"input","type":"url","key":"item"},{"name":"input","type":"url","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-url-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:date">date</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-date'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'date',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'date',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-date" data-tv-name="input-date" style="display: none" rows="4">[{"name":"input","type":"date","key":"item"},{"name":"input","type":"date","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-date-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:time">time</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-time'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'time',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'time',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-time" data-tv-name="input-time" style="display: none" rows="4">[{"name":"input","type":"time","key":"item"},{"name":"input","type":"time","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-time-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:datetime">datetime</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-datetime'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'date',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'date',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-datetime" data-tv-name="input-datetime" style="display: none" rows="4">[{"name":"input","type":"datetime","key":"item"},{"name":"input","type":"datetime","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-datetime-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:datepicker">datepicker</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-datepicker'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'datepicker',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...',
+                        readonly: true
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'datepicker',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3',
+                        readonly: true
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-datepicker" data-tv-name="input-datepicker" style="display: none" rows="4">[{"name":"input","type":"datepicker","key":"item"},{"name":"input","type":"datepicker","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-datepicker-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:checkbox">checkbox</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-checkbox'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'checkbox',
+                        label: 'Item',
+                        title: 'Item'
+                      },
+                      item_checked: {
+                        name: 'input',
+                        type: 'checkbox',
+                        label: 'Item checked',
+                        title: 'Item checked',
+                        value: 1,
+                        trueValue: 1,
+                        falseValue: 0
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'checkbox',
+                        label: 'Items',
+                        title: 'Items',
+                        elements: '1==Item 1||2==Item 2||3==Item 3'
+                      },
+                      items_checked: {
+                        name: 'input',
+                        type: 'checkbox',
+                        label: 'Items checked',
+                        title: 'Items checked',
+                        elements: '1==Item 1||2==Item 2||3==Item 3',
+                        value: [1, 2, 3]
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-checkbox" data-tv-name="input-checkbox" style="display: none"
+                          rows="4">[{"name":"input","type":"checkbox","key":"item"},{"name":"input","type":"checkbox","value":1,"key":"item_checked"},{"name":"input","type":"checkbox","key":"items"},{"name":"input","type":"checkbox","value":[1,2,3],"key":"items_checked"}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-checkbox-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:radio">radio</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-radio'] = {
+                    templates: {
+                      items: {
+                        name: 'input',
+                        type: 'radio',
+                        label: 'Items',
+                        title: 'Items',
+                        elements: '1==Item 1||2==Item 2||3==Item 3',
+                        value: 2
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-radio" data-tv-name="input-radio" style="display: none"
+                          rows="4">[{"name":"input","type":"radio","value":2,"key":"items"}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-radio-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:color">color</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-color'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'color',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'color',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '#0091ff==Item 1||#ff004c==Item 2||#ffbb00==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-color" data-tv-name="input-color" style="display: none"
+                          rows="4">[{"name":"input","type":"color","key":"item"},{"name":"input","type":"color","key":"items","value":["#0091ff","#ff004c","#ffbb00"]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-color-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:range">range</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-range'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'range',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...',
+                        value: 0
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'range',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '0==Item 1||50==Item 2||100==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-range" data-tv-name="input-range" style="display: none"
+                          rows="4">[{"name":"input","type":"range","value":0,"key":"item"},{"name":"input","type":"range","key":"items","value":["0","50","100"]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-range-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:image">image</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-image'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'image',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'image',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-image" data-tv-name="input-image" style="display: none"
+                          rows="4">[{"name":"input","type":"image","key":"item"},{"name":"input","type":"image","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-image-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+
+            <div class="mb-5">
+                <h4>Type:
+                    <strong id="mf3:input:file">file</strong>
+                </h4>
+
+                <script>
+                  window['mf3Config']['input-file'] = {
+                    templates: {
+                      item: {
+                        name: 'input',
+                        type: 'file',
+                        label: 'Item',
+                        title: 'Item',
+                        placeholder: '...'
+                      },
+                      items: {
+                        name: 'input',
+                        type: 'file',
+                        label: 'Items',
+                        title: 'Items',
+                        placeholder: '...',
+                        elements: '==Item 1||==Item 2||==Item 3'
+                      }
+                    }
+                  }
+                </script>
+                <textarea class="mf3-data" data-tv-id="input-file" data-tv-name="input-file" style="display: none"
+                          rows="4">[{"name":"input","type":"file","key":"item"},{"name":"input","type":"file","key":"items","value":["","",""]}]</textarea>
+
+                <h4>Config:</h4>
+                <pre id="input-file-config" class="border p-2 bg-white rounded"></pre>
+            </div>
+        </div>
+
+        <div class="col-auto" style="width: 10rem">
+            <div class="position-sticky" style="top: 1rem">
+                Elements
+                <ul>
+                    <li>
+                        <a href="#mf3:input">input</a>
+                        <ul>
+                            <li><a href="#mf3:input:text">text</a></li>
+                            <li><a href="#mf3:input:number">number</a></li>
+                            <li><a href="#mf3:input:tel">tel</a></li>
+                            <li><a href="#mf3:input:email">email</a></li>
+                            <li><a href="#mf3:input:url">url</a></li>
+                            <li><a href="#mf3:input:date">date</a></li>
+                            <li><a href="#mf3:input:time">time</a></li>
+                            <li><a href="#mf3:input:datetime">datetime</a></li>
+                            <li><a href="#mf3:input:datepicker">datepicker</a></li>
+                            <li><a href="#mf3:input:checkbox">checkbox</a></li>
+                            <li><a href="#mf3:input:radio">radio</a></li>
+                            <li><a href="#mf3:input:color">color</a></li>
+                            <li><a href="#mf3:input:range">range</a></li>
+                            <li><a href="#mf3:input:image">image</a></li>
+                            <li><a href="#mf3:input:file">file</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  for (const k in window['mf3Config']) {
+    const pre = document.querySelector('#' + k + '-config')
+
+    if (pre) {
+      pre.innerHTML = JSON.stringify(window['mf3Config'][k], null, 4)
+    }
+  }
+</script>
+
+<script src="../../../manager/media/calendar/datepicker.js"></script>
+<script>
+  var dpOffset = -10;
+  var dpformat = 'dd-mm-YYYY hh:mm:00';
+  var dpdayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
+  var dpmonthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+  var dpstartDay = 1;
+  var DatePickers = document.querySelectorAll('input.DatePicker');
+  if(DatePickers) {
+    for(var i = 0; i < DatePickers.length; i++) {
+      let format = DatePickers[i].getAttribute("data-format");
+      new DatePicker(DatePickers[i], {
+        yearOffset: dpOffset,
+        format: format !== null ? format : dpformat,
+        dayNames: dpdayNames,
+        monthNames: dpmonthNames,
+        startDay: dpstartDay
+      });
+    }
+  }
+</script>
 
 </body>
 </html>

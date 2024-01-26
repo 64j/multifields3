@@ -40,8 +40,7 @@ export default {
     this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
     return {
       data: null,
-      loading: false,
-      showValue: this.elements && ['color', 'range'].includes(this.type)
+      loading: false
     }
   },
   computed: {
@@ -96,11 +95,9 @@ export default {
       }
     },
     inputClass () {
-      if (this.elements) {
-        switch (this.type) {
-          case 'datepicker':
-            return 'DatePicker'
-        }
+      switch (this.type) {
+        case 'datepicker':
+          return 'DatePicker'
       }
     },
     bindAttributes () {
@@ -115,6 +112,15 @@ export default {
       }
 
       return attrs
+    },
+    showValue () {
+      switch (this.type) {
+        case 'color':
+          return true
+
+        case 'range':
+          return !!this.elements
+      }
     }
   },
   watch: {
@@ -172,23 +178,25 @@ export default {
   },
   mounted () {
     if (this.type === 'datepicker') {
-      this.$el.querySelectorAll('input.DatePicker').forEach(i => {
-        let format = i.getAttribute('data-format')
-        const datepicker = new DatePicker(i, {
-          yearOffset: dpOffset,
-          format: format !== null ? format : dpformat,
-          dayNames: dpdayNames,
-          monthNames: dpmonthNames,
-          startDay: dpstartDay
+      if (window['DatePicker']) {
+        this.$el.querySelectorAll('input.DatePicker').forEach(i => {
+          let format = i.getAttribute('data-format')
+          const datepicker = new DatePicker(i, {
+            yearOffset: dpOffset,
+            format: format !== null ? format : dpformat,
+            dayNames: dpdayNames,
+            monthNames: dpmonthNames,
+            startDay: dpstartDay
+          })
+
+          const updateValue = datepicker.constructor.updateValue
+
+          datepicker.constructor.updateValue = (input) => {
+            updateValue.call(datepicker.constructor, input)
+            input.dispatchEvent(new Event('change'))
+          }
         })
-
-        const updateValue = datepicker.constructor.updateValue
-
-        datepicker.constructor.updateValue = (input) => {
-          updateValue.call(datepicker.constructor, input)
-          input.dispatchEvent(new Event('change'))
-        }
-      })
+      }
     }
   },
   methods: {
@@ -196,8 +204,10 @@ export default {
       this.$emit('action', action, values)
     },
     onChange (event, i, k) {
-      if (['file', 'image', 'datepicker'].includes(this.type)) {
-        i.key = event.target.value
+      if (this.elements) {
+        if (['file', 'image', 'datepicker'].includes(this.type)) {
+          i.key = event.target.value
+        }
       }
     },
     select (event) {
@@ -263,7 +273,9 @@ export default {
                    :minlength="minlength"
                    :maxlength="maxlength"
                    :required="required"
+                   :readonly="readonly"
                    :pattern="pattern"
+                   :placeholder="placeholder"
                    :class="inputClass"
                    v-model="i.key"
                    @change="onChange($event, i, k)">
@@ -305,6 +317,7 @@ export default {
 
         <label v-if="label" :for="id">
           <span>{{ label }}</span>
+          <span v-if="showValue && !(value === undefined || value === '')">{{ value }}</span>
         </label>
       </template>
     </div>
@@ -336,20 +349,23 @@ export default {
 .mf3-item input[type="date"] {
   @apply !w-full
 }
+.mf3-item > .mf3-items > input ~ label {
+  @apply order-1
+}
 .mf3-item > .mf3-items > div > input ~ label {
   @apply order-1 mr-2 min-w-20
 }
-.mf3-item > .mf3-items > div > input ~ label span {
+.mf3-item > .mf3-items > div > input ~ label span, .mf3-item > .mf3-items input ~ label span {
   @apply first:mr-2 first:opacity-100 opacity-75
 }
-.mf3-item.mf3-input__checkbox > .mf3-items > div > input ~ label, .mf3-item.mf3-input__radio > .mf3-items > div > input ~ label, .mf3-item.mf3-input__color > .mf3-items > div > input ~ label {
+.mf3-item.mf3-input__checkbox > .mf3-items input ~ label, .mf3-item.mf3-input__radio > .mf3-items input ~ label, .mf3-item.mf3-input__color > .mf3-items > div > input ~ label {
   @apply order-3 mr-0 min-w-fit
 }
 .mf3-item input[type="color"] {
   @apply w-7 p-0
 }
 .mf3-item input[type="color"] + label {
-  @apply ml-2
+  @apply ml-2 order-3
 }
 .mf3-item input[type="range"] {
   @apply px-0 py-1 appearance-auto outline-none
@@ -361,10 +377,10 @@ export default {
   @apply pr-7
 }
 .mf3-input__file button, .mf3-input__image button {
-  @apply absolute z-10 right-1.5 bottom-1.5 h-7 p-0 flex items-center justify-center border-none bg-transparent
+  @apply absolute z-10 right-0.5 bottom-1 h-7 p-0 flex items-center justify-center border-none bg-transparent
 }
 .mf3-input__file > .mf3-items > div button, .mf3-input__image > .mf3-items > div button {
-  @apply right-0 top-0
+  @apply -right-0.5 top-0
 }
 .mf3-input__file button::before {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
