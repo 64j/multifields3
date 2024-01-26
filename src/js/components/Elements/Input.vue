@@ -40,7 +40,8 @@ export default {
     this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
     return {
       data: null,
-      loading: false
+      loading: false,
+      showValue: this.elements && ['color', 'range'].includes(this.type)
     }
   },
   computed: {
@@ -248,29 +249,21 @@ export default {
             <input :id="id + '-' + k"
                    :type="type"
                    :value="i.key"
-                   :placeholder="i.placeholder"
                    :required="i.required"
-                   :readonly="i.readonly"
-                   :disabled="i.disabled"
-                   v-model="model"
-                   :data-type="type">
+                   v-model="model">
           </template>
           <template v-else>
             <input :id="id + '-' + k"
                    :type="inputType"
                    :value="i.key"
-                   :list="i.list"
-                   :min="i.min"
-                   :max="i.max"
-                   :minlength="i.minlength"
-                   :maxlength="i.maxlength"
-                   :step="i.step"
-                   :size="i.size"
-                   :placeholder="i.placeholder"
+                   :min="min"
+                   :max="max"
+                   :step="step"
+                   :size="size"
+                   :minlength="minlength"
+                   :maxlength="maxlength"
+                   :required="required"
                    :pattern="pattern"
-                   :required="i.required"
-                   :readonly="i.readonly"
-                   :disabled="i.disabled"
                    :class="inputClass"
                    v-model="i.key"
                    @change="onChange($event, i, k)">
@@ -281,25 +274,27 @@ export default {
           </template>
 
           <label v-if="i.value" :for="id + '-' + k">
-            {{ i.value }}
+            <span>{{ i.value }}</span>
+            <span v-if="showValue && !(i.key === undefined || i.key === '')">{{ i.key }}</span>
           </label>
         </div>
       </template>
       <template v-else>
         <input :id="id"
                :type="inputType"
-               :list="list"
                :min="min"
                :max="max"
-               :minlength="minlength"
-               :maxlength="maxlength"
                :step="step"
                :size="size"
-               :placeholder="placeholder"
-               :pattern="pattern"
+               :minlength="minlength"
+               :maxlength="maxlength"
                :required="required"
                :readonly="readonly"
                :disabled="disabled"
+               :pattern="pattern"
+               :placeholder="placeholder"
+               :list="list"
+               :class="inputClass"
                v-bind="bindAttributes"
                v-model="model"
                @change="onChange">
@@ -309,7 +304,7 @@ export default {
         </button>
 
         <label v-if="label" :for="id">
-          {{ label }}
+          <span>{{ label }}</span>
         </label>
       </template>
     </div>
@@ -343,6 +338,9 @@ export default {
 }
 .mf3-item > .mf3-items > div > input ~ label {
   @apply order-1 mr-2 min-w-20
+}
+.mf3-item > .mf3-items > div > input ~ label span {
+  @apply first:mr-2 first:opacity-100 opacity-75
 }
 .mf3-item.mf3-input__checkbox > .mf3-items > div > input ~ label, .mf3-item.mf3-input__radio > .mf3-items > div > input ~ label, .mf3-item.mf3-input__color > .mf3-items > div > input ~ label {
   @apply order-3 mr-0 min-w-fit

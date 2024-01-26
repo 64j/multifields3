@@ -35,9 +35,9 @@ export default {
         globals: {
           vue: 'Vue'
         },
-        chunkFileNames: '[name].[hash].js',
-        entryFileNames: '[name].[hash].js',
-        assetFileNames: '[name].[hash][extname]'
+        chunkFileNames: '[name].js',
+        entryFileNames: '[name].js',
+        assetFileNames: '[name].[extname]'
       },
       input: [
         './src/js/mf.js'

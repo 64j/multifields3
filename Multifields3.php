@@ -13,18 +13,27 @@ class Multifields3
      */
     public function getStartScripts(): string
     {
+        $hot = MODX_BASE_PATH . 'assets/plugins/multifields3/hot';
+        $version = !file_exists($hot) ? filemtime(MODX_BASE_PATH . 'assets/plugins/multifields3/dist/mf.js') : 1;
+
         return '<script>window["mf3Config"] = []; window["Vue"] || document.write("<script src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>")</script>' .
-            str_replace(
+            (file_exists($hot)
+                ? str_replace(
                 MGR_DIR . '/assets/',
                 'assets/',
                 Vite::useManifestFilename('manifest.json')
-                    ->useHotFile(MODX_BASE_PATH . 'assets/plugins/multifields3/hot')
+                    ->useHotFile($hot)
                     ->useBuildDirectory('assets/plugins/multifields3/dist')
                     ->withEntryPoints([
                         'src/js/mf.js',
                     ])
                     ->toHtml()
-            );
+                )
+                : '<link rel="modulepreload" href="' . MODX_SITE_URL . 'assets/plugins/multifields3/dist/mf.js?v=' .
+                $version .
+                '"><script type="module" src="' . MODX_SITE_URL . '/assets/plugins/multifields3/dist/mf.js?v=' .
+                $version .
+                '"></script>');
     }
 
     /**
