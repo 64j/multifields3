@@ -8,12 +8,14 @@ export default {
   __isStatic: true,
   components: { Loader, Actions },
   props: {
-    key: String,
+    name: {
+      type: String,
+      required: true
+    },
     type: String,
-    name: String,
     title: [String, Number],
     label: [String, Number],
-    value: [String, Number, Array],
+    value: [null, String, Number, Array],
     values: Array,
     elements: [String, Array],
     default: [String, Number, Array],
@@ -216,12 +218,20 @@ export default {
     },
     select (event) {
       if (this.type === 'image') {
-        BrowseServer(event.target.previousElementSibling.id)
-        if (this.multi || this.elements) {
-          this.MultiBrowseServer()
+        if (top['modx']) {
+          BrowseServer(event.target.previousElementSibling.id)
+          if (this.multi || this.elements) {
+            this.MultiBrowseServer()
+          }
+        } else {
+          alert('Modx not found!')
         }
       } else if (this.type === 'file') {
-        BrowseFileServer(event.target.previousElementSibling.id)
+        if (top['modx']) {
+          BrowseFileServer(event.target.previousElementSibling.id)
+        } else {
+          alert('Modx not found!')
+        }
       } else if (this.type === 'datepicker') {
         event.target.previousElementSibling.value = ''
         event.target.previousElementSibling.dispatchEvent(new Event('change'))

@@ -119,7 +119,6 @@ export default {
           mf3Elements[name],
           {
             ...element,
-            'itemKey': element.name + '-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36),
             'onAction': (action, ...args) => this.action(action, elements, index, ...args),
             'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args),

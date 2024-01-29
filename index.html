@@ -36,721 +36,726 @@
 
 <div class="container py-3">
     <div class="row">
-        <div class="col">
-            <h1 class="px-0">Configuration Multifields 3</h1>
+        <div class="col pr-0">
+            <h1 class="px-0">Multifields 3</h1>
 
-            <h2 id="mf3:elements">
-                <a>Elements</a>
-            </h2>
-
-            <h3 id="mf3:input">
-                <a>Name: <strong>input</strong></a>
-            </h3>
-
-            <div class="mb-5">
-                <h4 id="mf3:input:options">
-                    <a>Available options:</a>
-                </h4>
-
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>name</th>
-                        <th>type</th>
-                        <th>default</th>
-                        <th>description</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th>key</th>
-                        <td>string</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>name</th>
-                        <td>string</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>type</th>
-                        <td>string</td>
-                        <td>text</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>title</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>label</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>value</th>
-                        <td>string|number|array</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>elements</th>
-                        <td>array</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>actions</th>
-                        <td>boolean|array</td>
-                        <td>['add', 'move', 'del']</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>placeholder</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>pattern</th>
-                        <td>string</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>required</th>
-                        <td>bool</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>readonly</th>
-                        <td>bool</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>disabled</th>
-                        <td>bool</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>trueValue</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>falseValue</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>default</th>
-                        <td>string|number|array</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>min</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>max</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>minlength</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>maxlength</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>size</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <th>step</th>
-                        <td>string|number</td>
-                        <td>undefined</td>
-                        <td></td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div>
+                <h2 id="mf3:configuration">
+                    <a>Файл конфигурации</a>
+                </h2>
             </div>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:text">
-                    <a>Type: <strong>text</strong></a>
-                </h4>
+            <div>
+                <h2 id="mf3:elements">
+                    <a>Элементы</a>
+                </h2>
 
-                <script>
-                  window['mf3Config']['input-text'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'text',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'text',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-text" data-tv-name="input-text" style="display: none" rows="4">[{"name":"input","type":"text","key":"item"},{"name":"input","type":"text","key":"items","value":["","",""]}]</textarea>
+                <div>
+                    <h3 id="mf3:input">
+                        <a><strong>input</strong></a>
+                    </h3>
 
-                <h4 id="mf3:input:text:config">
-                    <a>Config: <strong>text</strong></a>
-                </h4>
-                <pre id="input-text-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                    <div>
+                        <div class="mb-5">
+                            <h5 id="mf3:input:options">
+                                <a>Доступные параметры:</a>
+                            </h5>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:number">
-                    <a>Type: <strong>number</strong></a>
-                </h4>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Тип</th>
+                                    <th>Значение по умолчанию</th>
+                                    <th>Описание</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th><code>key</code></th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>name</code></th>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>type</code></th>
+                                    <td>строка</td>
+                                    <td>text</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>title</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>label</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>value</code></th>
+                                    <td>строка | число | булево | массив</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>elements</code></th>
+                                    <td>массив</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>actions</code></th>
+                                    <td>булево | массив</td>
+                                    <td>['add', 'move', 'del']</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>placeholder</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>pattern</code></th>
+                                    <td>строка</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>required</code></th>
+                                    <td>булево</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>readonly</code></th>
+                                    <td>булево</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>disabled</code></th>
+                                    <td>булево</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>trueValue</code></th>
+                                    <td>строка | число | булево</td>
+                                    <td>неопределенно</td>
+                                    <td>Только для чекбокса</td>
+                                </tr>
+                                <tr>
+                                    <th><code>falseValue</code></th>
+                                    <td>строка | число | булево</td>
+                                    <td>неопределенно</td>
+                                    <td>Только для чекбокса</td>
+                                </tr>
+                                <tr>
+                                    <th><code>default</code></th>
+                                    <td>строка | число | массив</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>min</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>max</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>minlength</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>maxlength</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>size</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <th><code>step</code></th>
+                                    <td>строка | число</td>
+                                    <td>неопределенно</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-number'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'number',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'number',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-number" data-tv-name="input-number" style="display: none" rows="4">[{"name":"input","type":"number","key":"item"},{"name":"input","type":"number","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:text">
+                                <a><strong>text</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:number:config">
-                    <a>Config: <strong>number</strong></a>
-                </h4>
-                <pre id="input-number-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-text'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'text',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'text',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-text" data-tv-name="input-text"
+                                      style="display: none" rows="4">[{"name":"input","type":"text","key":"item"},{"name":"input","type":"text","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:tel">
-                    <a>Type: <strong>tel</strong></a>
-                </h4>
+                            <h5 id="mf3:input:text:config">
+                                <a>Config: <strong>text</strong></a>
+                            </h5>
+                            <pre id="input-text-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-tel'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'tel',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'tel',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-tel" data-tv-name="input-tel" style="display: none" rows="4">[{"name":"input","type":"tel","key":"item"},{"name":"input","type":"tel","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:number">
+                                <a><strong>number</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:tel:config">
-                    <a>Config: <strong>tel</strong></a>
-                </h4>
-                <pre id="input-tel-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-number'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'number',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'number',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-number" data-tv-name="input-number"
+                                      style="display: none" rows="4">[{"name":"input","type":"number","key":"item"},{"name":"input","type":"number","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:email">
-                    <a>Type: <strong>email</strong></a>
-                </h4>
+                            <h5 id="mf3:input:number:config">
+                                <a>Config: <strong>number</strong></a>
+                            </h5>
+                            <pre id="input-number-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-email'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'email',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'email',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-email" data-tv-name="input-email" style="display: none" rows="4">[{"name":"input","type":"email","key":"item"},{"name":"input","type":"email","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:tel">
+                                <a><strong>tel</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:email:config">
-                    <a>Config: <strong>email</strong></a>
-                </h4>
-                <pre id="input-email-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-tel'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'tel',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'tel',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-tel" data-tv-name="input-tel"
+                                      style="display: none" rows="4">[{"name":"input","type":"tel","key":"item"},{"name":"input","type":"tel","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:url">
-                    <a>Type: <strong>url</strong></a>
-                </h4>
+                            <h5 id="mf3:input:tel:config">
+                                <a>Config: <strong>tel</strong></a>
+                            </h5>
+                            <pre id="input-tel-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-url'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'url',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'url',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-url" data-tv-name="input-url" style="display: none" rows="4">[{"name":"input","type":"url","key":"item"},{"name":"input","type":"url","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:email">
+                                <a><strong>email</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:url:config">
-                    <a>Config: <strong>url</strong></a>
-                </h4>
-                <pre id="input-url-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-email'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'email',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'email',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-email" data-tv-name="input-email"
+                                      style="display: none" rows="4">[{"name":"input","type":"email","key":"item"},{"name":"input","type":"email","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:date">
-                    <a>Type: <strong>date</strong></a>
-                </h4>
+                            <h5 id="mf3:input:email:config">
+                                <a>Config: <strong>email</strong></a>
+                            </h5>
+                            <pre id="input-email-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-date'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'date',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'date',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-date" data-tv-name="input-date" style="display: none" rows="4">[{"name":"input","type":"date","key":"item"},{"name":"input","type":"date","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:url">
+                                <a><strong>url</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:date:config">
-                    <a>Config: <strong>date</strong></a>
-                </h4>
-                <pre id="input-date-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-url'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'url',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'url',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-url" data-tv-name="input-url"
+                                      style="display: none" rows="4">[{"name":"input","type":"url","key":"item"},{"name":"input","type":"url","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:time">
-                    <a>Type: <strong>time</strong></a>
-                </h4>
+                            <h5 id="mf3:input:url:config">
+                                <a>Config: <strong>url</strong></a>
+                            </h5>
+                            <pre id="input-url-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-time'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'time',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'time',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-time" data-tv-name="input-time" style="display: none" rows="4">[{"name":"input","type":"time","key":"item"},{"name":"input","type":"time","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:date">
+                                <a><strong>date</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:time:config">
-                    <a>Config: <strong>time</strong></a>
-                </h4>
-                <pre id="input-time-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-date'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'date',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'date',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-date" data-tv-name="input-date"
+                                      style="display: none" rows="4">[{"name":"input","type":"date","key":"item"},{"name":"input","type":"date","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:datetime">
-                    <a>Type: <strong>datetime</strong></a>
-                </h4>
+                            <h5 id="mf3:input:date:config">
+                                <a>Config: <strong>date</strong></a>
+                            </h5>
+                            <pre id="input-date-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-datetime'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'date',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'date',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-datetime" data-tv-name="input-datetime" style="display: none" rows="4">[{"name":"input","type":"datetime","key":"item"},{"name":"input","type":"datetime","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:time">
+                                <a><strong>time</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:datetime:config">
-                    <a>Config: <strong>datetime</strong></a>
-                </h4>
-                <pre id="input-datetime-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-time'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'time',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'time',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-time" data-tv-name="input-time"
+                                      style="display: none" rows="4">[{"name":"input","type":"time","key":"item"},{"name":"input","type":"time","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:datepicker">
-                    <a>Type: <strong>datepicker</strong></a>
-                </h4>
+                            <h5 id="mf3:input:time:config">
+                                <a>Config: <strong>time</strong></a>
+                            </h5>
+                            <pre id="input-time-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-datepicker'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'datepicker',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...',
-                        readonly: true
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'datepicker',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3',
-                        readonly: true
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-datepicker" data-tv-name="input-datepicker" style="display: none" rows="4">[{"name":"input","type":"datepicker","key":"item"},{"name":"input","type":"datepicker","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:datetime">
+                                <a><strong>datetime</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:datepicker:config">
-                    <a>Config: <strong>datepicker</strong></a>
-                </h4>
-                <pre id="input-datepicker-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-datetime'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'date',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'date',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-datetime" data-tv-name="input-datetime"
+                                      style="display: none" rows="4">[{"name":"input","type":"datetime","key":"item"},{"name":"input","type":"datetime","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:checkbox">
-                    <a>Type: <strong>checkbox</strong></a>
-                </h4>
+                            <h5 id="mf3:input:datetime:config">
+                                <a>Config: <strong>datetime</strong></a>
+                            </h5>
+                            <pre id="input-datetime-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-checkbox'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'checkbox',
-                        label: 'Item',
-                        title: 'Item'
-                      },
-                      item_checked: {
-                        name: 'input',
-                        type: 'checkbox',
-                        label: 'Item checked',
-                        title: 'Item checked',
-                        value: 1,
-                        trueValue: 1,
-                        falseValue: 0
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'checkbox',
-                        label: 'Items',
-                        title: 'Items',
-                        elements: '1==Item 1||2==Item 2||3==Item 3'
-                      },
-                      items_checked: {
-                        name: 'input',
-                        type: 'checkbox',
-                        label: 'Items checked',
-                        title: 'Items checked',
-                        elements: '1==Item 1||2==Item 2||3==Item 3',
-                        value: [1, 2, 3]
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-checkbox" data-tv-name="input-checkbox" style="display: none"
-                          rows="4">[{"name":"input","type":"checkbox","key":"item"},{"name":"input","type":"checkbox","value":1,"key":"item_checked"},{"name":"input","type":"checkbox","key":"items"},{"name":"input","type":"checkbox","value":[1,2,3],"key":"items_checked"}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:datepicker">
+                                <a><strong>datepicker</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:checkbox:config">
-                    <a>Config: <strong>checkbox</strong></a>
-                </h4>
-                <pre id="input-checkbox-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-datepicker'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'datepicker',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...',
+                                    readonly: true
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'datepicker',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3',
+                                    readonly: true
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-datepicker" data-tv-name="input-datepicker"
+                                      style="display: none" rows="4">[{"name":"input","type":"datepicker","key":"item"},{"name":"input","type":"datepicker","key":"items","value":["","",""]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:radio">
-                    <a>Type: <strong>radio</strong></a>
-                </h4>
+                            <h5 id="mf3:input:datepicker:config">
+                                <a>Config: <strong>datepicker</strong></a>
+                            </h5>
+                            <pre id="input-datepicker-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-radio'] = {
-                    templates: {
-                      items: {
-                        name: 'input',
-                        type: 'radio',
-                        label: 'Items',
-                        title: 'Items',
-                        elements: '1==Item 1||2==Item 2||3==Item 3',
-                        value: 2
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-radio" data-tv-name="input-radio" style="display: none"
-                          rows="4">[{"name":"input","type":"radio","value":2,"key":"items"}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:checkbox">
+                                <a><strong>checkbox</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:radio:config">
-                    <a>Config: <strong>radio</strong></a>
-                </h4>
-                <pre id="input-radio-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-checkbox'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'checkbox',
+                                    label: 'Item',
+                                    title: 'Item'
+                                  },
+                                  item_checked: {
+                                    name: 'input',
+                                    type: 'checkbox',
+                                    label: 'Item checked',
+                                    title: 'Item checked',
+                                    value: 1,
+                                    trueValue: 1,
+                                    falseValue: 0
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'checkbox',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    elements: '1==Item 1||2==Item 2||3==Item 3'
+                                  },
+                                  items_checked: {
+                                    name: 'input',
+                                    type: 'checkbox',
+                                    label: 'Items checked',
+                                    title: 'Items checked',
+                                    elements: '1==Item 1||2==Item 2||3==Item 3',
+                                    value: [1, 2, 3]
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-checkbox" data-tv-name="input-checkbox"
+                                      style="display: none"
+                                      rows="4">[{"name":"input","type":"checkbox","key":"item"},{"name":"input","type":"checkbox","value":1,"key":"item_checked"},{"name":"input","type":"checkbox","key":"items"},{"name":"input","type":"checkbox","value":[1,2,3],"key":"items_checked"}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:color">
-                    <a>Type: <strong>color</strong></a>
-                </h4>
+                            <h5 id="mf3:input:checkbox:config">
+                                <a>Config: <strong>checkbox</strong></a>
+                            </h5>
+                            <pre id="input-checkbox-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-color'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'color',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'color',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '#0091ff==Item 1||#ff004c==Item 2||#ffbb00==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-color" data-tv-name="input-color" style="display: none"
-                          rows="4">[{"name":"input","type":"color","key":"item"},{"name":"input","type":"color","key":"items","value":["#0091ff","#ff004c","#ffbb00"]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:radio">
+                                <a><strong>radio</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:color:config">
-                    <a>Config: <strong>color</strong></a>
-                </h4>
-                <pre id="input-color-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-radio'] = {
+                                templates: {
+                                  items: {
+                                    name: 'input',
+                                    type: 'radio',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    elements: '1==Item 1||2==Item 2||3==Item 3',
+                                    value: 2
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-radio" data-tv-name="input-radio"
+                                      style="display: none"
+                                      rows="4">[{"name":"input","type":"radio","value":2,"key":"items"}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:range">
-                    <a>Type: <strong>range</strong></a>
-                </h4>
+                            <h5 id="mf3:input:radio:config">
+                                <a>Config: <strong>radio</strong></a>
+                            </h5>
+                            <pre id="input-radio-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-range'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'range',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...',
-                        value: 0
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'range',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '0==Item 1||50==Item 2||100==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-range" data-tv-name="input-range" style="display: none"
-                          rows="4">[{"name":"input","type":"range","value":0,"key":"item"},{"name":"input","type":"range","key":"items","value":["0","50","100"]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:color">
+                                <a><strong>color</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:range:config">
-                    <a>Config: <strong>range</strong></a>
-                </h4>
-                <pre id="input-range-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-color'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'color',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'color',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '#0091ff==Item 1||#ff004c==Item 2||#ffbb00==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-color" data-tv-name="input-color"
+                                      style="display: none"
+                                      rows="4">[{"name":"input","type":"color","key":"item"},{"name":"input","type":"color","key":"items","value":["#0091ff","#ff004c","#ffbb00"]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:image">
-                    <a>Type: <strong>image</strong></a>
-                </h4>
+                            <h5 id="mf3:input:color:config">
+                                <a>Config: <strong>color</strong></a>
+                            </h5>
+                            <pre id="input-color-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-image'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'image',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'image',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-image" data-tv-name="input-image" style="display: none"
-                          rows="4">[{"name":"input","type":"image","key":"item"},{"name":"input","type":"image","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:range">
+                                <a><strong>range</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:image:config">
-                    <a>Config: <strong>image</strong></a>
-                </h4>
-                <pre id="input-image-config" class="border p-2 bg-white rounded"></pre>
-            </div>
+                            <script>
+                              window['mf3Config']['input-range'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'range',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...',
+                                    value: 0
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'range',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '0==Item 1||50==Item 2||100==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-range" data-tv-name="input-range"
+                                      style="display: none"
+                                      rows="4">[{"name":"input","type":"range","value":0,"key":"item"},{"name":"input","type":"range","key":"items","value":["0","50","100"]}]</textarea>
 
-            <div class="mb-5">
-                <h4 id="mf3:input:file">
-                    <a>Type: <strong>file</strong></a>
-                </h4>
+                            <h5 id="mf3:input:range:config">
+                                <a>Config: <strong>range</strong></a>
+                            </h5>
+                            <pre id="input-range-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
 
-                <script>
-                  window['mf3Config']['input-file'] = {
-                    templates: {
-                      item: {
-                        name: 'input',
-                        type: 'file',
-                        label: 'Item',
-                        title: 'Item',
-                        placeholder: '...'
-                      },
-                      items: {
-                        name: 'input',
-                        type: 'file',
-                        label: 'Items',
-                        title: 'Items',
-                        placeholder: '...',
-                        elements: '==Item 1||==Item 2||==Item 3'
-                      }
-                    }
-                  }
-                </script>
-                <textarea class="mf3-data" data-tv-id="input-file" data-tv-name="input-file" style="display: none"
-                          rows="4">[{"name":"input","type":"file","key":"item"},{"name":"input","type":"file","key":"items","value":["","",""]}]</textarea>
+                        <div class="mb-5">
+                            <h4 id="mf3:input:image">
+                                <a><strong>image</strong></a>
+                            </h4>
 
-                <h4 id="mf3:input:file:config">
-                    <a>Config: <strong>file</strong></a>
-                </h4>
-                <pre id="input-file-config" class="border p-2 bg-white rounded"></pre>
+                            <script>
+                              window['mf3Config']['input-image'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'image',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'image',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-image" data-tv-name="input-image"
+                                      style="display: none"
+                                      rows="4">[{"name":"input","type":"image","key":"item"},{"name":"input","type":"image","key":"items","value":["","",""]}]</textarea>
+
+                            <h5 id="mf3:input:image:config">
+                                <a>Config: <strong>image</strong></a>
+                            </h5>
+                            <pre id="input-image-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
+
+                        <div class="mb-5">
+                            <h4 id="mf3:input:file">
+                                <a><strong>file</strong></a>
+                            </h4>
+
+                            <script>
+                              window['mf3Config']['input-file'] = {
+                                templates: {
+                                  item: {
+                                    name: 'input',
+                                    type: 'file',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    name: 'input',
+                                    type: 'file',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: '==Item 1||==Item 2||==Item 3'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea class="mf3-data" data-tv-id="input-file" data-tv-name="input-file"
+                                      style="display: none"
+                                      rows="4">[{"name":"input","type":"file","key":"item"},{"name":"input","type":"file","key":"items","value":["","",""]}]</textarea>
+
+                            <h5 id="mf3:input:file:config">
+                                <a>Config: <strong>file</strong></a>
+                            </h5>
+                            <pre id="input-file-config" class="border p-2 bg-white rounded"></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="col-auto" style="width: 10rem">
+        <div class="col-auto px-0" style="width: 10rem">
             <div class="position-sticky" style="top: 1rem">
-                Elements
-                <ul>
-                    <li>
-                        <a href="#mf3:input">input</a>
-                        <ul>
-                            <li><a href="#mf3:input:text">text</a></li>
-                            <li><a href="#mf3:input:number">number</a></li>
-                            <li><a href="#mf3:input:tel">tel</a></li>
-                            <li><a href="#mf3:input:email">email</a></li>
-                            <li><a href="#mf3:input:url">url</a></li>
-                            <li><a href="#mf3:input:date">date</a></li>
-                            <li><a href="#mf3:input:time">time</a></li>
-                            <li><a href="#mf3:input:datetime">datetime</a></li>
-                            <li><a href="#mf3:input:datepicker">datepicker</a></li>
-                            <li><a href="#mf3:input:checkbox">checkbox</a></li>
-                            <li><a href="#mf3:input:radio">radio</a></li>
-                            <li><a href="#mf3:input:color">color</a></li>
-                            <li><a href="#mf3:input:range">range</a></li>
-                            <li><a href="#mf3:input:image">image</a></li>
-                            <li><a href="#mf3:input:file">file</a></li>
-                        </ul>
-                    </li>
-                </ul>
+                <nav></nav>
             </div>
         </div>
     </div>
@@ -765,9 +770,48 @@
     }
   }
 
-  document.querySelectorAll('h1[id] a, h2[id] a, h3[id] a, h4[id] a, h5[id] a').forEach(a => {
+  document.querySelectorAll('h2[id] a, h3[id] a, h4[id] a, h5[id] a').forEach(a => {
     a.href = '#' + a.parentElement.id
   })
+
+  const nav = document.querySelector('nav')
+  let html = ''
+  html += '<ul>'
+
+  document.querySelectorAll('h2').forEach(h2 => {
+    html += '<li>'
+    html += '<a href="#' + h2.id + '">' + h2.innerText + '</a>'
+
+    const items = h2?.nextElementSibling?.querySelectorAll('h3')
+
+    if (items) {
+      html += '<ul>'
+
+      items.forEach(h3 => {
+        html += '<a href="#' + h3.id + '">' + h3.innerText + '</a>'
+
+        const items = h3?.nextElementSibling?.querySelectorAll('h4')
+
+        if (items) {
+          html += '<ul>'
+
+          items.forEach(h4 => {
+            html += '<li><a href="#' + h4.id + '">' + h4.innerText + '</a></li>'
+          })
+
+          html += '</ul>'
+        }
+      })
+
+      html += '</ul>'
+    }
+
+    html += '</li>'
+  })
+
+  html += '</ul>'
+
+  nav.innerHTML = html
 </script>
 
 <script src="../../../manager/media/calendar/datepicker.js"></script>
