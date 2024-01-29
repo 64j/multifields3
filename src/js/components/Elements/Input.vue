@@ -7,35 +7,35 @@ export default {
   name: 'mf:input',
   __isStatic: true,
   components: { Loader, Actions },
-  props: [
-    'key',
-    'type',
-    'name',
-    'title',
-    'label',
-    'value',
-    'values',
-    'elements',
-    'default',
-    'list',
-    'min',
-    'max',
-    'minlength',
-    'maxlength',
-    'size',
-    'step',
-    'multi',
-    'thumb',
-    'placeholder',
-    'pattern',
-    'required',
-    'readonly',
-    'disabled',
-    'trueValue',
-    'falseValue',
-    'actions',
-    'modelValue'
-  ],
+  props: {
+    key: String,
+    type: String,
+    name: String,
+    title: [String, Number],
+    label: [String, Number],
+    value: [String, Number, Array],
+    values: Array,
+    elements: [String, Array],
+    default: [String, Number, Array],
+    min: [String, Number],
+    max: [String, Number],
+    minlength: [String, Number],
+    maxlength: [String, Number],
+    size: [String, Number],
+    step: [String, Number],
+    multi: Boolean,
+    thumb: String,
+    placeholder: [String, Number],
+    pattern: String,
+    required: Boolean,
+    readonly: Boolean,
+    disabled: Boolean,
+    trueValue: [String, Number, Boolean],
+    falseValue: [String, Number, Boolean],
+    actions: {
+      default: ['add', 'move', 'del']
+    }
+  },
   data () {
     this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
     return {
@@ -95,10 +95,10 @@ export default {
       }
     },
     inputClass () {
-      switch (this.type) {
-        case 'datepicker':
-          return 'DatePicker'
-      }
+      // switch (this.type) {
+      //   case 'datepicker':
+      //     return 'DatePicker'
+      // }
     },
     bindAttributes () {
       const attrs = {}
@@ -179,7 +179,7 @@ export default {
   mounted () {
     if (this.type === 'datepicker') {
       if (window['DatePicker']) {
-        this.$el.querySelectorAll('input.DatePicker').forEach(i => {
+        this.$el.querySelectorAll('.mf3-items input').forEach(i => {
           let format = i.getAttribute('data-format')
           const datepicker = new DatePicker(i, {
             yearOffset: dpOffset,
@@ -208,6 +208,10 @@ export default {
         if (['file', 'image', 'datepicker'].includes(this.type)) {
           i.key = event.target.value
         }
+      } else {
+        if (['datepicker'].includes(this.type)) {
+          this.model = event.target.value
+        }
       }
     },
     select (event) {
@@ -218,6 +222,9 @@ export default {
         }
       } else if (this.type === 'file') {
         BrowseFileServer(event.target.previousElementSibling.id)
+      } else if (this.type === 'datepicker') {
+        event.target.previousElementSibling.value = ''
+        event.target.previousElementSibling.dispatchEvent(new Event('change'))
       }
     },
     MultiBrowseServer () {
@@ -257,6 +264,7 @@ export default {
         <div v-for="(i, k) in data">
           <template v-if="['radio', 'checkbox'].includes(type)">
             <input :id="id + '-' + k"
+                   :name="id + '-' + k"
                    :type="type"
                    :value="i.key"
                    :required="i.required"
@@ -264,6 +272,7 @@ export default {
           </template>
           <template v-else>
             <input :id="id + '-' + k"
+                   :name="id + '-' + k"
                    :type="inputType"
                    :value="i.key"
                    :min="min"
@@ -280,7 +289,7 @@ export default {
                    v-model="i.key"
                    @change="onChange($event, i, k)">
 
-            <button v-if="['file', 'image'].includes(type)" type="button" @click="select">
+            <button v-if="['file', 'image', 'datepicker'].includes(type)" type="button" @click="select">
               <i/>
             </button>
           </template>
@@ -293,6 +302,7 @@ export default {
       </template>
       <template v-else>
         <input :id="id"
+               :name="id"
                :type="inputType"
                :min="min"
                :max="max"
@@ -305,13 +315,12 @@ export default {
                :disabled="disabled"
                :pattern="pattern"
                :placeholder="placeholder"
-               :list="list"
                :class="inputClass"
                v-bind="bindAttributes"
                v-model="model"
                @change="onChange">
 
-        <button v-if="['file', 'image'].includes(type)" type="button" @click="select">
+        <button v-if="['file', 'image', 'datepicker'].includes(type)" type="button" @click="select">
           <i/>
         </button>
 
@@ -376,10 +385,10 @@ export default {
 .mf3-input__file input, .mf3-input__image input {
   @apply pr-7
 }
-.mf3-input__file button, .mf3-input__image button {
+.mf3-input__file button, .mf3-input__image button, .mf3-input__datepicker button {
   @apply absolute z-10 right-0.5 bottom-1 h-7 p-0 flex items-center justify-center border-none bg-transparent
 }
-.mf3-input__file > .mf3-items > div button, .mf3-input__image > .mf3-items > div button {
+.mf3-input__file > .mf3-items > div button, .mf3-input__image > .mf3-items > div button, .mf3-input__datepicker > .mf3-items > div button {
   @apply -right-0.5 top-0
 }
 .mf3-input__file button::before {
@@ -411,5 +420,23 @@ export default {
 }
 .mf3-input__image button i::after {
   @apply content-[""] absolute left-0.5 top-0.5 w-1 h-1 border border-solid border-amber-800 bg-amber-400 rounded-full
+}
+.mf3-input__datepicker button {
+  @apply rounded-none
+}
+.mf3-input__datepicker button::before, .mf3-input__datepicker button::after {
+  @apply content-[""] absolute top-1.5 left-2.5 w-0.5 h-0.5 bg-black
+}
+.mf3-input__datepicker button::after {
+  @apply left-auto right-2.5
+}
+.mf3-input__datepicker button i {
+  @apply flex relative justify-center items-center mx-2 w-3 h-3 overflow-hidden rounded-[2px] border border-t-2 border-solid border-black opacity-65 pointer-events-none
+}
+.mf3-input__datepicker button i::before, .mf3-input__datepicker button i::after {
+  @apply content-[""] absolute w-1.5 h-[1px] bg-black rotate-45
+}
+.mf3-input__datepicker button i::before {
+  @apply -rotate-45
 }
 </style>
