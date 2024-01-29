@@ -14,7 +14,8 @@ class Multifields3
     public function getStartScripts(): string
     {
         $path = str_replace(MODX_BASE_PATH, '', str_replace(DIRECTORY_SEPARATOR, '/', __DIR__));
-        $out = '<script>window["mf3Config"] = []; window["Vue"] || document.write("<script src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>")</script>';
+        $out = '<script>window["Vue"] || document.write("<script src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>");</script>';
+        $out .= '<script>window["mf3Config"] = window["Vue"].reactive({});</script>';
 
         if (file_exists($hot = MODX_BASE_PATH . $path . '/hot')) {
             $v = '?v=' . time();
