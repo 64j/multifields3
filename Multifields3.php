@@ -171,7 +171,7 @@ class Multifields3
 
         return '
         <link href="' . $path . '/dist/jsoneditor/jsoneditor.min.css" rel="stylesheet" type="text/css">
-        <script src="' . $path . '/dist/jsoneditor/jsoneditor.min.js"></script>
+        <script src="' . $path . '/dist/jsoneditor/jsoneditor-minimalist.min.js"></script>
         <script src="' . $path . '/dist/jsoneditor/jsoneditor.init.js"></script>';
     }
 }
