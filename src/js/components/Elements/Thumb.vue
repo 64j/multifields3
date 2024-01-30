@@ -13,7 +13,9 @@ export default {
     },
     name: String,
     title: String,
+    label: String,
     value: String,
+    placeholder: String,
     actions: {
       default: ['add', 'move', 'del']
     },
@@ -45,9 +47,13 @@ export default {
       this.$emit('update:value', event.target.value, undefined, this.input)
     },
     select () {
-      BrowseServer(this.id)
-      if (this.multi) {
-        this.MultiBrowseServer()
+      if (this.type === 'image') {
+        BrowseServer(this.id)
+        if (this.multi) {
+          this.MultiBrowseServer()
+        }
+      } else if (this.items) {
+
       }
     },
     MultiBrowseServer () {

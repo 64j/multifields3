@@ -209,19 +209,19 @@ export default {
     },
     select (event) {
       if (this.type === 'image') {
-        if (top['modx']) {
+        if (window['BrowseServer']) {
           BrowseServer(event.target.previousElementSibling.id)
           if (this.multi || this.elements) {
             this.MultiBrowseServer()
           }
         } else {
-          alert('Modx not found!')
+          alert('Method BrowseServer not found!')
         }
       } else if (this.type === 'file') {
-        if (top['modx']) {
+        if (window['BrowseFileServer']) {
           BrowseFileServer(event.target.previousElementSibling.id)
         } else {
-          alert('Modx not found!')
+          alert('Method BrowseFileServer not found!')
         }
       } else if (this.type === 'datepicker') {
         event.target.previousElementSibling.value = ''

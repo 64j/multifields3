@@ -31,6 +31,7 @@ export default {
     rollupOptions: {
       external: ['vue'],
       output: {
+        dir: './dist/mf',
         format: 'umd',
         globals: {
           vue: 'Vue'

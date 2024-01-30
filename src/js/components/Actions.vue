@@ -40,7 +40,7 @@ export default {
   @apply absolute z-10 -left-[1px] -top-5 -right-[1px] -mt-0 px-5 h-5 rounded-t bg-blue-500 text-white pointer-events-none
 }
 .mf3-actions__panel::before {
-  @apply content-[attr(data-title)] truncate
+  @apply content-[attr(data-title)] block truncate
 }
 .mf3-actions__action {
   @apply w-4 h-4 cursor-pointer

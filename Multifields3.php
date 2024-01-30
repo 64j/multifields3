@@ -1,9 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
+/**
+ *
+ */
 class Multifields3
 {
+    /**
+     * @var Multifields3|null
+     */
+    protected static ?Multifields3 $instance = null;
+
     public function __construct()
     {
+    }
+
+    /**
+     * @return static
+     */
+    public static function getInstance(): Multifields3
+    {
+        if (self::$instance === null) {
+            self::$instance = new static();
+        }
+
+        return self::$instance;
     }
 
     /**
@@ -22,13 +44,54 @@ class Multifields3
             $out .= '<script type="module" src="' . $hot . '/@vite/client"></script>';
             $out .= '<script type="module" src="' . $hot . '/src/js/mf.js' . $v . '"></script>';
         } else {
-            $script = $path . '/dist/mf.js';
+            $script = $path . '/dist/mf/mf.js';
             $v = '?v=' . filemtime(MODX_BASE_PATH . $script);
             $out .= '<link rel="modulepreload" href="' . MODX_SITE_URL . $script . $v . '">';
             $out .= '<script type="module" src="' . MODX_SITE_URL . $script . $v . '"></script>';
         }
 
         return $out;
+    }
+
+    /**
+     * @param array $tv
+     *
+     * @return string
+     */
+    public function getConfig(array $tv): string
+    {
+        if (!empty($tv['elements'])) {
+            $config = $tv['elements'];
+        } elseif (file_exists($path = __DIR__ . '/config/' . $tv['name'] . '.json')) {
+            $config = file_get_contents($path);
+        } else {
+            $config = null;
+        }
+
+        $config = $config ? json_decode($config, true) : null;
+
+        if (!empty($config['templates'])) {
+            function f($items): array
+            {
+                return array_map(
+                    function ($key, $item) {
+                        $item['key'] ??= $key;
+
+                        if (!empty($item['items'])) {
+                            $item['items'] = f($item['items']);
+                        }
+
+                        return $item;
+                    },
+                    array_keys($items),
+                    $items
+                );
+            }
+
+            $config['templates'] = f($config['templates']);
+        }
+
+        return json_encode($config, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
     /**
@@ -97,5 +160,18 @@ class Multifields3
 
             exit;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function jsonEditorScripts(): string
+    {
+        $path = MODX_SITE_URL . str_replace(MODX_BASE_PATH, '', str_replace(DIRECTORY_SEPARATOR, '/', __DIR__));
+
+        return '
+        <link href="' . $path . '/dist/jsoneditor/jsoneditor.min.css" rel="stylesheet" type="text/css">
+        <script src="' . $path . '/dist/jsoneditor/jsoneditor.min.js"></script>
+        <script src="' . $path . '/dist/jsoneditor/jsoneditor.init.js"></script>';
     }
 }
