@@ -1,5 +1,5 @@
 <script>
-import { h } from 'vue'
+import { h, reactive } from 'vue'
 import draggable from 'vuedraggable'
 import Actions from './Actions.vue'
 import Templates from './Templates.vue'
@@ -12,8 +12,9 @@ export default {
     this.data = window['mf3Config'][this.dataEl.name] ?? {}
 
     return {
-      templates: this.setTemplates(),
-      settings: this.setSettings(),
+      //data: window['mf3Config'][this.dataEl.name] ?? {},
+      templates: null, //this.setTemplates(),
+      settings: null, //this.setSettings(),
       elements: null,
     }
   },
@@ -26,6 +27,8 @@ export default {
     }
   },
   created () {
+    this.templates = this.setTemplates()
+    this.settings = this.setSettings()
     this.elements = this.setElements()
   },
   methods: {
