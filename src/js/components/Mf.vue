@@ -7,9 +7,9 @@ import Templates from './Templates.vue'
 export default {
   name: 'mf',
   components: { Templates, Actions, draggable },
-  props: ['dataEl', 'tvId', 'tvName'],
+  props: ['dataEl'],
   data () {
-    this.data = window['mf3Config'][this.tvName] ?? {}
+    this.data = window['mf3Config'][this.dataEl.name] ?? {}
 
     return {
       templates: this.setTemplates(),
@@ -30,10 +30,15 @@ export default {
   },
   methods: {
     setElements () {
-      return this.setElementFromTemplates(
-          this.dataEl.value && JSON.parse(this.dataEl.value) || [],
-          this.data.templates
-      )
+      let value
+
+      try {
+        value = Object.values(JSON.parse(this.dataEl.value))
+      } catch (errors) {
+        value = []
+      }
+
+      return this.setElementFromTemplates(value, this.data.templates)
     },
     setElementFromTemplates (elements, templates) {
       templates = typeof templates === 'object' ? (Array.isArray(templates)

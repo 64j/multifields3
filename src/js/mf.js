@@ -12,14 +12,12 @@ Object.entries(import.meta.glob('./components/Elements/*.vue', { eager: true }))
 document.querySelectorAll('.mf3-data').forEach(dataEl => {
   const el = document.createElement('div')
 
-  if (window['mf3Config'][dataEl.dataset['tvName']]) {
+  if (window['mf3Config'][dataEl.name]) {
     createApp(Mf, {
-      dataEl,
-      tvId: dataEl.dataset['tvId'],
-      tvName: dataEl.dataset['tvName']
+      dataEl
     }).mount(el)
   } else {
-    el.innerHTML = `Config for tv (id: "${dataEl.dataset['tvId']}", name: "${dataEl.dataset['tvName']}") is empty or not found`
+    el.innerHTML = `Config for "${dataEl.name}" is empty or not found`
   }
 
   dataEl.after(el)

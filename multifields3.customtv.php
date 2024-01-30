@@ -9,13 +9,13 @@ if (!defined('MODX_BASE_PATH')) {
     die('HACK???');
 }
 
-if (file_exists($path = MODX_BASE_PATH . 'assets/plugins/multifields3/config/' . $row['name'] . '.json')) {
-    echo '<script>window["mf3Config"]["' . $row['name'] . '"]=' . (file_get_contents($path) ?: 'null') . ';</script>';
+if (!empty($row['elements'])) {
+    $config = trim($row['elements'])[0] == '{' ? $row['elements'] : 'null';
+} elseif (file_exists($path = MODX_BASE_PATH . 'assets/plugins/multifields3/config/' . $row['name'] . '.json')) {
+    $config = file_get_contents($path) ?: 'null';
+} else {
+    $config = 'null';
 }
 
-echo '<textarea name="tv' . $row['id'] . '"
-        class="mf3-data"
-        data-tv-id="' . $row['id'] . '"
-        data-tv-name="' . $row['name'] . '"
-        style="display: none"
-        rows="4">' . $row['value'] . '</textarea>';
+echo '<script>window["mf3Config"]["tv' . $row['id'] . '"]=' . $config . ';</script>';
+echo '<textarea name="tv' . $row['id'] . '" class="mf3-data d-none" rows="4">' . $row['value'] . '</textarea>';
