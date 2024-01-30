@@ -44,7 +44,7 @@ export default {
   data () {
     this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
     return {
-      data: null,
+      data: this.elements ? [] : null,
       loading: false
     }
   },
@@ -150,65 +150,49 @@ export default {
   },
   created () {
     if (this.elements) {
-      this.data = []
-
       if (typeof this.elements === 'object') {
         if (Array.isArray(this.elements)) {
-          return this.elements
+          this.data = this.elements
+        } else {
+          for (const i in this.elements) {
+            if (typeof this.elements[i] === 'object') {
+              this.data.push({ key: i, ...this.elements[i] })
+            } else {
+              this.data.push({ key: i, value: this.elements[i] })
+            }
+          }
         }
 
-        for (const i in this.elements) {
-          this.data.push({ key: this.elements[i].key || i, ...this.elements[i] })
-        }
-
-        return data
+        return
       }
 
       if (this.elements[0] === '@') {
         this.loading = true
         axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
           this.data = data
+          this.$nextTick(this.initDatepicker)
         }).finally(() => this.loading = false)
 
         return
       }
 
       this.elements.split('||').forEach((i, k) => {
-        let value = i.split('==')[0] ?? null
-        let key = i.split('==')[1] ?? null
+        let key = i.split('==')[0] ?? null
+        let value = i.split('==')[1] ?? null
 
         if (!['radio', 'checkbox'].includes(this.type) && this.value?.[k] !== undefined) {
           value = this.value[k]
         }
 
-        this.data.push({ key, value })
+        this.data.push({
+          key: key,
+          value: value ?? key
+        })
       })
-
-      return this.data
     }
   },
   mounted () {
-    if (this.type === 'datepicker') {
-      if (window['DatePicker']) {
-        this.$el.querySelectorAll('.mf3-items input').forEach(i => {
-          let format = i.getAttribute('data-format')
-          const datepicker = new DatePicker(i, {
-            yearOffset: dpOffset,
-            format: format !== null ? format : dpformat,
-            dayNames: dpdayNames,
-            monthNames: dpmonthNames,
-            startDay: dpstartDay
-          })
-
-          const updateValue = datepicker.constructor.updateValue
-
-          datepicker.constructor.updateValue = (input) => {
-            updateValue.call(datepicker.constructor, input)
-            input.dispatchEvent(new Event('change'))
-          }
-        })
-      }
-    }
+    this.initDatepicker()
   },
   methods: {
     action (action, values) {
@@ -268,6 +252,29 @@ export default {
           }
         }
       }, 100)
+    },
+    initDatepicker () {
+      if (this.type === 'datepicker') {
+        if (window['DatePicker']) {
+          this.$el.querySelectorAll('.mf3-items input').forEach(i => {
+            let format = i.getAttribute('data-format')
+            const datepicker = new DatePicker(i, {
+              yearOffset: dpOffset,
+              format: format !== null ? format : dpformat,
+              dayNames: dpdayNames,
+              monthNames: dpmonthNames,
+              startDay: dpstartDay
+            })
+
+            const updateValue = datepicker.constructor.updateValue
+
+            datepicker.constructor.updateValue = (input) => {
+              updateValue.call(datepicker.constructor, input)
+              input.dispatchEvent(new Event('change'))
+            }
+          })
+        }
+      }
     }
   }
 }
@@ -279,9 +286,9 @@ export default {
 
     <div class="mf3-items">
       <template v-if="data">
-        <label v-if="label">
+        <div v-if="label">
           <span>{{ label }}</span>
-        </label>
+        </div>
         <loader v-if="loading" class="mf3-loader"/>
         <div v-for="(i, k) in data">
           <template v-if="['radio', 'checkbox'].includes(type)">
@@ -305,6 +312,7 @@ export default {
                    :maxlength="maxlength"
                    :required="required"
                    :readonly="readonly"
+                   :disabled="disabled"
                    :pattern="pattern"
                    :placeholder="placeholder"
                    :class="inputClass"
