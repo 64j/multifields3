@@ -131,10 +131,8 @@ export default {
     showValue () {
       switch (this.type) {
         case 'color':
-          return true
-
         case 'range':
-          return !!this.elements
+          return true
       }
     }
   },
@@ -389,10 +387,7 @@ export default {
 .mf3-item > .mf3-items > input ~ label {
   @apply order-1
 }
-.mf3-item > .mf3-items > label {
-  @apply pb-1 w-full cursor-default
-}
-.mf3-item > .mf3-items > div > input ~ label {
+.mf3-item > .mf3-items > div > input ~ label, .mf3-item[data-type="range"] > .mf3-items > input ~ label {
   @apply order-1 mr-2 w-40
 }
 .mf3-item > .mf3-items > div > input ~ label span, .mf3-item > .mf3-items input ~ label span {
@@ -408,7 +403,7 @@ export default {
   @apply ml-2 order-3
 }
 .mf3-item[data-type="range"] input {
-  @apply px-0 py-1 appearance-auto outline-none
+  @apply grow p-0 h-auto w-auto appearance-auto outline-none
 }
 .mf3-item[data-type="checkbox"] input, .mf3-item[data-type="radio"] input {
   @apply inline-block mr-2 w-3.5 h-3.5
