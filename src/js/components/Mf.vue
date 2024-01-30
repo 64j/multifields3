@@ -154,7 +154,7 @@ export default {
     },
     updateValue (element, elements, value, values, keys) {
       element.value = value
-      element.values = values
+      //element.values = values
 
       if (keys !== undefined) {
         keys = typeof keys !== 'object' ? [keys] : keys

@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Vite;
-
 class Multifields3
 {
     public function __construct()
@@ -61,11 +59,11 @@ class Multifields3
         }
 
         $values = [];
-        $elements = ParseInputOptions(ProcessTVCommand($input, '', '', 'tvform', $tv = []));
+        $elements = ParseInputOptions(ProcessTVCommand($input, '', '', 'tvform'));
 
         if (!empty($elements)) {
             foreach ($elements as $element) {
-                [$val, $key] = is_array($element) ? $element : explode('==', $element);
+                [$key, $val, $help] = is_array($element) ? $element : explode('==', $element);
 
                 if (strlen($val) == 0) {
                     $val = $key;
@@ -76,8 +74,9 @@ class Multifields3
                 }
 
                 $values[] = [
-                    'key' => $val,
-                    'value' => $key,
+                    'key' => $key,
+                    'value' => $val,
+                    'help' => $help ?? null,
                 ];
             }
         }
