@@ -35,14 +35,13 @@ class Multifields3
     {
         $path = str_replace(MODX_BASE_PATH, '', str_replace(DIRECTORY_SEPARATOR, '/', __DIR__));
         $out =
-            '<script>window["Vue"] || document.write("<script src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>");</script>';
-        $out .= '<script>window["mf3Config"] = window["Vue"].reactive({});</script>';
+            '<script>window["Vue"] || document.write("<script defer src=https://unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>");</script>';
+        $out .= '<script>window["mf3Config"] = {};</script>';
 
         if (file_exists($hot = MODX_BASE_PATH . $path . '/hot')) {
-            $v = '?v=' . time();
             $hot = trim(file_get_contents($hot));
             $out .= '<script type="module" src="' . $hot . '/@vite/client"></script>';
-            $out .= '<script type="module" src="' . $hot . '/src/js/mf.js' . $v . '"></script>';
+            $out .= '<script type="module" src="' . $hot . '/src/js/mf.js"></script>';
         } else {
             $script = $path . '/dist/mf/mf.js';
             $v = '?v=' . filemtime(MODX_BASE_PATH . $script);
@@ -68,30 +67,7 @@ class Multifields3
             $config = null;
         }
 
-        $config = $config ? json_decode($config, true) : null;
-
-        if (!empty($config['templates'])) {
-            function f($items): array
-            {
-                return array_map(
-                    function ($key, $item) {
-                        $item['key'] ??= $key;
-
-                        if (!empty($item['items'])) {
-                            $item['items'] = f($item['items']);
-                        }
-
-                        return $item;
-                    },
-                    array_keys($items),
-                    $items
-                );
-            }
-
-            $config['templates'] = f($config['templates']);
-        }
-
-        return json_encode($config, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        return $config;
     }
 
     /**
@@ -167,11 +143,11 @@ class Multifields3
      */
     public function jsonEditorScripts(): string
     {
-        $path = MODX_SITE_URL . str_replace(MODX_BASE_PATH, '', str_replace(DIRECTORY_SEPARATOR, '/', __DIR__));
-
-        return '
-        <link href="' . $path . '/dist/jsoneditor/jsoneditor.min.css" rel="stylesheet" type="text/css">
-        <script src="' . $path . '/dist/jsoneditor/jsoneditor-minimalist.min.js"></script>
-        <script src="' . $path . '/dist/jsoneditor/jsoneditor.init.js"></script>';
+//        $path = MODX_SITE_URL . str_replace(MODX_BASE_PATH, '', str_replace(DIRECTORY_SEPARATOR, '/', __DIR__));
+//
+//        return '
+//        <link href="' . $path . '/dist/jsoneditor/jsoneditor.min.css" rel="stylesheet" type="text/css">
+//        <script src="' . $path . '/dist/jsoneditor/jsoneditor-minimalist.min.js"></script>
+//        <script src="' . $path . '/dist/jsoneditor/jsoneditor.init.js"></script>';
     }
 }

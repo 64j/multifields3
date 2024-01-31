@@ -1,23 +1,31 @@
 <script>
 export default {
   name: 'Templates',
-  props: ['data'],
+  props: {
+    data: {
+      type: [Boolean, Object, Array]
+    }
+  },
   computed: {
     templates () {
-      if ((this.data || this.data === undefined) && this.$root['templates'] &&
-          Object.values(this.$root['templates']).length) {
+      if (this.data) {
         const templates = []
 
-        if (this.data === true || this.data === undefined) {
-          for (const i in this.$root['templates']) {
-            if (mf3Elements[`mf:${this.$root['templates'][i]['name']}`]) {
-              templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
-            }
+        if (typeof this.data === 'object' || typeof this.data[0] === 'object') {
+          for (const i in this.data) {
+            templates.push({ key: this.data[i].key ?? i, ...this.data[i] })
           }
-        } else if (Array.isArray(this.data)) {
-          for (const i in this.$root['templates']) {
-            if (this.data.includes(i)) {
-              templates.push({ key: i, title: this.$root['templates'][i]['title'] || i })
+          return templates
+        }
+
+        for (const i of this.$root['config']['templates']['value']) {
+          if (this.data === true) {
+            if (mf3Elements[`mf:${i.name}`] && !i.hidden) {
+              templates.push(i)
+            }
+          } else if (Array.isArray(this.data) && this.data.includes(i.key)) {
+            if (mf3Elements[`mf:${i.name}`]) {
+              templates.push(i)
             }
           }
         }
@@ -29,13 +37,13 @@ export default {
     }
   },
   methods: {
-    open (event) {
+    open () {
       if (this.templates.length === 1) {
-        this.select(this.templates[0].key)
+        this.select(0)
       }
     },
-    select (key) {
-      this.$emit('select:template', { ...this.$root['templates'][key] }, key )
+    select (index) {
+      this.$emit('select:template', { ...this.templates[index] }, index)
     }
   }
 }
@@ -44,8 +52,8 @@ export default {
 <template>
   <div class="mf3-templates" v-if="templates">
     <button type="button" class="mf3-templates__add" @mousedown="open"/>
-    <div v-if="templates.length > 1" class="mf3-templates__list" ref="list">
-      <div v-for="i in templates" @mousedown="select(i['key'])">
+    <div v-if="templates.length > 1" class="mf3-templates__list">
+      <div v-for="(i, index) in templates" @mousedown="select(index)">
         {{ i['title'] || i['key'] }}
       </div>
     </div>

@@ -1,5 +1,5 @@
 <script>
-import { h, reactive } from 'vue'
+import { h } from 'vue'
 import draggable from 'vuedraggable'
 import Actions from './Actions.vue'
 import Templates from './Templates.vue'
@@ -7,15 +7,10 @@ import Templates from './Templates.vue'
 export default {
   name: 'mf',
   components: { Templates, Actions, draggable },
-  props: ['dataEl'],
+  props: ['dataEl', 'config'],
   data () {
-    this.data = window['mf3Config'][this.dataEl.name] ?? {}
-
     return {
-      //data: window['mf3Config'][this.dataEl.name] ?? {},
-      templates: null, //this.setTemplates(),
-      settings: null, //this.setSettings(),
-      elements: null,
+      elements: this.setElements()
     }
   },
   watch: {
@@ -25,11 +20,6 @@ export default {
       },
       deep: true
     }
-  },
-  created () {
-    this.templates = this.setTemplates()
-    this.settings = this.setSettings()
-    this.elements = this.setElements()
   },
   methods: {
     setElements () {
@@ -41,32 +31,22 @@ export default {
         value = []
       }
 
-      return this.setElementFromTemplates(value, this.data.templates)
+      return this.setElementFromTemplates(value, this.config.templates.value)
     },
     setElementFromTemplates (elements, templates) {
-      templates = typeof templates === 'object' ? (Array.isArray(templates)
-          ? Object.fromEntries(templates.map(item => [item.key, item]))
-          : templates) : {}
-
       elements.forEach(element => {
-        let template = templates?.[element.key] ?? this.templates?.[element.key] ?? null
+        let template = templates.find(i => i.key === element.key) ??
+            this.config.templates.value.find(i => i.key === element.key) ?? null
 
         if (template) {
           template = { ...template }
 
-          const items = template.items// || element.items
+          const items = template.items
 
           if (items) {
             element.items = this.setElementFromTemplates(element.items || [], items)
             delete template.items
           }
-
-          /*if (template.items) {
-            element.items = this.setElementFromTemplates(element.items || [], template.items)
-            delete template.items
-          } else if (element.items) {
-            delete element.items
-          }*/
 
           if (template.value !== undefined) {
             if (template.value === false) {
@@ -81,26 +61,6 @@ export default {
       })
 
       return elements
-    },
-    setSettings () {
-      return this.data?.settings || {}
-    },
-    setTemplates () {
-      if (this.data?.templates) {
-        let templates
-
-        if (Array.isArray(this.data.templates)) {
-          templates = {}
-
-          this.data.templates.forEach(i => {
-            if (i.key) {
-              templates[i.key] = i
-            }
-          })
-        }
-
-        return templates || this.data.templates
-      }
     },
     getElements (elements, element) {
       return h(
@@ -145,8 +105,8 @@ export default {
 
         case 'add':
           let element = {}
-          if (data[index]['key'] && this.templates[data[index]['key']]) {
-            element = { ...this.templates[data[index]['key']] }
+          if (data[index]['key'] && this.config.templates[data[index]['key']]) {
+            element = { ...this.config.templates[data[index]['key']] }
             element.key = data[index]['key']
           } else {
             element = this.clearValue({ ...data[index] })
@@ -182,7 +142,7 @@ export default {
 
         element.items.push(template)
       } else {
-        element.key = template
+        element.key ??= template
         this.elements.push(element)
       }
     },

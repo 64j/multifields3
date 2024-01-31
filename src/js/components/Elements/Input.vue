@@ -197,12 +197,10 @@ export default {
       this.$emit('action', action, values)
     },
     onChange (event, i, k) {
-      if (this.elements) {
-        if (['file', 'image', 'datepicker'].includes(this.type)) {
+      if (['file', 'image', 'datepicker'].includes(this.type)) {
+        if (i) {
           i.value = event.target.value
-        }
-      } else {
-        if (['datepicker'].includes(this.type)) {
+        } else {
           this.model = event.target.value
         }
       }
@@ -238,7 +236,7 @@ export default {
             window.KCFinder = null
             if (self.elements) {
               for (let i in files) {
-                self.data[i].key = files[i]
+                self.data[i].value = files[i]
               }
             } else {
               window.SetUrl(files.shift())

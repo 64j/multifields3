@@ -18,7 +18,7 @@ export default {
     placeholder: String,
     items: Array,
     templates: {
-      type: [Boolean, Array],
+      type: [Boolean, Object, Array],
       default: true
     },
     actions: {
