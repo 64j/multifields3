@@ -18,7 +18,7 @@ export default {
           return templates
         }
 
-        for (const i of this.$root['config']['templates']['value']) {
+        for (const i of this.$root['config']['templates']) {
           if (this.data === true) {
             if (mf3Elements[`mf:${i.name}`] && !i.hidden) {
               templates.push(i)

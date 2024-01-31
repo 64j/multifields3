@@ -31,12 +31,12 @@ export default {
         value = []
       }
 
-      return this.setElementFromTemplates(value, this.config.templates.value)
+      return this.setElementFromTemplates(value, this.config.templates)
     },
     setElementFromTemplates (elements, templates) {
       elements.forEach(element => {
         let template = templates.find(i => i.key === element.key) ??
-            this.config.templates.value.find(i => i.key === element.key) ?? null
+            this.config.templates.find(i => i.key === element.key) ?? null
 
         if (template) {
           template = { ...template }

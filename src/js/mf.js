@@ -25,7 +25,7 @@ document.querySelectorAll('.mf3-data').forEach(dataEl => {
         return { key: i[1].key ?? i[0], ...i[1] }
       })
 
-      window['mf3Config'][dataEl.name]['templates'] = ref(f(window['mf3Config'][dataEl.name]['templates']))
+      window['mf3Config'][dataEl.name]['templates'] = f(window['mf3Config'][dataEl.name]['templates'])
     }
 
     createApp(Mf, {
