@@ -1,4 +1,6 @@
 <script>
+import { getCurrentInstance } from 'vue'
+
 export default {
   name: 'Templates',
   props: {
@@ -18,7 +20,7 @@ export default {
           return templates
         }
 
-        for (const i of this.$root['config']['templates']) {
+        for (const i of getCurrentInstance()['ctx']._.root.props['config']['templates']) {
           if (this.data === true) {
             if (mf3Elements[`mf:${i.name}`] && !i.hidden) {
               templates.push(i)
