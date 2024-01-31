@@ -198,7 +198,7 @@ export default {
 
 <template>
   <div class="mf3 mf3-group">
-    <templates :data="true" @select:template="selectTemplate"/>
+    <templates class="mf3-templates" :data="true" @select:template="selectTemplate"/>
     <component :is="() => getElements(elements)"/>
   </div>
 </template>
