@@ -7,9 +7,11 @@ export default {
   __isStatic: true,
   components: { Templates, Actions },
   props: {
-    key: String,
+    name: {
+      type: String,
+      required: true
+    },
     type: String,
-    name: String,
     title: String,
     value: {
       type: [Boolean, String],

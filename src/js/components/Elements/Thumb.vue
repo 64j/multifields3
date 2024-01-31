@@ -6,12 +6,14 @@ export default {
   __isStatic: true,
   components: { Actions },
   props: {
-    key: String,
+    name: {
+      type: String,
+      required: true
+    },
     type: {
       type: String,
       default: 'thumb'
     },
-    name: String,
     title: String,
     label: String,
     value: String,
@@ -91,7 +93,7 @@ export default {
 
 <style scoped>
 .mf3-item {
-  @apply max-w-24 flex items-center justify-center bg-no-repeat;
+  @apply w-24 flex grow-0 basis-auto items-center justify-center bg-no-repeat;
   background-size: 0;
 }
 .mf3-item::before {

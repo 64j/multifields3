@@ -35,8 +35,14 @@ export default {
     required: Boolean,
     readonly: Boolean,
     disabled: Boolean,
-    trueValue: [String, Number, Boolean],
-    falseValue: [String, Number, Boolean],
+    trueValue: {
+      type: [String, Number, Boolean],
+      default: undefined
+    },
+    falseValue: {
+      type: [String, Number, Boolean],
+      default: undefined
+    },
     actions: {
       default: ['add', 'move', 'del']
     }

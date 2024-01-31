@@ -31,13 +31,13 @@ export default {
           i[1].items = f(i[1].items)
         }
 
-        return { key: i[1].key ?? i[0], ...i[1] }
+        return { id: i[1].id ?? i[0], ...i[1] }
       })
 
       for (const i in this.config.templates) {
         const template = this.config.templates[i]
         if (mf3Elements[`mf:${template.name}`] && !template.hidden) {
-          templates.push({ key: i, title: template.title })
+          templates.push({ id: i, title: template.title, icon: template.icon })
         }
 
         if (template.items) {
@@ -60,16 +60,20 @@ export default {
     },
     setElementFromTemplates (elements, templates) {
       elements.forEach(element => {
-        let template = templates.find(i => i.key === element.key) ?? this.config.templates[element.key] ?? null
+        let template = templates.find(i => i.id === element.id) ?? this.config.templates[element.id] ?? null
 
         if (template) {
           template = { ...template }
 
           const items = template.items
 
-          if (items) {
-            element.items = this.setElementFromTemplates(element.items || [], items)
+          if (items || template.templates) {
+            element.items = this.setElementFromTemplates(element.items || [], items || [])
             delete template.items
+          } else {
+            if (element.items) {
+              delete element.items
+            }
           }
 
           if (template.value !== undefined) {
@@ -81,10 +85,12 @@ export default {
           }
 
           Object.assign(element, template)
+        } else {
+          element.id = null
         }
       })
 
-      return elements
+      return elements.filter(i => i.id)
     },
     getElements (elements, element) {
       return h(
@@ -129,9 +135,9 @@ export default {
 
         case 'add':
           let element = {}
-          if (data[index]['key'] && this.config.templates[data[index]['key']]) {
-            element = { ...this.config.templates[data[index]['key']] }
-            element.key = data[index]['key']
+          if (data[index]['id'] && this.config.templates[data[index]['id']]) {
+            element = { ...this.config.templates[data[index]['id']] }
+            element.id = data[index]['id']
           } else {
             element = this.clearValue({ ...data[index] })
           }
@@ -152,24 +158,24 @@ export default {
         keys = typeof keys !== 'object' ? [keys] : keys
 
         elements.forEach(i => {
-          if (keys.includes(i.key)) {
+          if (keys.includes(i.id)) {
             i.value = value
           }
         })
       }
     },
-    selectTemplate (element, key) {
-      const template = { ...this.config.templates[key || element] }
+    selectTemplate (element, id) {
+      const template = { ...this.config.templates[id || element] }
 
-      if (key !== undefined) {
+      if (id !== undefined) {
         if (!element.items) {
           element.items = []
         }
 
-        template.key ??= key
+        template.id ??= id
         element.items = element.items.concat([template])
       } else {
-        template.key ??= element
+        template.id ??= element
         this.elements.push(template)
       }
     },
@@ -185,17 +191,14 @@ export default {
       return data
     },
     setData (elements) {
-      elements = Object.assign([], elements)
+      elements = [...elements]
 
       for (let j in elements) {
-        const element = Object.assign({}, elements[j])
+        const element = { ...elements[j] }
 
         for (const i in element) {
           if (![
             'id',
-            'key',
-            'type',
-            'name',
             'value',
             'values',
             'default',
@@ -203,6 +206,10 @@ export default {
           ].includes(i)) {
             delete element[i]
           }
+        }
+
+        if (element.value === '') {
+          delete element.value
         }
 
         if (element?.items) {

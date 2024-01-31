@@ -5,7 +5,7 @@ export default {
   name: 'mf:textarea',
   __isStatic: true,
   components: { Actions },
-  props: ['key', 'type', 'name', 'title', 'value', 'actions', 'rows'],
+  props: ['name', 'type', 'title', 'value', 'actions', 'rows'],
   computed: {
     model: {
       set (value) {

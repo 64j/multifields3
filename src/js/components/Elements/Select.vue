@@ -8,9 +8,8 @@ export default {
   __isStatic: true,
   components: { Loader, Actions },
   props: [
-    'key',
-    'type',
     'name',
+    'type',
     'title',
     'value',
     'values',
