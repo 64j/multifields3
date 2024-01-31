@@ -42,8 +42,8 @@ export default {
     }
   },
   data () {
-    this.id = 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
     return {
+      id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36),
       data: this.elements ? [] : null,
       loading: false
     }
