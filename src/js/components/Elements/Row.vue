@@ -77,6 +77,9 @@ export default {
 .mf3-row > .mf3-items:empty {
   @apply p-0
 }
+.mf3-item.mf3-row > .mf3-items > div {
+  @apply order-1
+}
 .mf3-row > .mf3-actions .mf3-actions__panel {
   @apply bg-green-500
 }

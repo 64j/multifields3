@@ -1,6 +1,4 @@
 <script>
-import { getCurrentInstance } from 'vue'
-
 export default {
   name: 'Templates',
   props: {
@@ -11,25 +9,12 @@ export default {
   computed: {
     templates () {
       if (this.data) {
-        const templates = []
+        let templates = []
 
-        if (typeof this.data === 'object' || typeof this.data[0] === 'object') {
-          for (const i in this.data) {
-            templates.push({ key: this.data[i].key ?? i, ...this.data[i] })
-          }
-          return templates
-        }
-
-        for (const i of getCurrentInstance()['ctx']._.root.props['config']['templates']) {
-          if (this.data === true) {
-            if (mf3Elements[`mf:${i.name}`] && !i.hidden) {
-              templates.push(i)
-            }
-          } else if (Array.isArray(this.data) && this.data.includes(i.key)) {
-            if (mf3Elements[`mf:${i.name}`]) {
-              templates.push(i)
-            }
-          }
+        if (this.data === true) {
+          templates = this.$root['templates']
+        } else if (Array.isArray(this.data)) {
+          templates = this.$root['templates'].filter(i => this.data.includes(i.key))
         }
 
         if (templates.length) {
@@ -41,11 +26,11 @@ export default {
   methods: {
     open () {
       if (this.templates.length === 1) {
-        this.select(0)
+        this.select(this.templates[0].key)
       }
     },
-    select (index) {
-      this.$emit('select:template', { ...this.templates[index] }, index)
+    select (key) {
+      this.$emit('select:template', key)
     }
   }
 }
@@ -55,8 +40,8 @@ export default {
   <div class="mf3-templates" v-if="templates">
     <button type="button" class="mf3-templates__add" @mousedown="open"/>
     <div v-if="templates.length > 1" class="mf3-templates__list">
-      <div v-for="(i, index) in templates" @mousedown="select(index)">
-        {{ i['title'] || i['key'] }}
+      <div v-for="i in templates" @mousedown="select(i.key)">
+        {{ i.key || i.title }}
       </div>
     </div>
   </div>

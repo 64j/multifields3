@@ -1,206 +1,225 @@
-<script setup>
-import { getCurrentInstance, h, shallowReactive, watch } from 'vue'
+<script>
+import { h } from 'vue'
 import draggable from 'vuedraggable'
+import Actions from './Actions.vue'
 import Templates from './Templates.vue'
 
-const $props = defineProps(['dataEl', 'config'])
-const instance = getCurrentInstance()
-//const elements = reactive(setElements())
-const elements = shallowReactive([])
+export default {
+  name: 'mf',
+  components: { Templates, Actions, draggable },
+  props: ['dataEl', 'config'],
+  data () {
+    return {
+      templates: this.setTemplates(),
+      elements: this.setElements()
+    }
+  },
+  watch: {
+    elements: {
+      handler (elements) {
+        this.dataEl.innerHTML = elements.length ? JSON.stringify(this.setData(elements)) : ''
+      },
+      deep: true
+    }
+  },
+  methods: {
+    setTemplates () {
+      const templates = []
 
-watch(
-    () => elements,
-    (elements) => {
-      $props.dataEl.innerHTML = elements.length ? JSON.stringify(setData(elements)) : ''
-    },
-    { deep: true }
-)
+      const f = (items) => Object.entries(items).map(i => {
+        if (i[1].items) {
+          i[1].items = f(i[1].items)
+        }
 
-function setElements () {
-  let value
+        return { key: i[1].key ?? i[0], ...i[1] }
+      })
 
-  try {
-    value = Object.values(JSON.parse($props.dataEl.value))
-  } catch (errors) {
-    value = []
-  }
+      for (const i in this.config.templates) {
+        const template = this.config.templates[i]
+        if (mf3Elements[`mf:${template.name}`] && !template.hidden) {
+          templates.push({ key: i, title: template.title })
+        }
 
-  return setElementFromTemplates(value, $props.config.templates)
-}
-
-function setElementFromTemplates (elements, templates) {
-  elements.forEach(element => {
-    let template = templates.find(i => i.key === element.key) ??
-        $props.config.templates.find(i => i.key === element.key) ?? null
-
-    if (template) {
-      template = { ...template }
-
-      const items = template.items
-
-      if (items) {
-        element.items = setElementFromTemplates(element.items || [], items)
-        delete template.items
-      }
-
-      if (template.value !== undefined) {
-        if (template.value === false) {
-          delete element.value
-        } else {
-          delete template.value
+        if (template.items) {
+          template.items = f(template.items)
         }
       }
 
-      Object.assign(element, template)
-    }
-  })
+      return templates
+    },
+    setElements () {
+      let value
 
-  return elements
-}
-
-function getElements (elements, element) {
-  return h(
-      draggable,
-      {
-        tag: 'div',
-        list: elements,
-        itemKey: a => a,
-        class: ['mf3-items', element?.['itemsClass']],
-        style: element?.['itemsStyle'],
-        handle: '.mf3-actions__move',
-        ghostClass: 'mf3-draggable__active',
-        chosenClass: 'mf3-draggable__chosen'
-      },
-      {
-        item: ({ element, index }) => getElement(element, index, elements)
+      try {
+        value = Object.values(JSON.parse(this.dataEl.value))
+      } catch (errors) {
+        value = []
       }
-  )
-}
 
-function getElement (element, index, elements) {
-  const name = element.name ? 'mf:' + element.name : null
-  let items
+      return this.setElementFromTemplates(value, [])
+    },
+    setElementFromTemplates (elements, templates) {
+      elements.forEach(element => {
+        let template = templates.find(i => i.key === element.key) ?? this.config.templates[element.key] ?? null
 
-  if (element?.items) {
-    items = () => getElements(element.items, element)
-  }
+        if (template) {
+          template = { ...template }
 
-  return mf3Elements[name] && h(
-      mf3Elements[name],
-      {
-        ...element,
-        'onAction': (a, ...args) => action(a, elements, index, ...args),
-        'onUpdate:value': (...args) => updateValue(element, elements, ...args),
-        'onSelect:template': (...args) => selectTemplate(element, ...args)
-        //'onClick': select
-      },
-      items
-  )
-}
+          const items = template.items
 
-function action (action, data, index, values) {
-  index ??= data.length
+          if (items) {
+            element.items = this.setElementFromTemplates(element.items || [], items)
+            delete template.items
+          }
 
-  switch (action) {
-    case 'del':
-      data.splice(index, 1)
-      break
+          if (template.value !== undefined) {
+            if (template.value === false) {
+              delete element.value
+            } else {
+              delete template.value
+            }
+          }
 
-    case 'add':
-      let element = {}
-      if (data[index]['key'] && $props.config.templates[data[index]['key']]) {
-        element = { ...$props.config.templates[data[index]['key']] }
-        element.key = data[index]['key']
+          Object.assign(element, template)
+        }
+      })
+
+      return elements
+    },
+    getElements (elements, element) {
+      return h(
+          draggable,
+          {
+            tag: 'div',
+            list: elements,
+            itemKey: a => a,
+            class: ['mf3-items', element?.['itemsClass']],
+            style: element?.['itemsStyle'],
+            handle: '.mf3-actions__move',
+            ghostClass: 'mf3-draggable__active',
+            chosenClass: 'mf3-draggable__chosen'
+          },
+          {
+            item: ({ element, index }) => this.getElement(element, index, elements)
+          }
+      )
+    },
+    getElement (element, index, elements) {
+      const name = element.name ? 'mf:' + element.name : null
+
+      return mf3Elements[name] && h(
+          mf3Elements[name],
+          {
+            ...element,
+            'onAction': (action, ...args) => this.action(action, elements, index, ...args),
+            'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
+            'onSelect:template': (...args) => this.selectTemplate(element, ...args),
+            'onClick': this.select
+          },
+          element?.items && (() => this.getElements(element.items, element))
+      )
+    },
+    action (action, data, index, values) {
+      index ??= data.length
+
+      switch (action) {
+        case 'del':
+          data.splice(index, 1)
+          break
+
+        case 'add':
+          let element = {}
+          if (data[index]['key'] && this.config.templates[data[index]['key']]) {
+            element = { ...this.config.templates[data[index]['key']] }
+            element.key = data[index]['key']
+          } else {
+            element = this.clearValue({ ...data[index] })
+          }
+
+          data.splice(index + 1, 0, element)
+
+          if (values) {
+            Object.assign(data[index + 1], values)
+          }
+          break
+      }
+    },
+    updateValue (element, elements, value, values, keys) {
+      element.value = value
+      //element.values = values
+
+      if (keys !== undefined) {
+        keys = typeof keys !== 'object' ? [keys] : keys
+
+        elements.forEach(i => {
+          if (keys.includes(i.key)) {
+            i.value = value
+          }
+        })
+      }
+    },
+    selectTemplate (element, key) {
+      const template = { ...this.config.templates[key || element] }
+
+      if (key !== undefined) {
+        if (!element.items) {
+          element.items = []
+        }
+
+        template.key ??= key
+        element.items = element.items.concat([template])
       } else {
-        element = clearValue({ ...data[index] })
+        template.key ??= element
+        this.elements.push(template)
+      }
+    },
+    clearValue (data) {
+      if (data.value !== undefined) {
+        data.value = data.value === false ? data.value : ''
       }
 
-      data.splice(index + 1, 0, element)
-
-      if (values) {
-        Object.assign(data[index + 1], values)
+      if (data.items) {
+        data.items = data.items.map(i => this.clearValue({ ...i }))
       }
-      break
-  }
-}
 
-function updateValue (element, elements, value, values, keys) {
-  element.value = value
-  //element.values = values
+      return data
+    },
+    setData (elements) {
+      elements = Object.assign([], elements)
 
-  if (keys !== undefined) {
-    keys = typeof keys !== 'object' ? [keys] : keys
+      for (let j in elements) {
+        const element = Object.assign({}, elements[j])
 
-    elements.forEach(i => {
-      if (keys.includes(i.key)) {
-        i.value = value
+        for (const i in element) {
+          if (![
+            'id',
+            'key',
+            'type',
+            'name',
+            'value',
+            'values',
+            'default',
+            'items'
+          ].includes(i)) {
+            delete element[i]
+          }
+        }
+
+        if (element?.items) {
+          element.items = this.setData(element.items)
+        }
+
+        elements[j] = element
       }
-    })
-  }
-}
 
-function select (event) {
-  instance.vnode.el.querySelectorAll('.mf3-item.active').forEach(i => i.classList.remove('active'))
-  event.currentTarget.classList.add('active')
-  event.stopPropagation()
-}
-
-function clearValue (data) {
-  if (data.value !== undefined) {
-    data.value = data.value === false ? data.value : ''
-  }
-
-  if (data.items) {
-    data.items = data.items.map(i => clearValue({ ...i }))
-  }
-
-  return data
-}
-
-function selectTemplate (element, template, key) {
-  if (key !== undefined) {
-    if (!element.items) {
-      element.items = []
+      return elements
+    },
+    select (event) {
+      this.$el.querySelectorAll('.mf3-item.active').forEach(i => i.classList.remove('active'))
+      event.currentTarget.classList.add('active')
+      event.stopPropagation()
     }
-
-    element.items.push({ ...template })
-  } else {
-    element.key ??= template
-    elements.push({ ...element })
   }
-}
-
-function setData (elements) {
-  return elements
-
-  elements = Object.assign([], elements)
-
-  for (let j in elements) {
-    const element = Object.assign({}, elements[j])
-
-    for (const i in element) {
-      if (![
-        'id',
-        'key',
-        'type',
-        'name',
-        'value',
-        'values',
-        'default',
-        'items'
-      ].includes(i)) {
-        delete element[i]
-      }
-    }
-
-    if (element?.items) {
-      element.items = setData(element.items)
-    }
-
-    elements[j] = element
-  }
-
-  return elements
 }
 </script>
 
