@@ -26,5 +26,5 @@
     @apply grow p-0 -mx-1
 }
 .mf3-items {
-    @apply relative p-1 w-full flex flex-wrap flex-row items-center grow
+    @apply relative p-1.5 w-full flex flex-wrap flex-row items-center grow
 }

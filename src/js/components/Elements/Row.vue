@@ -35,22 +35,26 @@ export default {
     <div v-if="value !== false" class="mf3-row__value">
       <input type="text" :value="value" :placeholder="placeholder" @input="$emit('update:value', $event.target.value)">
     </div>
+    <div v-if="label" class="mf3-row__label" v-html="label"/>
     <slot/>
   </div>
 </template>
 
 <style scoped>
 .mf3-row {
-  @apply min-h-[2.3rem]
+  @apply pb-2.5 min-h-[2.3rem]
 }
 .mf3-row__value {
-  @apply relative m-1 mb-0 py-1 px-1 bg-slate-500/5 border-0 border-b border-solid border-slate-200
+  @apply relative m-1 mb-0 p-1.5 bg-slate-500/5 border-0 border-b border-solid border-slate-200
 }
 .darkness .mf3-row__value {
   @apply border-gray-600
 }
 .mf3-row__value input {
-  @apply w-full text-xs px-1 py-0.5 h-5
+  @apply w-full text-xs px-1.5 py-1.5 h-7
+}
+.mf3-row__label {
+  @apply px-3 pt-2.5
 }
 </style>
 
@@ -62,7 +66,7 @@ export default {
   @apply opacity-100 visible
 }
 .mf3-row > .mf3-items {
-  @apply px-1.5 pb-1.5
+  @apply px-1.5
 }
 .mf3-row > .mf3-items:empty {
   @apply p-0
