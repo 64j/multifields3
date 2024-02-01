@@ -1,55 +1,27 @@
 <script>
 import axios from 'axios'
 import Loader from '../Loader.vue'
+import Element from '../Element.vue'
 import Actions from '../Actions.vue'
 
 export default {
   name: 'mf:input',
   __isStatic: true,
+  extends: Element,
   components: { Loader, Actions },
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    type: String,
-    title: [String, Number],
-    label: [String, Number],
-    value: {
-      type: [null, String, Number, Boolean, Array],
-      default: undefined
-    },
-    values: Array,
-    elements: [String, Array],
-    default: [String, Number, Array],
     min: [String, Number],
     max: [String, Number],
     minlength: [String, Number],
     maxlength: [String, Number],
     size: [String, Number],
     step: [String, Number],
-    multi: Boolean,
-    thumb: String,
-    placeholder: [String, Number],
     pattern: String,
-    required: Boolean,
-    readonly: Boolean,
-    disabled: Boolean,
-    trueValue: {
-      type: [String, Number, Boolean],
-      default: undefined
-    },
-    falseValue: {
-      type: [String, Number, Boolean],
-      default: undefined
-    },
-    actions: {
-      default: ['add', 'move', 'del']
-    }
+    multi: Boolean,
+    thumb: String
   },
   data () {
     return {
-      id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36),
       data: this.elements ? [] : null,
       loading: false
     }
@@ -114,25 +86,6 @@ export default {
         default:
           return this.type
       }
-    },
-    inputClass () {
-      // switch (this.type) {
-      //   case 'datepicker':
-      //     return 'DatePicker'
-      // }
-    },
-    bindAttributes () {
-      const attrs = {}
-
-      if (this.trueValue !== undefined) {
-        attrs['true-value'] = this.trueValue
-      }
-
-      if (this.falseValue !== undefined) {
-        attrs['false-value'] = this.falseValue
-      }
-
-      return attrs
     },
     showValue () {
       switch (this.type) {
@@ -283,10 +236,10 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item" :data-type="type">
+  <div class="mf3-item" :data-type="type" v-bind="attr">
     <actions @action="action" :actions="actions"/>
 
-    <div class="mf3-items">
+    <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">
       <template v-if="data">
         <div v-if="label">
           <span>{{ label }}</span>
@@ -299,6 +252,8 @@ export default {
                    :type="type"
                    :value="i.value"
                    :required="i.required"
+                   :class="$props['item.class']"
+                   v-bind="$props['item.attr']"
                    v-model="model">
           </template>
           <template v-else>
@@ -317,7 +272,8 @@ export default {
                    :disabled="disabled"
                    :pattern="pattern"
                    :placeholder="placeholder"
-                   :class="inputClass"
+                   :class="$props['item.class']"
+                   v-bind="$props['item.attr']"
                    v-model="i.value"
                    @change="onChange($event, i, k)">
 
@@ -348,8 +304,8 @@ export default {
                :disabled="disabled"
                :pattern="pattern"
                :placeholder="placeholder"
-               :class="inputClass"
-               v-bind="bindAttributes"
+               :class="$props['item.class']"
+               v-bind="$props['item.attr']"
                v-model="model"
                @change="onChange">
 

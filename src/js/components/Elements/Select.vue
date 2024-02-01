@@ -2,22 +2,16 @@
 import axios from 'axios'
 import Actions from '../Actions.vue'
 import Loader from '../Loader.vue'
+import Element from '../Element.vue'
 
 export default {
   name: 'mf:select',
   __isStatic: true,
+  extends: Element,
   components: { Loader, Actions },
   props: [
-    'name',
-    'type',
-    'title',
-    'value',
-    'values',
-    'elements',
-    'default',
     'multiple',
-    'size',
-    'actions'
+    'size'
   ],
   data () {
     return {
@@ -101,14 +95,16 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item">
+  <div class="mf3-item" :data-type="type" v-bind="attr">
     <actions @action="action" :actions="actions"/>
 
-    <div class="mf3-items">
+    <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">
       <loader v-if="loading" class="mf3-loader"/>
       <select v-model="model"
               :size="multiple ? (size || 8) : (size || 1)"
               :multiple="multiple"
+              :class="$props['item.class']"
+              v-bind="$props['item.attr']"
               @mousedown="getOptions"
               @focus="() => focus = true"
               @blur="() => focus = false">

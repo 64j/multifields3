@@ -1,35 +1,18 @@
 <script>
+import Element from '../Element.vue'
 import Actions from '../Actions.vue'
 
 export default {
   name: 'mf:thumb',
   __isStatic: true,
+  extends: Element,
   components: { Actions },
   props: {
-    name: {
-      type: String,
-      required: true
-    },
     type: {
-      type: String,
       default: 'thumb'
     },
-    title: String,
-    label: String,
-    value: String,
-    placeholder: String,
-    actions: {
-      default: ['add', 'move', 'del']
-    },
-    elements: [String, Array],
     multi: Boolean,
-    input: String,
-    items: Array
-  },
-  data () {
-    return {
-      id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36)
-    }
+    input: String
   },
   computed: {
     model: {
@@ -80,13 +63,15 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item mf3-thumb" :class="`mf3-thumb__` + this.type"
-       :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }">
+  <div class="mf3-item mf3-thumb" :class="`mf3-thumb__` + type"
+       :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }"
+       :data-type="type"
+       v-bind="attr">
     <actions @action="action" :actions="actions"/>
     <button type="button" @click="select">
       <i/>
     </button>
-    <input v-model="model" :id="this.id" type="hidden" @change="updateValue">
+    <input v-model="model" :id="id" type="hidden" @change="updateValue">
     <slot/>
   </div>
 </template>

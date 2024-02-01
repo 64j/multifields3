@@ -10,6 +10,10 @@ Object.entries(import.meta.glob('./components/Elements/*.vue', { eager: true }))
 })
 
 document.querySelectorAll('.mf3-data').forEach(dataEl => {
+  try {
+    console.log('%cMultifields3 started for tv: %c' + dataEl.name, 'color: royalblue;', 'color: crimson;');
+  } catch (errors) {}
+
   const el = document.createElement('div')
 
   if (window['mf3Config'][dataEl.name]) {

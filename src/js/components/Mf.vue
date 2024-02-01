@@ -152,7 +152,7 @@ export default {
     },
     updateValue (element, elements, value, values, keys) {
       element.value = value
-      //element.values = values
+      element.values = values
 
       if (keys !== undefined) {
         keys = typeof keys !== 'object' ? [keys] : keys
@@ -195,15 +195,14 @@ export default {
 
       for (let j in elements) {
         const element = { ...elements[j] }
+        const append = element.append || []
 
         for (const i in element) {
           if (![
             'id',
             'value',
-            'values',
-            'default',
             'items'
-          ].includes(i)) {
+          ].concat(append).includes(i)) {
             delete element[i]
           }
         }

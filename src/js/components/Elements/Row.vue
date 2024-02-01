@@ -1,33 +1,21 @@
 <script>
+import Element from '../Element.vue'
 import Actions from '../Actions.vue'
 import Templates from '../Templates.vue'
 
 export default {
   name: 'mf:row',
   __isStatic: true,
+  extends: Element,
   components: { Templates, Actions },
   props: {
-    name: {
-      type: String,
-      required: true
-    },
-    type: String,
-    title: String,
-    value: {
-      type: [Boolean, String],
-      default: undefined
-    },
-    placeholder: String,
-    items: Array,
     templates: {
       type: [Boolean, Object, Array],
       default: true
     },
     actions: {
       default: ['add', 'move', 'resize', 'hide', 'expand', 'del']
-    },
-    itemsClass: [String, Array],
-    itemsStyle: Object
+    }
   },
   methods: {
     action (action) {
@@ -41,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-row mf3-group mf3-item">
+  <div class="mf3-row mf3-group mf3-item" :data-type="type" v-bind="attr">
     <actions @action="action" :actions="actions"/>
     <templates :data="templates" @select:template="selectTemplate"/>
     <div v-if="value !== false" class="mf3-row__value">

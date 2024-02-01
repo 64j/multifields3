@@ -1,11 +1,13 @@
 <script>
+import Element from '../Element.vue'
 import Actions from '../Actions.vue'
 
 export default {
   name: 'mf:textarea',
   __isStatic: true,
+  extends: Element,
   components: { Actions },
-  props: ['name', 'type', 'title', 'value', 'actions', 'rows'],
+  props: ['rows'],
   computed: {
     model: {
       set (value) {
@@ -25,10 +27,10 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item">
+  <div class="mf3-item" v-bind="attr">
     <actions @action="action" :actions="actions"/>
-    <div class="mf3-items">
-      <textarea v-model="model" :rows="rows"/>
+    <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">
+      <textarea v-model="model" :rows="rows" :class="$props['item.class']" v-bind="$props['item.attr']"/>
     </div>
   </div>
 </template>
