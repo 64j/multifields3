@@ -2,7 +2,7 @@
 export default {
   name: 'Element',
   props: {
-    name: {
+    element: {
       type: String,
       required: true
     },
@@ -11,7 +11,9 @@ export default {
     label: [String, Number],
     value: {
       type: [null, String, Number, Boolean, Array],
-      default: undefined
+      default (props) {
+        return props.default
+      }
     },
     elements: [String, Object, Array],
     default: [String, Number, Array],

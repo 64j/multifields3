@@ -36,7 +36,7 @@ export default {
 
       for (const i in this.config.templates) {
         const template = this.config.templates[i]
-        if (mf3Elements[`mf:${template.name}`] && !template.hidden) {
+        if (mf3Elements[`mf:${template.element}`] && !template.hidden) {
           templates.push({ id: i, title: template.title, icon: template.icon })
         }
 
@@ -67,7 +67,7 @@ export default {
 
           const items = template.items
 
-          if (items || template.templates) {
+          if (items || template.templates || mf3Elements[`mf:${template.element}`]?.props?.templates?.default) {
             element.items = this.setElementFromTemplates(element.items || [], items || [])
             delete template.items
           } else {
@@ -111,7 +111,7 @@ export default {
       )
     },
     getElement (element, index, elements) {
-      const name = element.name ? 'mf:' + element.name : null
+      const name = element.element ? 'mf:' + element.element : null
 
       return mf3Elements[name] && h(
           mf3Elements[name],
