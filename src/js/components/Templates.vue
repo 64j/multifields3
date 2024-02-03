@@ -73,6 +73,6 @@ export default {
   @apply bg-gray-600 text-gray-100
 }
 .mf3-templates__list > div {
-  @apply px-2 py-1 text-xs select-none cursor-pointer hover:bg-blue-500 hover:text-white
+  @apply px-2 py-1 select-none cursor-pointer hover:bg-blue-500 hover:text-white
 }
 </style>

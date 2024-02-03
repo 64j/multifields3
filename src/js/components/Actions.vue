@@ -37,7 +37,7 @@ export default {
   @apply absolute left-1 top-1 bottom-1 right-1 flex justify-end ring-blue-500 ring-1 ring-offset-0 opacity-0 invisible
 }
 .mf3-actions__panel {
-  @apply absolute z-10 -left-[1px] -top-5 -right-[1px] -mt-0 px-5 h-5 rounded-t bg-blue-500 text-white pointer-events-none
+  @apply absolute z-10 -left-[1px] bottom-full -right-[1px] -mt-0 px-5 h-5 flex items-center rounded-t bg-blue-500 text-white pointer-events-none
 }
 .mf3-actions__panel::before {
   @apply content-[attr(data-title)] block truncate
