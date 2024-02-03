@@ -1,6 +1,9 @@
 .mf3 input, .mf3 select, .mf3 textarea {
     @apply block py-1 px-1.5 border border-slate-300 border-solid leading-5
 }
+.darkness .mf3 input, .darkness .mf3 select, .darkness .mf3 textarea {
+    @apply border-gray-600
+}
 .mf3 select:not([size="1"]), .mf3 select[multiple] {
     @apply h-auto
 }
