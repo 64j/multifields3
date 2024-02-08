@@ -372,10 +372,10 @@ export default {
   @apply pr-7
 }
 .mf3-item[data-type="file"] button, .mf3-item[data-type="image"] button, .mf3-item[data-type="datepicker"] button {
-  @apply absolute z-10 right-0.5 bottom-1 h-7 p-0 flex items-center justify-center border-none bg-transparent
+  @apply absolute z-10 bottom-1.5 right-1.5 h-7 p-0 flex items-center justify-center border-none bg-transparent
 }
 .mf3-item[data-type="file"] > .mf3-items > div button, .mf3-item[data-type="image"] > .mf3-items > div button, .mf3-item[data-type="datepicker"] > .mf3-items > div button {
-  @apply -right-0.5 top-0
+  @apply right-0 top-0
 }
 .mf3-item[data-type="file"] button::before {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
@@ -427,5 +427,11 @@ export default {
 }
 .mf3-item[data-type="datepicker"] button i::before {
   @apply -rotate-45
+}
+.darkness .mf3-item[data-type="datepicker"] button::before, .darkness .mf3-item[data-type="datepicker"] button::after, .darkness .mf3-item[data-type="datepicker"] button i::before, .darkness .mf3-item[data-type="datepicker"] button i::after {
+  @apply bg-white
+}
+.darkness .mf3-item[data-type="datepicker"] button i {
+  @apply border-white
 }
 </style>

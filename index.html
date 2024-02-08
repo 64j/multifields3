@@ -366,13 +366,13 @@
                                     label: 'Items',
                                     title: 'Items',
                                     placeholder: '...',
-                                    elements: '==Item 1||==Item 2||==Item 3'
+                                    elements: 'Item 1==||Item 2==||Item 3=='
                                   }
                                 }
                               }
                             </script>
                             <textarea name="input-text" class="mf3-data" data-tv-id="input-text" data-tv-name="input-text"
-                                      style="display: none" rows="4">[{"element":"input","type":"text","id":"item"},{"element":"input","type":"text","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:text:config">
                                 <a>Config: <strong>text</strong></a>
@@ -401,13 +401,13 @@
                                     label: 'Items',
                                     title: 'Items',
                                     placeholder: '...',
-                                    elements: 'Item 1==||Item 2==||Item 3=='
+                                    elements: 'Item 1==0||Item 2==0||Item 3==0'
                                   }
                                 }
                               }
                             </script>
                             <textarea name="input-number" class="mf3-data" data-tv-id="input-number" data-tv-name="input-number"
-                                      style="display: none" rows="4">[{"element":"input","type":"number","id":"item"},{"element":"input","type":"number","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":[0,0,0]}]</textarea>
 
                             <h5 id="mf3:input:number:config">
                                 <a>Config: <strong>number</strong></a>
@@ -442,7 +442,7 @@
                               }
                             </script>
                             <textarea name="input-tel" class="mf3-data" data-tv-id="input-tel" data-tv-name="input-tel"
-                                      style="display: none" rows="4">[{"element":"input","type":"tel","id":"item"},{"element":"input","type":"tel","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:tel:config">
                                 <a>Config: <strong>tel</strong></a>
@@ -477,7 +477,7 @@
                               }
                             </script>
                             <textarea name="input-email" class="mf3-data" data-tv-id="input-email" data-tv-name="input-email"
-                                      style="display: none" rows="4">[{"element":"input","type":"email","id":"item"},{"element":"input","type":"email","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:email:config">
                                 <a>Config: <strong>email</strong></a>
@@ -512,7 +512,7 @@
                               }
                             </script>
                             <textarea name="input-url" class="mf3-data" data-tv-id="input-url" data-tv-name="input-url"
-                                      style="display: none" rows="4">[{"element":"input","type":"url","id":"item"},{"element":"input","type":"url","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:url:config">
                                 <a>Config: <strong>url</strong></a>
@@ -547,7 +547,7 @@
                               }
                             </script>
                             <textarea name="input-date" class="mf3-data" data-tv-id="input-date" data-tv-name="input-date"
-                                      style="display: none" rows="4">[{"element":"input","type":"date","id":"item"},{"element":"input","type":"date","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:date:config">
                                 <a>Config: <strong>date</strong></a>
@@ -582,7 +582,7 @@
                               }
                             </script>
                             <textarea name="input-time" class="mf3-data" data-tv-id="input-time" data-tv-name="input-time"
-                                      style="display: none" rows="4">[{"element":"input","type":"time","id":"item"},{"element":"input","type":"time","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:time:config">
                                 <a>Config: <strong>time</strong></a>
@@ -617,7 +617,7 @@
                               }
                             </script>
                             <textarea name="input-datetime" class="mf3-data" data-tv-id="input-datetime" data-tv-name="input-datetime"
-                                      style="display: none" rows="4">[{"element":"input","type":"datetime","id":"item"},{"element":"input","type":"datetime","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:datetime:config">
                                 <a>Config: <strong>datetime</strong></a>
@@ -654,7 +654,7 @@
                               }
                             </script>
                             <textarea name="input-datepicker" class="mf3-data" data-tv-id="input-datepicker" data-tv-name="input-datepicker"
-                                      style="display: none" rows="4">[{"element":"input","type":"datepicker","id":"item"},{"element":"input","type":"datepicker","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:datepicker:config">
                                 <a>Config: <strong>datepicker</strong></a>
@@ -692,7 +692,7 @@
                                     type: 'checkbox',
                                     label: 'Items',
                                     title: 'Items',
-                                    elements: 'Item 1==||Item 2==||Item 3=='
+                                    elements: 'Item 1==1||Item 2==2||Item 3==3'
                                   },
                                   items_checked: {
                                     element: 'input',
@@ -706,8 +706,7 @@
                               }
                             </script>
                             <textarea name="input-checkbox" class="mf3-data" data-tv-id="input-checkbox" data-tv-name="input-checkbox"
-                                      style="display: none"
-                                      rows="4">[{"element":"input","type":"checkbox","id":"item"},{"element":"input","type":"checkbox","value":1,"id":"item_checked"},{"element":"input","type":"checkbox","id":"items"},{"element":"input","type":"checkbox","value":[1,2,3],"id":"items_checked"}]</textarea>
+                                      rows="2">[{"id":"item"},{"value":1,"id":"item_checked"},{"id":"items"},{"value":[1,2,3],"id":"items_checked"}]</textarea>
 
                             <h5 id="mf3:input:checkbox:config">
                                 <a>Config: <strong>checkbox</strong></a>
@@ -735,8 +734,7 @@
                               }
                             </script>
                             <textarea name="input-radio" class="mf3-data" data-tv-id="input-radio" data-tv-name="input-radio"
-                                      style="display: none"
-                                      rows="4">[{"element":"input","type":"radio","value":2,"id":"items"}]</textarea>
+                                      rows="2">[{"value":2,"id":"items"}]</textarea>
 
                             <h5 id="mf3:input:radio:config">
                                 <a>Config: <strong>radio</strong></a>
@@ -771,8 +769,7 @@
                               }
                             </script>
                             <textarea name="input-color" class="mf3-data" data-tv-id="input-color" data-tv-name="input-color"
-                                      style="display: none"
-                                      rows="4">[{"element":"input","type":"color","id":"item"},{"element":"input","type":"color","id":"items","value":["#0091ff","#ff004c","#ffbb00"]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["#0091ff","#ff004c","#ffbb00"]}]</textarea>
 
                             <h5 id="mf3:input:color:config">
                                 <a>Config: <strong>color</strong></a>
@@ -808,8 +805,7 @@
                               }
                             </script>
                             <textarea name="input-range" class="mf3-data" data-tv-id="input-range" data-tv-name="input-range"
-                                      style="display: none"
-                                      rows="4">[{"element":"input","type":"range","value":0,"id":"item"},{"element":"input","type":"range","id":"items","value":["0","50","100"]}]</textarea>
+                                      rows="2">[{"value":0,"id":"item"},{"id":"items","value":["0","50","100"]}]</textarea>
 
                             <h5 id="mf3:input:range:config">
                                 <a>Config: <strong>range</strong></a>
@@ -844,8 +840,7 @@
                               }
                             </script>
                             <textarea name="input-image" class="mf3-data" data-tv-id="input-image" data-tv-name="input-image"
-                                      style="display: none"
-                                      rows="4">[{"element":"input","type":"image","id":"item"},{"element":"input","type":"image","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:image:config">
                                 <a>Config: <strong>image</strong></a>
@@ -880,8 +875,7 @@
                               }
                             </script>
                             <textarea name="input-file" class="mf3-data" data-tv-id="input-file" data-tv-name="input-file"
-                                      style="display: none"
-                                      rows="4">[{"element":"input","type":"file","id":"item"},{"element":"input","type":"file","id":"items","value":["","",""]}]</textarea>
+                                      rows="2">[{"id":"item"},{"id":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:file:config">
                                 <a>Config: <strong>file</strong></a>
@@ -1004,7 +998,7 @@
 
 <style>
     /* [ DATEPICKER ] */
-    .dp_container { position: absolute; z-index: 500; }
+    .dp_container { font-size: 0.8275rem; position: absolute; z-index: 500; }
     .dp_cal { overflow: hidden; width: 220px; margin: 0.25rem 0; background-color: #fff; -webkit-box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.3); box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.3); }
     .dp_cal p { position: relative; margin: 10px; }
     .dp_cal select { font-size: 1em; margin: 2px 3px; width: auto !important }
