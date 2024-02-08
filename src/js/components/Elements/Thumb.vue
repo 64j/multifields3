@@ -63,9 +63,8 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item mf3-thumb" :class="`mf3-thumb__` + type"
+  <div class="mf3-item mf3-thumb" :class="`mf3-${element}__${type}`"
        :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }"
-       :data-type="type"
        v-bind="attr">
     <actions @action="action" :actions="actions"/>
     <button type="button" @click="select">

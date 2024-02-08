@@ -14,7 +14,7 @@ export default {
         if (this.data === true) {
           templates = this.$root['templates']
         } else if (Array.isArray(this.data)) {
-          templates = this.$root['templates'].filter(i => this.data.includes(i.id))
+          templates = this.$root['templates'].filter(i => this.data.includes(i.key))
         }
 
         if (templates.length) {
@@ -26,7 +26,7 @@ export default {
   methods: {
     open () {
       if (this.templates.length === 1) {
-        this.select(this.templates[0].id)
+        this.select(this.templates[0].key)
       }
     },
     select (id) {
@@ -40,8 +40,8 @@ export default {
   <div class="mf3-templates" v-if="templates">
     <button type="button" class="mf3-templates__add" @mousedown="open"/>
     <div v-if="templates.length > 1" class="mf3-templates__list">
-      <div v-for="i in templates" @mousedown="select(i.id)">
-        {{ i.id || i.title }}
+      <div v-for="i in templates" @mousedown="select(i.key)">
+        {{ i.key || i.title }}
       </div>
     </div>
   </div>

@@ -6,7 +6,12 @@ export default {
       type: String,
       required: true
     },
-    type: String,
+    type: {
+      type: String,
+      default (props) {
+        return props.element
+      }
+    },
     title: [String, Number],
     label: [String, Number],
     value: {

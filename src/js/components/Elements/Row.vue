@@ -2,6 +2,7 @@
 import Element from '../Element.vue'
 import Actions from '../Actions.vue'
 import Templates from '../Templates.vue'
+import { console } from 'vuedraggable/src/util/console'
 
 export default {
   name: 'mf:row',
@@ -23,14 +24,22 @@ export default {
     },
     selectTemplate () {
       this.$emit('select:template', ...arguments)
+    },
+    onmousedown (event) {
+      const target = event.target.parentElement.classList.contains('mf3-actions__resize') && event.target
+      if (target === event.target.parentElement.firstElementChild) {
+        console.log('action-offset')
+      } else if (target === event.target.parentElement.lastElementChild) {
+        console.log('action-col')
+      }
     }
   }
 }
 </script>
 
 <template>
-  <div class="mf3-row mf3-group mf3-item" :data-type="type" v-bind="attr">
-    <actions @action="action" :actions="actions"/>
+  <div class="mf3-row mf3-group mf3-item" :class="`mf3-${element}`" v-bind="attr">
+    <actions @action="action" :actions="actions" @mousedown="onmousedown"/>
     <templates :data="templates" @select:template="selectTemplate"/>
     <div v-if="value !== false" class="mf3-row__value">
       <input type="text" :value="value" :placeholder="placeholder" @input="$emit('update:value', $event.target.value)">

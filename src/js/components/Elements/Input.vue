@@ -10,6 +10,10 @@ export default {
   extends: Element,
   components: { Loader, Actions },
   props: {
+    type: {
+      type: String,
+      default: 'text'
+    },
     min: [String, Number],
     max: [String, Number],
     minlength: [String, Number],
@@ -236,7 +240,7 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item" :data-type="type" v-bind="attr">
+  <div class="mf3-item" :class="`mf3-${element}__${type}`" v-bind="attr">
     <actions @action="action" :actions="actions"/>
 
     <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">
@@ -338,7 +342,7 @@ export default {
 .mf3-item label {
   @apply order-3 m-0 shrink-0 inline-flex items-center
 }
-.mf3-input[data-type="checkbox"] label, .mf3-input[data-type="radio"] label {
+.mf3-input.mf3-input__checkbox label, .mf3-input.mf3-input__radio label {
   @apply w-auto
 }
 .mf3-item input {
@@ -347,91 +351,91 @@ export default {
 .mf3-item > .mf3-items > input ~ label {
   @apply order-1
 }
-.mf3-item > .mf3-items > div > input ~ label, .mf3-item[data-type="range"] > .mf3-items > input ~ label {
+.mf3-item > .mf3-items > div > input ~ label, .mf3-item.mf3-input__range > .mf3-items > input ~ label {
   @apply order-1 mr-2 w-40
 }
 .mf3-item > .mf3-items > div > input ~ label span, .mf3-item > .mf3-items input ~ label span {
   @apply first:mr-2 first:opacity-100 opacity-75 truncate
 }
-.mf3-item[data-type="checkbox"] > .mf3-items input ~ label, .mf3-item[data-type="radio"] > .mf3-items input ~ label, .mf3-item[data-type="color"] > .mf3-items input ~ label, .mf3-item[data-type="color"] > .mf3-items > div > input ~ label {
+.mf3-item.mf3-input__checkbox > .mf3-items input ~ label, .mf3-item.mf3-input__radio > .mf3-items input ~ label, .mf3-item.mf3-input__color > .mf3-items input ~ label, .mf3-item.mf3-input__color > .mf3-items > div > input ~ label {
   @apply order-3 mr-0 p-0 w-fit
 }
-.mf3-item[data-type="color"] input {
+.mf3-item.mf3-input__color input {
   @apply w-7 p-0
 }
-.mf3-item[data-type="color"] input + label {
+.mf3-item.mf3-input__color input + label {
   @apply ml-2 order-3
 }
-.mf3-item[data-type="range"] input {
+.mf3-item.mf3-input__range input {
   @apply grow p-0 h-auto w-auto appearance-auto outline-none
 }
-.mf3-item[data-type="checkbox"] input, .mf3-item[data-type="radio"] input {
+.mf3-item.mf3-input__checkbox input, .mf3-item.mf3-input__radio input {
   @apply inline-block mr-2 w-3.5 h-3.5
 }
-.mf3-item[data-type="file"] input, .mf3-item[data-type="image"] input {
+.mf3-item.mf3-input__file input, .mf3-item.mf3-input__image input {
   @apply pr-7
 }
-.mf3-item[data-type="file"] button, .mf3-item[data-type="image"] button, .mf3-item[data-type="datepicker"] button {
+.mf3-item.mf3-input__file button, .mf3-item.mf3-input__image button, .mf3-item.mf3-input__datepicker button {
   @apply absolute z-10 bottom-1.5 right-1.5 h-7 p-0 flex items-center justify-center border-none bg-transparent
 }
-.mf3-item[data-type="file"] > .mf3-items > div button, .mf3-item[data-type="image"] > .mf3-items > div button, .mf3-item[data-type="datepicker"] > .mf3-items > div button {
+.mf3-item.mf3-input__file > .mf3-items > div button, .mf3-item.mf3-input__image > .mf3-items > div button, .mf3-item.mf3-input__datepicker > .mf3-items > div button {
   @apply right-0 top-0
 }
-.mf3-item[data-type="file"] button::before {
+.mf3-item.mf3-input__file button::before {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
 }
-.mf3-item[data-type="file"] button i {
+.mf3-item.mf3-input__file button i {
   @apply flex relative justify-center mx-2.5 w-3 h-4 overflow-hidden bg-blue-300 rounded-[2px] rounded-tr-[5px] border border-solid border-black opacity-65 pointer-events-none
 }
-.mf3-item[data-type="file"] button:hover i {
+.mf3-item.mf3-input__file button:hover i {
   @apply opacity-85
 }
-.mf3-item[data-type="file"] button i::before {
+.mf3-item.mf3-input__file button i::before {
   @apply content-[""] absolute left-0.5 top-1.5 w-1.5 h-1 border-solid border-t border-b border-l-0 border-r-0 border-black
 }
-.mf3-item[data-type="file"] button i::after {
+.mf3-item.mf3-input__file button i::after {
   @apply content-[""] absolute -right-0.5 -top-0.5 w-1.5 h-1.5 bg-white border border-solid border-black
 }
-.mf3-item[data-type="image"] button::before {
+.mf3-item.mf3-input__image button::before {
   @apply content-[""] absolute left-0 top-1 bottom-1 border-none border-l opacity-50
 }
-.mf3-item[data-type="image"] button i {
+.mf3-item.mf3-input__image button i {
   @apply flex relative justify-center mx-2 w-4 h-4 overflow-hidden bg-cyan-200 rounded-[2px] border border-solid border-black opacity-65 pointer-events-none
 }
-.mf3-item[data-type="image"] button:hover i {
+.mf3-item.mf3-input__image button:hover i {
   @apply opacity-85
 }
-.mf3-item[data-type="image"] button i::before {
+.mf3-item.mf3-input__image button i::before {
   @apply content-[""] absolute left-1 top-2 w-3 h-3 border border-solid border-black bg-red-500 rotate-45
 }
-.mf3-item[data-type="image"] button i::after {
+.mf3-item.mf3-input__image button i::after {
   @apply content-[""] absolute left-0.5 top-0.5 w-1 h-1 border border-solid border-amber-800 bg-amber-400 rounded-full
 }
-.mf3-item[data-type="date"] input {
+.mf3-item.mf3-input__date input {
   @apply !w-full
 }
-.mf3-item[data-type="datepicker"] button {
+.mf3-item.mf3-input__datepicker button {
   @apply rounded-none
 }
-.mf3-item[data-type="datepicker"] button::before, .mf3-item[data-type="datepicker"] button::after {
+.mf3-item.mf3-input__datepicker button::before, .mf3-item.mf3-input__datepicker button::after {
   @apply content-[""] absolute top-1.5 left-2.5 w-0.5 h-0.5 bg-black
 }
-.mf3-item[data-type="datepicker"] button::after {
+.mf3-item.mf3-input__datepicker button::after {
   @apply left-auto right-2.5
 }
-.mf3-item[data-type="datepicker"] button i {
+.mf3-item.mf3-input__datepicker button i {
   @apply flex relative justify-center items-center mx-2 w-3 h-3 overflow-hidden rounded-[2px] border border-t-2 border-solid border-black opacity-65 pointer-events-none
 }
-.mf3-item[data-type="datepicker"] button i::before, .mf3-item[data-type="datepicker"] button i::after {
+.mf3-item.mf3-input__datepicker button i::before, .mf3-item.mf3-input__datepicker button i::after {
   @apply content-[""] absolute w-1.5 h-[1px] bg-black rotate-45
 }
-.mf3-item[data-type="datepicker"] button i::before {
+.mf3-item.mf3-input__datepicker button i::before {
   @apply -rotate-45
 }
-.darkness .mf3-item[data-type="datepicker"] button::before, .darkness .mf3-item[data-type="datepicker"] button::after, .darkness .mf3-item[data-type="datepicker"] button i::before, .darkness .mf3-item[data-type="datepicker"] button i::after {
+.darkness .mf3-item.mf3-input__datepicker button::before, .darkness .mf3-item.mf3-input__datepicker button::after, .darkness .mf3-item.mf3-input__datepicker button i::before, .darkness .mf3-item.mf3-input__datepicker button i::after {
   @apply bg-white
 }
-.darkness .mf3-item[data-type="datepicker"] button i {
+.darkness .mf3-item.mf3-input__datepicker button i {
   @apply border-white
 }
 </style>

@@ -27,7 +27,7 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item" v-bind="attr">
+  <div class="mf3-item" :class="`mf3-${element}`" v-bind="attr">
     <actions @action="action" :actions="actions"/>
     <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">
       <textarea v-model="model" :rows="rows" :class="$props['item.class']" v-bind="$props['item.attr']"/>
