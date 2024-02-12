@@ -9,9 +9,10 @@ export default {
   components: { Actions },
   props: {
     type: {
+      type: String,
       default: 'thumb'
     },
-    multi: Boolean,
+    multi: [Boolean, String],
     input: String
   },
   computed: {

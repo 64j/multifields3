@@ -31,13 +31,13 @@ export default {
           i[1].items = f(i[1].items)
         }
 
-        return { key: i[1].key ?? i[0], ...i[1] }
+        return { name: i[1].name ?? i[0], ...i[1] }
       })
 
       for (const i in this.config.templates) {
         const template = this.config.templates[i]
         if (mf3Elements[`mf:${template.element}`] && !template.hidden) {
-          templates.push({ key: i, title: template.title, icon: template.icon })
+          templates.push({ name: i, title: template.title, icon: template.icon })
         }
 
         if (template.items) {
@@ -60,7 +60,7 @@ export default {
     },
     setElementFromTemplates (elements, templates) {
       elements.forEach(element => {
-        let template = templates.find(i => i.key === element.key) ?? this.config.templates[element.key] ?? null
+        let template = templates.find(i => i.name === element.name) ?? this.config.templates[element.name] ?? null
 
         if (template) {
           template = { ...template }
@@ -86,11 +86,11 @@ export default {
 
           Object.assign(element, template)
         } else {
-          element.key = null
+          element.name = null
         }
       })
 
-      return elements.filter(i => i.key)
+      return elements.filter(i => i.name)
     },
     getElements (elements, element) {
       return h(
@@ -99,7 +99,7 @@ export default {
             tag: 'div',
             list: elements,
             itemKey: a => a,
-            class: ['mf3-items', element?.['itemsClass']],
+            class: ['mf3-items', element?.['items.class']],
             style: element?.['itemsStyle'],
             handle: '.mf3-actions__move',
             ghostClass: 'mf3-draggable__active',
@@ -135,9 +135,9 @@ export default {
 
         case 'add':
           let element = {}
-          if (data[index]['key'] && this.config.templates[data[index]['key']]) {
-            element = { ...this.config.templates[data[index]['key']] }
-            element.key = data[index]['key']
+          if (data[index]['name'] && this.config.templates[data[index]['name']]) {
+            element = { ...this.config.templates[data[index]['name']] }
+            element.name = data[index]['name']
           } else {
             element = this.clearValue({ ...data[index] })
           }
@@ -158,7 +158,7 @@ export default {
         keys = typeof keys !== 'object' ? [keys] : keys
 
         elements.forEach(i => {
-          if (keys.includes(i.key)) {
+          if (keys.includes(i.name)) {
             i.value = value
           }
         })
@@ -172,10 +172,10 @@ export default {
           element.items = []
         }
 
-        template.key ??= id
+        template.name ??= id
         element.items = element.items.concat([template])
       } else {
-        template.key ??= element
+        template.name ??= element
         this.elements.push(template)
       }
     },
@@ -199,7 +199,7 @@ export default {
 
         for (const i in element) {
           if (![
-            'key',
+            'name',
             'value',
             'items'
           ].concat(append).includes(i)) {

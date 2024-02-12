@@ -21,7 +21,7 @@ export default {
     size: [String, Number],
     step: [String, Number],
     pattern: String,
-    multi: Boolean,
+    multi: [Boolean, String],
     thumb: String
   },
   data () {
@@ -77,7 +77,7 @@ export default {
         return this.value
       }
     },
-    inputType () {
+    elementType () {
       switch (this.type) {
         case 'file':
         case 'image':
@@ -263,7 +263,7 @@ export default {
           <template v-else>
             <input :id="id + '-' + k"
                    :name="id + '-' + k"
-                   :type="inputType"
+                   :type="elementType"
                    :value="i.value"
                    :min="min"
                    :max="max"
@@ -296,7 +296,7 @@ export default {
       <template v-else>
         <input :id="id"
                :name="id"
-               :type="inputType"
+               :type="elementType"
                :min="min"
                :max="max"
                :step="step"
@@ -342,9 +342,6 @@ export default {
 .mf3-item label {
   @apply order-3 m-0 shrink-0 inline-flex items-center
 }
-.mf3-input.mf3-input__checkbox label, .mf3-input.mf3-input__radio label {
-  @apply w-auto
-}
 .mf3-item input {
   @apply order-2 w-full h-7 border
 }
@@ -360,17 +357,26 @@ export default {
 .mf3-item.mf3-input__checkbox > .mf3-items input ~ label, .mf3-item.mf3-input__radio > .mf3-items input ~ label, .mf3-item.mf3-input__color > .mf3-items input ~ label, .mf3-item.mf3-input__color > .mf3-items > div > input ~ label {
   @apply order-3 mr-0 p-0 w-fit
 }
+.mf3-input.mf3-input__checkbox label, .mf3-input.mf3-input__radio label {
+  @apply w-auto
+}
+.mf3-item.mf3-input__checkbox input, .mf3-item.mf3-input__radio input {
+  @apply inline-block mr-2 w-3.5 h-3.5
+}
 .mf3-item.mf3-input__color input {
   @apply w-7 p-0
 }
 .mf3-item.mf3-input__color input + label {
   @apply ml-2 order-3
 }
+.mf3-item.mf3-input__color input::-webkit-color-swatch-wrapper {
+  @apply p-0
+}
+.mf3-item.mf3-input__color input::-webkit-color-swatch {
+  @apply border-0
+}
 .mf3-item.mf3-input__range input {
   @apply grow p-0 h-auto w-auto appearance-auto outline-none
-}
-.mf3-item.mf3-input__checkbox input, .mf3-item.mf3-input__radio input {
-  @apply inline-block mr-2 w-3.5 h-3.5
 }
 .mf3-item.mf3-input__file input, .mf3-item.mf3-input__image input {
   @apply pr-7

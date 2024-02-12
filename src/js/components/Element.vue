@@ -2,6 +2,7 @@
 export default {
   name: 'Element',
   props: {
+    name: String,
     element: {
       type: String,
       required: true
