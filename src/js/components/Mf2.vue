@@ -10,7 +10,8 @@ export default {
   props: ['dataEl', 'config'],
   data () {
     return {
-      elements: [],
+      templates: this.setTemplates(),
+      elements: this.setElements(),
       modalOpen: false,
       modalTitle: null,
       modalComponent: null
@@ -25,12 +26,6 @@ export default {
     }
   },
   created () {
-    try {
-      this.elements = Object.values(JSON.parse(this.dataEl.value))
-    } catch (errors) {
-      this.elements = []
-    }
-
     document.addEventListener('click', (event) => {
       if (this.modalOpen && !event.target.closest('.mf3-modal')) {
         this.modalOpen = false
@@ -38,9 +33,76 @@ export default {
     })
   },
   methods: {
-    getElements (elements, element) {
-      elements ??= this.elements
+    setTemplates () {
+      const templates = []
 
+      const f = (items) => Object.entries(items).map(i => {
+        if (i[1].items) {
+          i[1].items = f(i[1].items)
+        }
+
+        return { name: i[1].name ?? i[0], ...i[1] }
+      })
+
+      for (const i in this.config.templates) {
+        const template = this.config.templates[i]
+        if (mf3Elements[`mf:${template.element}`] && !template.hidden) {
+          templates.push({ name: i, title: template.title, icon: template.icon })
+        }
+
+        if (template.items) {
+          template.items = f(template.items)
+        }
+      }
+
+      return templates
+    },
+    setElements () {
+      let value
+
+      try {
+        value = Object.values(JSON.parse(this.dataEl.value))
+      } catch (errors) {
+        value = []
+      }
+
+      return this.setElementFromTemplates(value, [])
+    },
+    setElementFromTemplates (elements, templates) {
+      elements.forEach(element => {
+        let template = templates.find(i => i.name === element.name) ?? this.config.templates[element.name] ?? null
+
+        if (template) {
+          template = { ...template }
+
+          const items = template.items
+
+          if (items || template.templates || mf3Elements[`mf:${template.element}`]?.props?.templates?.default) {
+            element.items = this.setElementFromTemplates(element.items || [], items || [])
+            delete template.items
+          } else {
+            if (element.items) {
+              delete element.items
+            }
+          }
+
+          if (template.value !== undefined) {
+            if (template.value === false) {
+              delete element.value
+            } else {
+              delete template.value
+            }
+          }
+
+          Object.assign(element, template)
+        } else {
+          element.name = null
+        }
+      })
+
+      return elements.filter(i => i.name)
+    },
+    getElements (elements, element) {
       return h(
           draggable,
           {
@@ -60,28 +122,17 @@ export default {
     },
     getElement (element, index, elements) {
       const name = element.element ? 'mf:' + element.element : null
-      let slots
-
-      if (element?.items) {
-        slots = () => this.getElements(element.items, element)
-      }
-
-      if (element['onAction']) {
-        return h(
-            mf3Elements[name],
-            element,
-            slots
-        )
-      }
-
-      element['onAction'] = (action, ...args) => this.action(action, elements, index, ...args)
-      element['onUpdate:value'] = (...args) => this.updateValue(element, elements, ...args)
-      element['onSelect:template'] = (...args) => this.selectTemplate(element, ...args)
 
       return mf3Elements[name] && h(
           mf3Elements[name],
-          element,
-          slots
+          {
+            ...element,
+            'onAction': (action, ...args) => this.action(action, elements, index, ...args),
+            'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
+            'onSelect:template': (...args) => this.selectTemplate(element, ...args),
+            'onClick': this.select
+          },
+          element?.items && (() => this.getElements(element.items, element))
       )
     },
     action (action, data, index, values) {
@@ -135,7 +186,7 @@ export default {
         element.items = element.items.concat([template])
       } else {
         template.name ??= element
-        this.elements.push({ ...template })
+        this.elements.push(template)
       }
     },
     clearValue (data) {
@@ -150,35 +201,39 @@ export default {
       return data
     },
     setData (elements) {
+      elements = [...elements]
+
+      for (let j in elements) {
+        const element = { ...elements[j] }
+        const append = element.append || []
+
+        for (const i in element) {
+          if (![
+            'name',
+            'value',
+            'items'
+          ].concat(append).includes(i)) {
+            delete element[i]
+          }
+        }
+
+        if (element.value === '') {
+          delete element.value
+        }
+
+        if (element?.items) {
+          element.items = this.setData(element.items)
+        }
+
+        elements[j] = element
+      }
+
       return elements
-      // elements = [...elements]
-      //
-      // for (let j in elements) {
-      //   const element = { ...elements[j] }
-      //   const append = element.append || []
-      //
-      //   for (const i in element) {
-      //     if (![
-      //       'name',
-      //       'value',
-      //       'items'
-      //     ].concat(append).includes(i)) {
-      //       delete element[i]
-      //     }
-      //   }
-      //
-      //   if (element.value === '') {
-      //     delete element.value
-      //   }
-      //
-      //   if (element?.items) {
-      //     element.items = this.setData(element.items)
-      //   }
-      //
-      //   elements[j] = element
-      // }
-      //
-      // return elements
+    },
+    select (event) {
+      this.$el.querySelectorAll('.mf3-item.active').forEach(i => i.classList.remove('active'))
+      event.currentTarget.classList.add('active')
+      event.stopPropagation()
     }
   }
 }
@@ -188,7 +243,7 @@ export default {
   <div class="mf3 mf3-group">
     <templates class="mf3-templates" :data="true" @select:template="selectTemplate"/>
 
-    <component :is="() => getElements()"/>
+    <component :is="() => getElements(elements)"/>
 
     <Teleport to="body">
       <transition name="fade">
