@@ -11,7 +11,10 @@ export default {
   data () {
     return {
       templates: this.setTemplates(),
-      elements: this.setElements()
+      elements: this.setElements(),
+      modalOpen: false,
+      modalTitle: null,
+      modalComponent: null
     }
   },
   watch: {
@@ -21,6 +24,13 @@ export default {
       },
       deep: true
     }
+  },
+  created () {
+    document.addEventListener('click', (event) => {
+      if (this.modalOpen && !event.target.closest('.mf3-modal')) {
+        this.modalOpen = false
+      }
+    })
   },
   methods: {
     setTemplates () {
@@ -232,7 +242,25 @@ export default {
 <template>
   <div class="mf3 mf3-group">
     <templates class="mf3-templates" :data="true" @select:template="selectTemplate"/>
+
     <component :is="() => getElements(elements)"/>
+
+    <Teleport to="body">
+      <transition name="fade">
+        <div v-if="modalOpen" class="mf3 mf3-modal">
+          <div class="mf3-modal__header">
+            <div class="mf3-modal__title">{{ modalTitle }}</div>
+            <button class="mf3-modal__close" @click="modalOpen = false">
+              <i></i>
+              <i></i>
+            </button>
+          </div>
+          <div class="mf3-modal__content">
+            <component :is="modalComponent"/>
+          </div>
+        </div>
+      </transition>
+    </Teleport>
   </div>
 </template>
 
@@ -246,5 +274,21 @@ export default {
 }
 .mf3 > .mf3-templates {
   @apply -bottom-3
+}
+.mf3-modal {
+  @apply flex flex-col fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 z-10 bg-white dark:bg-gray-700 rounded shadow-lg resize;
+  backface-visibility: hidden;
+}
+.mf3-modal .mf3-modal__header {
+  @apply flex items-center h-7 px-2 py-1
+}
+.mf3-modal .mf3-modal__title {
+  @apply grow truncate
+}
+.mf3-modal .mf3-modal__close {
+  @apply grow-0 flex items-center justify-center w-5 h-5 border-0
+}
+.mf3-modal .mf3-modal__close i {
+  @apply absolute w-3 h-0.5 bg-rose-500 rotate-45 last:-rotate-45
 }
 </style>

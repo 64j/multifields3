@@ -15,6 +15,11 @@ export default {
     multi: [Boolean, String],
     input: String
   },
+  data () {
+    return {
+      modal: false
+    }
+  },
   computed: {
     model: {
       set (value) {
@@ -27,6 +32,10 @@ export default {
   },
   methods: {
     action (action, ...args) {
+      if (action === 'del' && this.modal) {
+        this.$root.modalOpen = false
+      }
+
       this.$emit('action', action, ...args)
     },
     updateValue (event) {
@@ -39,7 +48,10 @@ export default {
           this.MultiBrowseServer()
         }
       } else if (this.items) {
-
+        this.modal = true
+        this.$root.modalComponent = this.$slots.default
+        this.$root.modalTitle = this.title ?? this.name
+        this.$root.modalOpen = this.modal
       }
     },
     MultiBrowseServer () {
@@ -78,7 +90,7 @@ export default {
 
 <style scoped>
 .mf3-item {
-  @apply w-24 flex grow-0 basis-auto items-center justify-center bg-no-repeat;
+  @apply w-24 min-w-24 flex grow-0 basis-auto items-center justify-center bg-no-repeat;
   background-size: 0;
 }
 .mf3-item::before {
