@@ -48,10 +48,9 @@ export default {
           this.MultiBrowseServer()
         }
       } else if (this.items) {
-        this.modal = true
         this.$root.modalComponent = this.$slots.default
         this.$root.modalTitle = this.title ?? this.name
-        this.$root.modalOpen = this.modal
+        this.$root.modalOpen = this.modal = true
       }
     },
     MultiBrowseServer () {
@@ -80,7 +79,7 @@ export default {
        :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }"
        v-bind="attr">
     <actions @action="action" :actions="actions"/>
-    <button type="button" @click="select">
+    <button type="button" @click.stop="select">
       <i/>
     </button>
     <input v-model="model" :id="id" type="hidden" @change="updateValue">

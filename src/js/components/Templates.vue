@@ -9,15 +9,23 @@ export default {
   computed: {
     templates () {
       if (this.data) {
-        let templates = []
+        let templates = { ...this.$root['config']['templates'] }
 
         if (this.data === true) {
-          templates = this.$root['templates']
+          for (const i in templates) {
+            if (!mf3Elements[`mf:${templates[i].element}`] || templates[i].hidden) {
+              delete templates[i]
+            }
+          }
         } else if (Array.isArray(this.data)) {
-          templates = this.$root['templates'].filter(i => this.data.includes(i.name))
+          for (const i in templates) {
+            if (!this.data.includes(i)) {
+              delete templates[i]
+            }
+          }
         }
 
-        if (templates.length) {
+        if (Object.values(templates).length) {
           return templates
         }
       }
@@ -29,8 +37,8 @@ export default {
         this.select(this.templates[0].name)
       }
     },
-    select (id) {
-      this.$emit('select:template', id)
+    select (key) {
+      this.$emit('select:template', key)
     }
   }
 }
@@ -39,9 +47,9 @@ export default {
 <template>
   <div class="mf3-templates" v-if="templates">
     <button type="button" class="mf3-templates__add" @mousedown="open"/>
-    <div v-if="templates.length > 1" class="mf3-templates__list">
-      <div v-for="i in templates" @mousedown="select(i.name)">
-        {{ i.name || i.title }}
+    <div v-if="Object.values(templates).length > 1" class="mf3-templates__list">
+      <div v-for="(i, k) in templates" @mousedown="select(k)">
+        {{ i.name || i.title || k }}
       </div>
     </div>
   </div>
