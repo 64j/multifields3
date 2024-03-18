@@ -10,9 +10,9 @@
 .mf3-item, .mf3-group {
     @apply grow relative p-1 m-0 basis-full
 }
-.mf3-item::before, .mf3-group::before {
+/*.mf3-item::before, .mf3-group::before {
     @apply content-[""] absolute left-1 top-1 right-1 bottom-1 ring-1 ring-slate-200 dark:ring-slate-500
-}
+}*/
 .darkness .mf3-item::before, .darkness .mf3-group::before {
     @apply ring-gray-600
 }
@@ -29,7 +29,13 @@
     @apply grow p-0 -mx-1
 }
 .mf3-items {
-    @apply relative p-1.5 w-full flex flex-wrap flex-row items-center grow
+    @apply relative w-full flex flex-wrap flex-row items-center grow
+}
+.mf3-item:not(:hover) > .mf3-actions ~ .mf3-items {
+    @apply ring-1 ring-slate-200 dark:ring-slate-500
+}
+.mf3-item > .mf3-actions ~ .mf3-items {
+    @apply p-1.5
 }
 /**
  * Transition

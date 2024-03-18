@@ -100,7 +100,7 @@ export default {
   background-size: 0;
 }
 .mf3-item::before {
-  @apply relative left-0 top-0 right-0 bottom-0 w-full bg-white bg-no-repeat bg-contain bg-center;
+  @apply content-[""] relative left-0 top-0 right-0 bottom-0 w-full ring-1 ring-slate-200 dark:ring-slate-500 bg-white bg-no-repeat bg-contain bg-center;
   background-image: inherit;
   padding-top: 100%;
 }
@@ -135,6 +135,6 @@ export default {
 
 <style>
 .mf3-thumb > .mf3-items {
-  @apply hidden
+  @apply !hidden
 }
 </style>

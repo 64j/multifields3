@@ -218,11 +218,11 @@ export default {
           this.$el.querySelectorAll('.mf3-items input').forEach(i => {
             let format = i.getAttribute('data-format')
             const datepicker = new DatePicker(i, {
-              yearOffset: dpOffset,
-              format: format !== null ? format : dpformat,
-              dayNames: dpdayNames,
-              monthNames: dpmonthNames,
-              startDay: dpstartDay
+              yearOffset: window['dpOffset'],
+              format: format !== null ? format : window['dpformat'],
+              dayNames: window['dpdayNames'],
+              monthNames: window['dpmonthNames'],
+              startDay: window['dpstartDay']
             })
 
             const updateValue = datepicker.constructor.updateValue
@@ -329,6 +329,9 @@ export default {
 <style scoped>
 .mf3-item {
   @apply flex-wrap
+}
+.mf3-item.mf3-item__without-actions::before {
+  @apply invisible
 }
 .mf3-item > .mf3-items > div {
   @apply relative order-4 flex items-center w-full

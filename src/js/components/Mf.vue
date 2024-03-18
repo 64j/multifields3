@@ -247,11 +247,11 @@ export default {
   @apply -bottom-3
 }
 .mf3-modal {
-  @apply flex flex-col fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 z-10 bg-white dark:bg-gray-700 rounded shadow-lg resize;
+  @apply flex flex-col fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 z-10 bg-white dark:bg-gray-700 rounded shadow-2xl resize;
   backface-visibility: hidden;
 }
 .mf3-modal .mf3-modal__header {
-  @apply flex items-center h-7 px-2 py-1
+  @apply flex items-center h-7 px-2 py-1 bg-slate-50
 }
 .mf3-modal .mf3-modal__title {
   @apply grow truncate
@@ -261,5 +261,14 @@ export default {
 }
 .mf3-modal .mf3-modal__close i {
   @apply absolute w-3 h-0.5 bg-rose-500 rotate-45 last:-rotate-45
+}
+.mf3-modal .mf3-modal__content {
+  @apply p-1.5
+}
+.darkness .mf3-modal {
+  @apply bg-gray-700 border
+}
+.darkness .mf3-modal .mf3-modal__header {
+  @apply bg-gray-600
 }
 </style>

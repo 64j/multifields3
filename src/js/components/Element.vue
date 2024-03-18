@@ -22,7 +22,7 @@ export default {
       }
     },
     elements: [String, Object, Array],
-    default: [String, Number, Array],
+    default: [Boolean, String, Number, Array],
     placeholder: [String, Number],
     required: Boolean,
     readonly: Boolean,

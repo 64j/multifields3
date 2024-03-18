@@ -30,7 +30,16 @@ export default {
   <div class="mf3-item" :class="`mf3-${element}`" v-bind="attr">
     <actions @action="action" :actions="actions"/>
     <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">
-      <textarea v-model="model" :rows="rows" :class="$props['item.class']" v-bind="$props['item.attr']"/>
+      <label v-if="label" :for="id">
+        <span>{{ label }}</span>
+      </label>
+      <textarea v-model="model" :rows="rows" :id="id" :class="$props['item.class']" v-bind="$props['item.attr']"/>
     </div>
   </div>
 </template>
+
+<style scoped>
+.mf3-item label {
+  @apply m-0
+}
+</style>
