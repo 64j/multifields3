@@ -24,6 +24,10 @@ export default {
     model: {
       set (value) {
         this.$emit('update:value', value)
+
+        if (this.input === this.$root['modal']?.opener?.name) {
+          this.$root['modal'].opener.$emit('update:value', value)
+        }
       },
       get () {
         return this.value || (!this.value && this.elements && [])
@@ -40,6 +44,10 @@ export default {
     },
     updateValue (event) {
       this.$emit('update:value', event.target.value, undefined, this.input)
+
+      if (this.input === this.$root['modal']?.opener?.name) {
+        this.$root['modal'].opener.$emit('update:value', event.target.value)
+      }
     },
     select () {
       if (this.type === 'image') {
@@ -48,9 +56,10 @@ export default {
           this.MultiBrowseServer()
         }
       } else if (this.items) {
-        this.$root.modalComponent = this.$slots.default
-        this.$root.modalTitle = this.title ?? this.name
-        this.$root.modalOpen = this.modal = true
+        this.$root['modal'] = {
+          opener: this,
+          open: true
+        }
       }
     },
     MultiBrowseServer () {

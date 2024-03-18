@@ -11,6 +11,8 @@ export default {
   data () {
     return {
       elements: [],
+      modal: {},
+      modalOpener: null,
       modalOpen: false,
       modalTitle: null,
       modalComponent: null
@@ -31,13 +33,49 @@ export default {
       this.elements = []
     }
 
+    this.elements = this.setElementFromTemplates(this.elements, [])
+
     document.addEventListener('click', (event) => {
-      if (this.modalOpen && !event.target.closest('.mf3-modal')) {
-        this.modalOpen = false
+      if (this.modal?.open && !event.target.closest('.mf3-modal')) {
+        this.modal.open = false
       }
     })
   },
   methods: {
+    setElementFromTemplates (elements, templates) {
+      elements.forEach(element => {
+        let template = structuredClone(
+            templates.find(i => i.name === element.name) ?? this.config.templates[element.name] ?? null
+        )
+
+        if (template) {
+          const items = template.items
+
+          if (items || template.templates || mf3Elements[`mf:${template.element}`]?.props?.templates?.default) {
+            element.items = this.setElementFromTemplates(element.items || [], items || [])
+            delete template.items
+          } else {
+            if (element.items) {
+              delete element.items
+            }
+          }
+
+          if (template.value !== undefined) {
+            if (template.value === false) {
+              delete element.value
+            } else {
+              delete template.value
+            }
+          }
+
+          Object.assign(element, template)
+        } else {
+          element.name = null
+        }
+      })
+
+      return elements.filter(i => i.name)
+    },
     getElements (elements, element) {
       elements ??= this.elements
 
@@ -66,21 +104,14 @@ export default {
         slots = () => this.getElements(element.items, element)
       }
 
-      if (element['onAction']) {
-        return h(
-            mf3Elements[name],
-            element,
-            slots
-        )
-      }
-
-      element['onAction'] = (action, ...args) => this.action(action, elements, index, ...args)
-      element['onUpdate:value'] = (...args) => this.updateValue(element, elements, ...args)
-      element['onSelect:template'] = (...args) => this.selectTemplate(element, ...args)
-
       return mf3Elements[name] && h(
           mf3Elements[name],
-          element,
+          {
+            ...element,
+            'onAction': (action, ...args) => this.action(action, elements, index, ...args),
+            'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
+            'onSelect:template': (...args) => this.selectTemplate(element, ...args)
+          },
           slots
       )
     },
@@ -95,7 +126,7 @@ export default {
         case 'add':
           let element = {}
           if (data[index]['name'] && this.config.templates[data[index]['name']]) {
-            element = { ...this.config.templates[data[index]['name']] }
+            element = structuredClone(this.config.templates[data[index]['name']])
             element.name = data[index]['name']
           } else {
             element = this.clearValue({ ...data[index] })
@@ -124,7 +155,7 @@ export default {
       }
     },
     selectTemplate (element, id) {
-      const template = { ...this.config.templates[id || element] }
+      const template = structuredClone(this.config.templates[id || element])
 
       if (id !== undefined) {
         if (!element.items) {
@@ -135,7 +166,7 @@ export default {
         element.items = element.items.concat([template])
       } else {
         template.name ??= element
-        this.elements.push({ ...template })
+        this.elements.push(template)
       }
     },
     clearValue (data) {
@@ -150,35 +181,34 @@ export default {
       return data
     },
     setData (elements) {
+      elements = [...elements]
+
+      for (let j in elements) {
+        const element = { ...elements[j] }
+        const append = element.append || []
+
+        for (const i in element) {
+          if (![
+            'name',
+            'value',
+            'items'
+          ].concat(append).includes(i)) {
+            delete element[i]
+          }
+        }
+
+        if (element.value === '') {
+          delete element.value
+        }
+
+        if (element?.items) {
+          element.items = this.setData(element.items)
+        }
+
+        elements[j] = element
+      }
+
       return elements
-      // elements = [...elements]
-      //
-      // for (let j in elements) {
-      //   const element = { ...elements[j] }
-      //   const append = element.append || []
-      //
-      //   for (const i in element) {
-      //     if (![
-      //       'name',
-      //       'value',
-      //       'items'
-      //     ].concat(append).includes(i)) {
-      //       delete element[i]
-      //     }
-      //   }
-      //
-      //   if (element.value === '') {
-      //     delete element.value
-      //   }
-      //
-      //   if (element?.items) {
-      //     element.items = this.setData(element.items)
-      //   }
-      //
-      //   elements[j] = element
-      // }
-      //
-      // return elements
     }
   }
 }
@@ -192,16 +222,16 @@ export default {
 
     <Teleport to="body">
       <transition name="fade">
-        <div v-if="modalOpen" class="mf3 mf3-modal">
+        <div v-if="modal?.open" class="mf3 mf3-modal">
           <div class="mf3-modal__header">
-            <div class="mf3-modal__title">{{ modalTitle }}</div>
-            <button class="mf3-modal__close" @click="modalOpen = false">
+            <div class="mf3-modal__title">{{ modal?.title ?? modal.opener?.title ?? modal.opener?.name }}</div>
+            <button class="mf3-modal__close" @click="modal.open = false">
               <i></i>
               <i></i>
             </button>
           </div>
           <div class="mf3-modal__content">
-            <component :is="modalComponent"/>
+            <component :is="modal.component || modal.opener.$slots.default"/>
           </div>
         </div>
       </transition>
