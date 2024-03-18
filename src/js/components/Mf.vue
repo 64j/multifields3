@@ -11,11 +11,7 @@ export default {
   data () {
     return {
       elements: [],
-      modal: {},
-      modalOpener: null,
-      modalOpen: false,
-      modalTitle: null,
-      modalComponent: null
+      modal: {}
     }
   },
   watch: {

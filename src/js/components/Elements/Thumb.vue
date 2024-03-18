@@ -23,11 +23,7 @@ export default {
   computed: {
     model: {
       set (value) {
-        this.$emit('update:value', value)
-
-        if (this.input === this.$root['modal']?.opener?.name) {
-          this.$root['modal'].opener.$emit('update:value', value)
-        }
+        this.updateValue(value)
       },
       get () {
         return this.value || (!this.value && this.elements && [])
@@ -43,10 +39,12 @@ export default {
       this.$emit('action', action, ...args)
     },
     updateValue (event) {
-      this.$emit('update:value', event.target.value, undefined, this.input)
+      const value = event.target.value ?? event
 
-      if (this.input === this.$root['modal']?.opener?.name) {
-        this.$root['modal'].opener.$emit('update:value', event.target.value)
+      this.$emit('update:value', value, undefined, this.input)
+
+      if (this.input && this.input === this.$root['modal']?.opener?.name) {
+        this.$root['modal'].opener.$emit('update:value', value)
       }
     },
     select () {
