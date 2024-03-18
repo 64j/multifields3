@@ -64,7 +64,7 @@ export default {
   @apply absolute w-3 h-0.5 bg-white last:rotate-90
 }
 .mf3-actions__move i::before, .mf3-actions__move i::after {
-  @apply content-[""] absolute h-0 w-0 border-[3px] border-solid border-transparent border-r-white
+  @apply content-[""] absolute h-0 w-0 border-[0.1875rem] border-solid border-transparent border-r-white
 }
 .mf3-actions__move i::before {
   @apply -left-1 -top-0.5
