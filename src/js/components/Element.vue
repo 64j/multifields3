@@ -36,8 +36,8 @@ export default {
       type: Object,
       default: {}
     },
-    'item.style': [String, Object],
     'item.class': [String, Array],
+    'item.style': [String, Object],
     'item.attr': Object,
     'items.style': [String, Object],
     'items.class': [String, Array],
@@ -50,7 +50,7 @@ export default {
   },
   computed: {
     '@title' () {
-      const template = this.title
+      const template = this['title']
 
       if (template) {
         return template.replace(/\{([\w.]*)}/g, (str, key) => {
@@ -63,8 +63,6 @@ export default {
               replace(/'/g, '&#039;')
         })
       }
-
-      return this.label ?? this.name
     }
   }
 }

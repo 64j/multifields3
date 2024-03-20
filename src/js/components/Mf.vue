@@ -100,10 +100,21 @@ export default {
         slots = () => this.getElements(element.items, element)
       }
 
+      const renderElement = {}
+      const props = Object.keys(mf3Elements[name]?.['props'] || {}).
+          concat(Object.keys(mf3Elements[name]?.extends?.['props'] || {})).
+          concat(['class', 'style'])
+
+      for (const i in element) {
+        if (props.includes(i)) {
+          renderElement[i] = element[i]
+        }
+      }
+
       return mf3Elements[name] && h(
           mf3Elements[name],
           {
-            ...element,
+            ...renderElement,
             'onAction': (action, ...args) => this.action(action, elements, index, ...args),
             'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
