@@ -95,7 +95,7 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item" :class="`mf3-${element}`" v-bind="attr">
+  <div class="mf3-item" :class="[`mf3-${element}`, !actions ? 'mf3-item__without-actions' : '']" v-bind="attr">
     <actions @action="action" :actions="actions"/>
 
     <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">

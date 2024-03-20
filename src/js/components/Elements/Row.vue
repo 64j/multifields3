@@ -30,7 +30,8 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-row mf3-group mf3-item" :class="`mf3-${element}`" v-bind="attr">
+  <div class="mf3-row mf3-group mf3-item" :class="[`mf3-${element}`, !actions ? 'mf3-item__without-actions' : '']"
+       v-bind="attr">
     <actions @action="action" :actions="actions"/>
     <templates :data="templates" @select:template="selectTemplate"/>
     <div v-if="value !== false" class="mf3-row__value">
@@ -43,10 +44,10 @@ export default {
 
 <style scoped>
 .mf3-row {
-  @apply pb-2.5 min-h-[2.3rem]
+  @apply pb-1.5 min-h-[2.3rem]
 }
 .mf3-row__value {
-  @apply relative m-1 mb-0 p-1.5 bg-slate-500/5 border-0 border-b border-solid border-slate-200
+  @apply relative p-1.5 bg-slate-500/5 border-0 border-b border-solid border-slate-200
 }
 .darkness .mf3-row__value {
   @apply border-gray-600
@@ -67,10 +68,10 @@ export default {
   @apply opacity-100 visible
 }
 .mf3-row > .mf3-items {
-  @apply px-1.5
+  @apply px-1.5 !ring-0
 }
 .mf3-row > .mf3-items:empty {
-  @apply p-0
+  @apply hidden
 }
 .mf3-item.mf3-row > .mf3-items > div {
   @apply order-1

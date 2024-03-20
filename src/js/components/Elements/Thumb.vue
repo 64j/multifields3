@@ -33,7 +33,8 @@ export default {
   methods: {
     action (action, ...args) {
       if (action === 'del' && this.modal) {
-        this.$root.modalOpen = false
+        this.modal = false
+        this.$root['modal'].open = false
       }
 
       this.$emit('action', action, ...args)
@@ -54,6 +55,7 @@ export default {
           this.MultiBrowseServer()
         }
       } else if (this.items) {
+        this.modal = true
         this.$root['modal'] = {
           opener: this,
           open: true
@@ -100,7 +102,7 @@ export default {
   background-size: 0;
 }
 .mf3-item::before {
-  @apply content-[""] relative left-0 top-0 right-0 bottom-0 w-full ring-1 ring-slate-200 dark:ring-slate-500 bg-white bg-no-repeat bg-contain bg-center;
+  @apply content-[""] relative left-0 top-0 right-0 bottom-0 w-full bg-white bg-no-repeat bg-contain bg-center;
   background-image: inherit;
   padding-top: 100%;
 }

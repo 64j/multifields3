@@ -32,7 +32,10 @@ export default {
       default: ['add', 'move', 'del']
     },
     items: Array,
-    attr: Object,
+    attr: {
+      type: Object,
+      default: {}
+    },
     'item.style': [String, Object],
     'item.class': [String, Array],
     'item.attr': Object,
@@ -43,6 +46,25 @@ export default {
   data () {
     return {
       id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36),
+    }
+  },
+  computed: {
+    '@title' () {
+      const template = this.title
+
+      if (template) {
+        return template.replace(/\{([\w.]*)}/g, (str, key) => {
+          const value = typeof this.$props[key] !== undefined ? this.$props[key] : ''
+          return (value === null || value === undefined) ? '' : value.toString().
+              replace(/&/g, '&amp;').
+              replace(/</g, '&lt;').
+              replace(/>/g, '&gt;').
+              replace(/"/g, '&quot;').
+              replace(/'/g, '&#039;')
+        })
+      }
+
+      return this.label ?? this.name
     }
   }
 }

@@ -82,7 +82,7 @@ export default {
             list: elements,
             itemKey: a => a,
             class: ['mf3-items', element?.['items.class']],
-            style: element?.['itemsStyle'],
+            style: element?.['items.style'],
             handle: '.mf3-actions__move',
             ghostClass: 'mf3-draggable__active',
             chosenClass: 'mf3-draggable__chosen'
@@ -257,7 +257,7 @@ export default {
       <transition name="fade">
         <div v-if="modal?.open" class="mf3 mf3-modal" ref="modal">
           <div class="mf3-modal__header" @mousedown="modalOnMousedown">
-            <div class="mf3-modal__title">{{ modal?.title ?? modal.opener?.title ?? modal.opener?.name }}</div>
+            <div class="mf3-modal__title">{{ modal?.title ?? modal.opener?.['@title'] }}</div>
             <button class="mf3-modal__close" @mousedown.stop="modal.open = false">
               <i></i>
               <i></i>
@@ -288,7 +288,7 @@ export default {
   backface-visibility: hidden;
 }
 .mf3-modal .mf3-modal__header {
-  @apply flex items-center h-7 px-2 py-1 bg-slate-50 cursor-all-scroll
+  @apply flex items-center w-full h-7 px-2 py-1 bg-slate-50 cursor-all-scroll
 }
 .mf3-modal .mf3-modal__header::before {
   @apply content-[""] absolute left-0 top-0 right-0 bottom-0 ring-2 ring-blue-500/50 rounded opacity-0 invisible transition

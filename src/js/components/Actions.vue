@@ -24,7 +24,7 @@ export default {
 
 <template>
   <div v-if="data.length" class="mf3-actions">
-    <div v-if="data.filter(i => i !== 'add').length" class="mf3-actions__panel" :data-title="$parent['title']"/>
+    <div v-if="data.filter(i => i !== 'add').length" class="mf3-actions__panel" :data-title="$parent['@title']"/>
     <div v-for="i in data" :class="`mf3-actions__action mf3-actions__` + i" @click.stop="$emit('action', i)">
       <i/>
       <i/>
@@ -34,7 +34,7 @@ export default {
 
 <style scoped>
 .mf3-actions {
-  @apply absolute left-1 top-1 bottom-1 right-1 flex justify-end ring-blue-500 ring-1 ring-offset-0 opacity-0 invisible
+  @apply absolute left-0 top-0 bottom-0 right-0 flex justify-end ring-blue-500 ring-1 ring-offset-0 opacity-0 invisible
 }
 .mf3-actions__panel {
   @apply absolute z-10 -left-[1px] bottom-full -right-[1px] -mt-0 px-5 h-5 flex items-center rounded-t bg-blue-500 text-white pointer-events-none

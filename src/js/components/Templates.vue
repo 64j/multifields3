@@ -33,8 +33,11 @@ export default {
   },
   methods: {
     open () {
-      if (this.templates.length === 1) {
-        this.select(this.templates[0].name)
+      if (Object.values(this.templates).length === 1) {
+        for (const i in this.templates) {
+          this.select(i)
+          break
+        }
       }
     },
     select (key) {
@@ -57,7 +60,7 @@ export default {
 
 <style scoped>
 .mf3-templates {
-  @apply absolute left-0 right-0 bottom-1 flex items-center justify-center opacity-0 invisible
+  @apply absolute left-0 right-0 bottom-0 flex items-center justify-center opacity-0 invisible
 }
 .mf3-templates__add {
   @apply absolute w-4 h-4 p-0 z-10 flex items-center justify-center -bottom-2 bg-green-500 border-none rounded-full cursor-pointer
