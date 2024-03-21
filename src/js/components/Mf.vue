@@ -3,10 +3,11 @@ import { h } from 'vue'
 import draggable from 'vuedraggable'
 import Actions from './Actions.vue'
 import Templates from './Templates.vue'
+import Modal from './Modal.vue'
 
 export default {
   name: 'mf',
-  components: { Templates, Actions, draggable },
+  components: { Templates, Actions, draggable, Modal },
   props: ['dataEl', 'config'],
   data () {
     return {
@@ -30,12 +31,6 @@ export default {
     }
 
     this.elements = this.setElementFromTemplates(this.elements, [])
-
-    document.addEventListener('click', (event) => {
-      if (this.modal?.open && !event.target.closest('.mf3-modal')) {
-        this.modal.open = false
-      }
-    })
   },
   methods: {
     setElementFromTemplates (elements, templates) {
@@ -216,43 +211,6 @@ export default {
       }
 
       return elements
-    },
-    modalOnMousedown (event) {
-      this.modal.position = this.$refs.modal.getBoundingClientRect()
-      this.modal.clientY = event.clientY
-      this.modal.clientX = event.clientX
-      this.modal.layerX = event.layerX
-      this.modal.layerY = event.layerY
-      this.$refs.modal.addEventListener('mousemove', this.modalOnMousemove)
-      this.$refs.modal.addEventListener('mouseup', this.modalOnMouseup)
-      window.onselectstart = () => false
-    },
-    modalOnMousemove (event) {
-      let top = this.modal.position.top + (event.clientY - this.modal.clientY)
-      let left = this.modal.position.left + (event.clientX - this.modal.clientX)
-
-      if (top < 2) {
-        top = 2
-      } else if (top > window.innerHeight - this.modal.position.height - 2) {
-        top = window.innerHeight - this.modal.position.height - 2
-      }
-
-      if (left < 2) {
-        left = 2
-      } else if (left > window.innerWidth - this.modal.position.width - 2) {
-        left = window.innerWidth - this.modal.position.width - 2
-      }
-
-      this.$refs.modal.style.transform = 'none'
-      this.$refs.modal.style.width = this.modal.position.width + 'px'
-      this.$refs.modal.style.height = this.modal.position.height + 'px'
-      this.$refs.modal.style.top = top + 'px'
-      this.$refs.modal.style.left = left + 'px'
-    },
-    modalOnMouseup () {
-      this.$refs.modal.removeEventListener('mousemove', this.modalOnMousemove)
-      this.$refs.modal.removeEventListener('mouseup', this.modalOnMouseup)
-      window.onselectstart = null
     }
   }
 }
@@ -264,22 +222,7 @@ export default {
 
     <component :is="() => getElements()"/>
 
-    <Teleport to="body">
-      <transition name="fade">
-        <div v-if="modal?.open" class="mf3 mf3-modal" ref="modal">
-          <div class="mf3-modal__header" @mousedown="modalOnMousedown">
-            <div class="mf3-modal__title">{{ modal?.title ?? modal.opener?.['@title'] }}</div>
-            <button class="mf3-modal__close" @mousedown.stop="modal.open = false">
-              <i></i>
-              <i></i>
-            </button>
-          </div>
-          <div class="mf3-modal__content">
-            <component :is="modal.component || modal.opener.$slots.default"/>
-          </div>
-        </div>
-      </transition>
-    </Teleport>
+    <Modal v-bind="modal"/>
   </div>
 </template>
 
@@ -293,39 +236,5 @@ export default {
 }
 .mf3 > .mf3-templates {
   @apply -bottom-3
-}
-.mf3-modal {
-  @apply flex flex-col fixed w-[95%] lg:w-auto min-w-96 max-w-full max-h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 z-[1002] p-0 m-0 bg-white dark:bg-gray-700 rounded shadow-2xl;
-  backface-visibility: hidden;
-}
-.mf3-modal .mf3-modal__header {
-  @apply flex items-center w-full h-7 px-2 py-1 bg-slate-50 cursor-all-scroll
-}
-.mf3-modal .mf3-modal__header::before {
-  @apply content-[""] absolute left-0 top-0 right-0 bottom-0 ring-2 ring-blue-500/50 rounded opacity-0 invisible transition
-}
-.mf3-modal .mf3-modal__header:active::before {
-  @apply opacity-100 visible
-}
-.mf3-modal .mf3-modal__header:active::after {
-  @apply content-[""] fixed z-10 left-0 top-0 right-0 bottom-0
-}
-.mf3-modal .mf3-modal__title {
-  @apply grow truncate
-}
-.mf3-modal .mf3-modal__close {
-  @apply grow-0 flex items-center justify-center w-5 h-5 border-0
-}
-.mf3-modal .mf3-modal__close i {
-  @apply absolute w-3 h-0.5 bg-rose-500 rotate-45 last:-rotate-45
-}
-.mf3-modal .mf3-modal__content {
-  @apply p-1.5
-}
-.darkness .mf3-modal {
-  @apply bg-gray-700 border
-}
-.darkness .mf3-modal .mf3-modal__header {
-  @apply bg-gray-600
 }
 </style>

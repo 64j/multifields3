@@ -15,6 +15,7 @@ export default {
     },
     title: [String, Number],
     label: [String, Number],
+    help: [String, Number],
     value: {
       type: [null, String, Number, Boolean, Array],
       default (props) {

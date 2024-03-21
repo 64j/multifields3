@@ -15,11 +15,6 @@ export default {
     multi: [Boolean, String],
     input: String
   },
-  data () {
-    return {
-      modal: false
-    }
-  },
   computed: {
     model: {
       set (value) {
@@ -32,8 +27,7 @@ export default {
   },
   methods: {
     action (action, ...args) {
-      if (action === 'del' && this.modal) {
-        this.modal = false
+      if (action === 'del' && this.name === this.$root['modal']?.opener?.name) {
         this.$root['modal'].open = false
       }
 
@@ -55,7 +49,6 @@ export default {
           this.MultiBrowseServer()
         }
       } else if (this.items) {
-        this.modal = true
         this.$root['modal'] = {
           opener: this,
           open: true
