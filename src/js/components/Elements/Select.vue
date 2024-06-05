@@ -9,15 +9,15 @@ export default {
   __isStatic: true,
   extends: Element,
   components: { Loader, Actions },
-  props: [
-    'multiple',
-    'size'
-  ],
+  props: {
+    multiple: Boolean,
+    size: Number
+  },
   data () {
     return {
       data: this.values && Object.values(this.values).length ? [this.values] : [],
       loading: false,
-      load: this.multiple || this.size > 1,
+      load: false,//this.multiple || this.size > 1,
       focus: false
     }
   },
@@ -27,19 +27,19 @@ export default {
         this.$emit('update:value', value, { ...this.data.filter(i => i.key === value)[0] || {} })
       },
       get () {
-        if (this.multiple) {
-          if (this.elements) {
-            if (this.value === undefined) {
-              return []
-            }
-
-            return Array.isArray(this.value) ? this.value : [this.value]
-          } else {
-            if (this.value !== undefined) {
-              return Array.isArray(this.value) ? this.value.toString() : this.value
-            }
-          }
-        }
+        // if (this.multiple) {
+        //   if (this.elements) {
+        //     if (this.value === undefined) {
+        //       return []
+        //     }
+        //
+        //     return Array.isArray(this.value) ? this.value : [this.value]
+        //   } else {
+        //     if (this.value !== undefined) {
+        //       return Array.isArray(this.value) ? this.value.toString() : this.value
+        //     }
+        //   }
+        // }
 
         return this.value
       }
@@ -48,6 +48,8 @@ export default {
   created () {
     if (this.load) {
       this.getData()
+    } else {
+      this.getOptions()
     }
   },
   methods: {
@@ -55,7 +57,7 @@ export default {
       this.$emit('action', action)
     },
     getOptions () {
-      if (this.elements[0] === '@') {
+      if (this?.elements?.[0] === '@') {
         if (!this.focus && !this.load) {
           this.getData()
         }
@@ -71,8 +73,21 @@ export default {
       }).finally(() => this.loading = false)
     },
     parseData (data) {
+      if (!data) {
+        return []
+      }
+
       if (Array.isArray(data)) {
-        return data
+        return data.map(i => {
+          if (typeof i === 'string') {
+            i = {
+              key: i,
+              value: i
+            }
+          }
+
+          return i
+        })
       }
 
       const options = []
