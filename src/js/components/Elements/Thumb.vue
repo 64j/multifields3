@@ -34,7 +34,7 @@ export default {
       this.$emit('action', action, ...args)
     },
     updateValue (event) {
-      const value = event.target.value ?? event
+      const value = event?.target?.value ?? event
 
       this.$emit('update:value', value, undefined, this.input)
 

@@ -1,3 +1,6 @@
+.darkness {
+    color-scheme: dark
+}
 .mf3 input, .mf3 select, .mf3 textarea {
     @apply block py-1 px-1.5 border border-slate-300 border-solid leading-5
 }
@@ -8,7 +11,7 @@
     @apply h-auto
 }
 .mf3-item, .mf3-group {
-    @apply grow relative p-0 m-1 basis-full border border-solid border-slate-200 dark:border-gray-600
+    @apply grow relative p-0 m-1 basis-full border border-solid border-gray-100 dark:border-gray-500
 }
 .mf3-item.mf3-item__without-actions {
     @apply border-0
@@ -32,7 +35,7 @@
     @apply relative w-full flex flex-wrap flex-row items-center grow
 }
 .mf3-item:not(:hover) > .mf3-actions ~ .mf3-items {
-    @apply ring-1 ring-slate-200 dark:ring-slate-500
+    @apply ring-1 ring-gray-100 dark:ring-gray-500
 }
 .mf3-item > .mf3-actions ~ .mf3-items {
     @apply p-1.5

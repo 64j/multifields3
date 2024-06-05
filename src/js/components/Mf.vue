@@ -220,7 +220,7 @@ export default {
   <div class="mf3 mf3-group">
     <templates class="mf3-templates" :data="true" @select:template="selectTemplate"/>
 
-    <component :is="() => getElements()"/>
+    <component :is="getElements()"/>
 
     <Modal v-bind="modal"/>
   </div>
