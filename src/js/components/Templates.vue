@@ -26,7 +26,7 @@ export default {
         }
 
         if (Object.values(templates).length) {
-          return templates
+          return this.normalizeItems(templates)
         }
       }
     }
@@ -47,6 +47,24 @@ export default {
     },
     select (key) {
       this.$emit('select:template', key)
+    },
+    normalizeItems (data) {
+      for (const i in data) {
+        if (typeof data[i].items === 'object' && !Array.isArray(data[i].items)) {
+          const keys = Object.keys(data[i].items)
+          data[i].items = Object.values(data[i].items).map((i, k) => {
+            i.name = keys[k]
+
+            if (i.items !== undefined) {
+              i.items = this.normalizeItems(i.items)
+            }
+
+            return i
+          })
+        }
+      }
+
+      return data
     }
   }
 }

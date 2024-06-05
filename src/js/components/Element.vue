@@ -16,7 +16,10 @@ export default {
     title: [String, Number],
     label: [String, Number],
     help: [String, Number],
-    default: [Boolean, String, Number, Array],
+    default: {
+      type: [Boolean, String, Number, Array],
+      default: undefined
+    },
     value: {
       type: [null, String, Number, Boolean, Array],
       default (props) {

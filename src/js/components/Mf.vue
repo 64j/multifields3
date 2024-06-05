@@ -40,9 +40,19 @@ export default {
         )
 
         if (template) {
-          const items = template.items
+          let items = template.items
 
           if (items || template.templates || mf3Elements[`mf:${template.element}`]?.props?.templates?.default) {
+            if (!Array.isArray(items)) {
+              const els = []
+
+              for (const i in items) {
+                els.push({ ...items[i], name: i })
+              }
+
+              items = els
+            }
+
             element.items = this.setElementFromTemplates(element.items || [], items || [])
             delete template.items
           } else {
@@ -183,6 +193,16 @@ export default {
       return data
     },
     setData (elements) {
+      if (!Array.isArray(elements)) {
+        const els = []
+
+        for (const i in elements) {
+          els.push({ ...elements[i], name: i })
+        }
+
+        elements = els
+      }
+
       elements = [...elements]
 
       for (let j in elements) {
