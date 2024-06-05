@@ -51,10 +51,8 @@ export default {
   },
   computed: {
     '@title' () {
-      const template = this['title']
-
-      if (template) {
-        return template.replace(/\{([\w.]*)}/g, (str, key) => {
+      if (this['title']) {
+        return this['title'].replace(/\{([\w.]*)}/g, (str, key) => {
           const value = typeof this.$props[key] !== undefined ? this.$props[key] : ''
           return (value === null || value === undefined) ? '' : value.toString().
               replace(/&/g, '&amp;').
