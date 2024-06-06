@@ -332,6 +332,12 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <th><code>hidden</code></th>
+                            <td>булево</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
                             <th><code>items</code></th>
                             <td>массив</td>
                             <td>неопределенно</td>
@@ -406,7 +412,7 @@
                                 <tbody>
                                 <tr>
                                     <th><code>templates</code></th>
-                                    <td>булево | массив | объект</td>
+                                    <td>булево | массив</td>
                                     <td>true</td>
                                     <td></td>
                                 </tr>
@@ -418,12 +424,114 @@
                             <script>
                               window['mf3Config']['row'] = {
                                 templates: {
-                                  item: {
+                                  row: {
                                     element: 'row',
-                                    type: 'text',
-                                    label: 'Item',
-                                    title: 'Item',
+                                    title: 'Row',
+                                    label: 'Row',
                                     placeholder: '...'
+                                  },
+
+                                  rowWithItems: {
+                                    element: 'row',
+                                    title: 'Row With Items',
+                                    label: 'Description for items',
+                                    placeholder: '...',
+                                    value: false,
+                                    templates: null,
+                                    items: [
+                                      {
+                                        element: 'input',
+                                        type: 'image',
+                                        actions: null
+                                      },
+                                      {
+                                        element: 'textarea',
+                                        actions: null
+                                      }
+                                    ]
+                                  },
+
+                                  rowWithTemplates: {
+                                    element: 'row',
+                                    title: 'Row With Templates',
+                                    placeholder: '...',
+                                    templates: ['rowImage']
+                                  },
+                                  rowImage: {
+                                    element: 'input',
+                                    type: 'image',
+                                    hidden: true
+                                  },
+
+                                  rowSlider: {
+                                    element: 'row',
+                                    title: 'Slider',
+                                    placeholder: 'Slider description',
+                                    templates: ['rowSliderImage']
+                                  },
+                                  rowSliderImage: {
+                                    hidden: true,
+                                    element: 'thumb',
+                                    title: '{value}',
+                                    'items.style': {
+                                      display: 'grid',
+                                      'align-items': 'start',
+                                      'grid-column-gap': '0.5rem',
+                                      'grid-template-columns': '10rem'
+                                    },
+                                    items: [
+                                      {
+                                        name: 'thumb',
+                                        element: 'thumb',
+                                        type: 'image',
+                                        actions: null,
+                                        input: 'rowSliderImage',
+                                        style: {
+                                          width: '100%',
+                                          'grid-area': '1 / 1 / 5 / 2'
+                                        }
+                                      },
+                                      {
+                                        name: 'title',
+                                        element: 'input',
+                                        actions: null,
+                                        label: 'Название',
+                                        placeholder: 'Название',
+                                        help: 'Введите название',
+                                        style: {
+                                          'grid-area': '1 / 2 / 2 / 3'
+                                        }
+                                      },
+                                      {
+                                        name: 'content',
+                                        element: 'textarea',
+                                        actions: null,
+                                        label: 'Описание',
+                                        style: {
+                                          'grid-area': '2 / 2 / 3 / 3'
+                                        }
+                                      },
+                                      {
+                                        name: 'added',
+                                        element: 'input',
+                                        actions: null,
+                                        label: 'Дополнительно',
+                                        style: {
+                                          'grid-area': '3 / 2 / 4 / 3'
+                                        }
+                                      },
+                                      {
+                                        name: 'show',
+                                        element: 'input',
+                                        type: 'checkbox',
+                                        actions: null,
+                                        label: 'Показывать',
+                                        default: true,
+                                        style: {
+                                          'grid-area': '4 / 2 / 5 / 3'
+                                        }
+                                      }
+                                    ]
                                   }
                                 }
                               }

@@ -387,7 +387,10 @@ export default {
   @apply pr-7
 }
 .mf3-item.mf3-input__file button, .mf3-item.mf3-input__image button, .mf3-item.mf3-input__datepicker button {
-  @apply absolute z-10 bottom-1.5 right-1.5 h-7 p-0 flex items-center justify-center border-none bg-transparent
+  @apply absolute z-10 bottom-0 right-0 h-7 p-0 flex items-center justify-center border-none bg-transparent
+}
+.mf3-item.mf3-input__file > .mf3-actions ~ .mf3-items > button, .mf3-item.mf3-input__image > .mf3-actions ~ .mf3-items > button, .mf3-item.mf3-input__datepicker > .mf3-actions ~ .mf3-items > button {
+  @apply bottom-1.5 right-1.5
 }
 .mf3-item.mf3-input__file > .mf3-items > div button, .mf3-item.mf3-input__image > .mf3-items > div button, .mf3-item.mf3-input__datepicker > .mf3-items > div button {
   @apply right-0 top-0

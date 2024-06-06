@@ -11,7 +11,7 @@ export default {
   components: { Templates, Actions },
   props: {
     templates: {
-      type: [Boolean, Object, Array],
+      type: [Boolean, Array],
       default: true
     },
     actions: {

@@ -44,9 +44,13 @@ export default {
     },
     select () {
       if (this.type === 'image') {
-        BrowseServer(this.id)
-        if (this.multi) {
-          this.MultiBrowseServer()
+        if (window['BrowseFileServer']) {
+          BrowseServer(this.id)
+          if (this.multi) {
+            this.MultiBrowseServer()
+          }
+        } else {
+          alert('Method BrowseFileServer not found!')
         }
       } else if (this.items) {
         this.$root['modal'] = {
