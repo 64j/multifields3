@@ -290,7 +290,7 @@ export default {
           <label v-if="i.key" :for="id + '-' + k">
             <span>{{ i.key }}</span>
             <span v-if="showValue && !(i.value === undefined || i.value === '')">{{ i.value }}</span>
-            <i v-if="i.help" data-tooltip :title="i.help" class="fa fa-question-circle"/>
+            <i v-if="i.help" data-tooltip :title="i.help" class="fa far fa-question-circle"/>
           </label>
         </div>
       </template>
@@ -321,7 +321,7 @@ export default {
         <label v-if="label" :for="id">
           <span>{{ label }}</span>
           <span v-if="showValue && !(value === undefined || value === '')">{{ value }}</span>
-          <i v-if="help" data-tooltip :title="help" class="fa fa-question-circle"/>
+          <i v-if="help" data-tooltip :title="help" class="fa far fa-question-circle"/>
         </label>
       </template>
     </div>
