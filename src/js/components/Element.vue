@@ -40,12 +40,12 @@ export default {
       type: Object,
       default: {}
     },
+    'item.attr': Object,
     'item.class': [String, Array],
     'item.style': [String, Object],
-    'item.attr': Object,
-    'items.style': [String, Object],
+    'items.attr': Object,
     'items.class': [String, Array],
-    'items.attr': Object
+    'items.style': [String, Object]
   },
   data () {
     return {

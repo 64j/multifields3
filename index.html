@@ -4,9 +4,11 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>MF3</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"
-          href="https://cdn.jsdelivr.net/gh/evocms-community/evolution@1.4.34/manager/media/style/default/css/forms.css?v=1.3.5"/>
+          href="https://cdn.jsdelivr.net/gh/evocms-community/evolution@1.4.34/manager/media/style/default/css/forms.css?v=1.3.5"
+          crossorigin="anonymous"/>
     <script>
       window['Vue'] || document.write('<script defer src=//unpkg.com/vue@3/dist/vue.runtime.global.prod.js><\/script>')
     </script>
@@ -79,6 +81,21 @@
             .sidebar.active .sidebar2 {
                 transform: translateX(0);
             }
+        }
+        pre .string {
+            @apply text-lime-600 dark:text-lime-300
+        }
+        pre .number {
+            @apply text-orange-600 dark:text-orange-300
+        }
+        pre .boolean {
+            @apply text-blue-600 dark:text-blue-300
+        }
+        pre .null {
+            @apply text-fuchsia-600 dark:text-fuchsia-300
+        }
+        pre .key {
+            @apply text-purple-600 dark:text-purple-300
         }
     </style>
 </head>
@@ -183,6 +200,37 @@
                 <h2 id="mf3:configuration">
                     <a>Файл конфигурации</a>
                 </h2>
+
+                <div class="mb-5">
+                    <h5 id="mf3:configuration:examples">
+                        <a>Примеры конфигурации:</a>
+                    </h5>
+
+                    <pre id="example-1-config" class="border p-2 rounded"></pre>
+
+                    <script>
+                      window['mf3Config']['example-1'] = {
+                        templates: {
+                          element_1: {
+                            element: 'input'
+                          }
+                        }
+                      }
+                    </script>
+
+                    <pre id="example-2-config" class="border p-2 rounded"></pre>
+
+                    <script>
+                      window['mf3Config']['example-2'] = {
+                        templates: [
+                          {
+                            name: 'element_1',
+                            element: 'input'
+                          }
+                        ]
+                      }
+                    </script>
+                </div>
             </div>
 
             <div>
@@ -190,18 +238,163 @@
                     <a>Элементы</a>
                 </h2>
 
+                <div class="mb-5">
+                    <h5 id="mf3:elements:options">
+                        <a>Доступные параметры для всех элементов:</a>
+                    </h5>
+
+                    <table class="table table-sm table-striped table-hover table-borderless table-responsive small">
+                        <thead>
+                        <tr>
+                            <th>Название</th>
+                            <th>Тип</th>
+                            <th>Значение по умолчанию</th>
+                            <th>Описание</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th><code>key</code></th>
+                            <td>строка</td>
+                            <td></td>
+                            <td>уникальный ключ</td>
+                        </tr>
+                        <tr>
+                            <th><code>element</code></th>
+                            <td>строка</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>title</code></th>
+                            <td>строка</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>label</code></th>
+                            <td>строка</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>placeholder</code></th>
+                            <td>строка</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>help</code></th>
+                            <td>строка</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>value</code></th>
+                            <td>строка | число | булево | массив</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>elements</code></th>
+                            <td>массив</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>actions</code></th>
+                            <td>булево | массив</td>
+                            <td>['add', 'move', 'del']</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>required</code></th>
+                            <td>булево</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>readonly</code></th>
+                            <td>булево</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>disabled</code></th>
+                            <td>булево</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>default</code></th>
+                            <td>строка | число | массив</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>items</code></th>
+                            <td>массив</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>attr</code></th>
+                            <td>объект</td>
+                            <td>{}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>item.attr</code></th>
+                            <td>объект</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>item.class</code></th>
+                            <td>строка | массив</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>item.style</code></th>
+                            <td>строка | объект</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>items.attr</code></th>
+                            <td>объект</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>items.class</code></th>
+                            <td>строка | массив</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th><code>items.style</code></th>
+                            <td>строка | объект</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div>
-                    <h3 id="mf3:input">
-                        <a><strong>input</strong></a>
+                    <h3 id="mf3:row">
+                        <a><strong>row</strong></a>
                     </h3>
 
                     <div>
                         <div class="mb-5">
-                            <h5 id="mf3:input:options">
-                                <a>Доступные параметры:</a>
+                            <h5 id="mf3:row:options">
+                                <a>Дополнительные параметры:</a>
                             </h5>
 
-                            <table class="table table-sm table-striped table-hover table-borderless table-responsive">
+                            <table class="table table-sm table-striped table-hover table-borderless table-responsive small">
                                 <thead>
                                 <tr>
                                     <th>Название</th>
@@ -212,17 +405,61 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <th><code>key</code></th>
-                                    <td></td>
-                                    <td></td>
+                                    <th><code>templates</code></th>
+                                    <td>булево | массив | объект</td>
+                                    <td>true</td>
                                     <td></td>
                                 </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mb-5">
+                            <script>
+                              window['mf3Config']['row'] = {
+                                templates: {
+                                  item: {
+                                    element: 'row',
+                                    type: 'text',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea name="row" class="mf3-data" data-tv-id="row" data-tv-name="row"
+                                      rows="2"></textarea>
+
+                            <h5 id="mf3:row:config">
+                                <a>Config: <strong>row</strong></a>
+                            </h5>
+                            <pre id="row-config" class="border p-2 rounded"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 id="mf3:input">
+                        <a><strong>input</strong></a>
+                    </h3>
+
+                    <div>
+                        <div class="mb-5">
+                            <h5 id="mf3:input:options">
+                                <a>Дополнительные параметры:</a>
+                            </h5>
+
+                            <table class="table table-sm table-striped table-hover table-borderless table-responsive small">
+                                <thead>
                                 <tr>
-                                    <th><code>name</code></th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <th>Название</th>
+                                    <th>Тип</th>
+                                    <th>Значение по умолчанию</th>
+                                    <th>Описание</th>
                                 </tr>
+                                </thead>
+                                <tbody>
                                 <tr>
                                     <th><code>type</code></th>
                                     <td>строка</td>
@@ -230,62 +467,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <th><code>title</code></th>
-                                    <td>строка | число</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><code>label</code></th>
-                                    <td>строка | число</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><code>value</code></th>
-                                    <td>строка | число | булево | массив</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><code>elements</code></th>
-                                    <td>массив</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><code>actions</code></th>
-                                    <td>булево | массив</td>
-                                    <td>['add', 'move', 'del']</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><code>placeholder</code></th>
-                                    <td>строка | число</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
                                     <th><code>pattern</code></th>
                                     <td>строка</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><code>required</code></th>
-                                    <td>булево</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><code>readonly</code></th>
-                                    <td>булево</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <th><code>disabled</code></th>
-                                    <td>булево</td>
                                     <td>неопределенно</td>
                                     <td></td>
                                 </tr>
@@ -300,12 +483,6 @@
                                     <td>строка | число | булево</td>
                                     <td>неопределенно</td>
                                     <td>Только для чекбокса</td>
-                                </tr>
-                                <tr>
-                                    <th><code>default</code></th>
-                                    <td>строка | число | массив</td>
-                                    <td>неопределенно</td>
-                                    <td></td>
                                 </tr>
                                 <tr>
                                     <th><code>min</code></th>
@@ -886,6 +1063,73 @@
                         </div>
                     </div>
                 </div>
+
+                <div>
+                    <h3 id="mf3:textarea">
+                        <a><strong>textarea</strong></a>
+                    </h3>
+
+                    <div>
+                        <div class="mb-5">
+                            <h5 id="mf3:textarea:options">
+                                <a>Дополнительные параметры:</a>
+                            </h5>
+
+                            <table class="table table-sm table-striped table-hover table-borderless table-responsive small">
+                                <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th>Тип</th>
+                                    <th>Значение по умолчанию</th>
+                                    <th>Описание</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th><code>rows</code></th>
+                                    <td>строка | число</td>
+                                    <td>3</td>
+                                    <td></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mb-5">
+                            <h4 id="mf3:textarea:textarea">
+                                <a><strong>textarea</strong></a>
+                            </h4>
+
+                            <script>
+                              window['mf3Config']['textarea-textarea'] = {
+                                templates: {
+                                  item: {
+                                    element: 'textarea',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...'
+                                  },
+                                  items: {
+                                    element: 'textarea',
+                                    label: 'Items',
+                                    title: 'Items',
+                                    placeholder: '...',
+                                    elements: 'Item 1==||Item 2==||Item 3=='
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea name="textarea-textarea" class="mf3-data" data-tv-id="textarea-textarea"
+                                      data-tv-name="textarea-textarea"
+                                      rows="2"></textarea>
+
+                            <h5 id="mf3:textarea:textarea:config">
+                                <a>Config: <strong>textarea</strong></a>
+                            </h5>
+                            <pre id="textarea-textarea-config" class="border p-2 rounded"></pre>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -930,6 +1174,30 @@
     document.documentElement.setAttribute('data-bs-theme', theme)
   }
 
+  function syntaxHighlight (json) {
+    if (typeof json != 'string') {
+      json = JSON.stringify(json, undefined, 2)
+    }
+    json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    return json.replace(
+      /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g,
+      function (match) {
+        let cls = 'number'
+        if (/^"/.test(match)) {
+          if (/:$/.test(match)) {
+            cls = 'key'
+          } else {
+            cls = 'string'
+          }
+        } else if (/true|false/.test(match)) {
+          cls = 'boolean'
+        } else if (/null/.test(match)) {
+          cls = 'null'
+        }
+        return '<span class="' + cls + '">' + match + '</span>'
+      })
+  }
+
   toggleTheme(localStorage['mf-theme'] ? (localStorage['mf-theme'] === 'dark' ? 'light' : 'dark') : 'light')
 
   document.querySelector('[data-toggle="theme"]').addEventListener('click', () => toggleTheme())
@@ -949,7 +1217,7 @@
     const pre = document.querySelector('#' + k + '-config')
 
     if (pre) {
-      pre.innerHTML = JSON.stringify(window['mf3Config'][k], null, 4)
+      pre.innerHTML = syntaxHighlight(window['mf3Config'][k], null, 4)
     }
   }
 
@@ -965,17 +1233,18 @@
     html += '<li>'
     html += '<a href="#' + h2.id + '">' + h2.innerText + '</a>'
 
-    const items = h2?.nextElementSibling?.querySelectorAll('h3')
+    const items = h2?.parentElement?.querySelectorAll('h3')
 
-    if (items) {
+    if (items?.length) {
       html += '<ul>'
 
       items.forEach(h3 => {
+        html += '<li>'
         html += '<a href="#' + h3.id + '">' + h3.innerText + '</a>'
 
-        const items = h3?.nextElementSibling?.querySelectorAll('h4')
+        const items = h3?.parentElement?.querySelectorAll('h4')
 
-        if (items) {
+        if (items?.length) {
           html += '<ul>'
 
           items.forEach(h4 => {
@@ -984,6 +1253,8 @@
 
           html += '</ul>'
         }
+
+        html += '</li>'
       })
 
       html += '</ul>'
@@ -996,7 +1267,6 @@
 
   nav.innerHTML = html
 </script>
-
 
 <style>
     /* [ DATEPICKER ] */
@@ -1022,7 +1292,8 @@
     .darkness .dp_cal td.dp_selected { background-color: #3189ba; color: #fff !important; }
 </style>
 
-<script src="https://cdn.jsdelivr.net/gh/evocms-community/evolution@1.4.34/manager/media/calendar/datepicker.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/evocms-community/evolution@1.4.34/manager/media/calendar/datepicker.js"
+        crossorigin="anonymous"></script>
 
 <script>
   var dpOffset = -10;

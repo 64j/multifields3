@@ -7,7 +7,12 @@ export default {
   __isStatic: true,
   extends: Element,
   components: { Actions },
-  props: ['rows'],
+  props: {
+    rows: {
+      type: Number,
+      default: 3
+    }
+  },
   computed: {
     model: {
       set (value) {
@@ -33,7 +38,17 @@ export default {
       <label v-if="label" :for="id">
         <span>{{ label }}</span>
       </label>
-      <textarea v-model="model" :rows="rows" :id="id" :class="$props['item.class']" v-bind="$props['item.attr']"/>
+      <textarea
+          :id="id"
+          :name="id"
+          :required="required"
+          :readonly="readonly"
+          :disabled="disabled"
+          :placeholder="placeholder"
+          :class="$props['item.class']"
+          v-bind="$props['item.attr']"
+          v-model="model"
+          :rows="rows"/>
     </div>
   </div>
 </template>
