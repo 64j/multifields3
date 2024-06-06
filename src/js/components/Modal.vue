@@ -89,7 +89,7 @@ export default {
 <style scoped>
 @tailwind base;
 .mf3-modal {
-  @apply flex flex-col fixed z-[1002] w-[95%] lg:w-auto min-w-96 max-w-full max-h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 p-0 m-0 bg-white dark:bg-gray-650 rounded shadow-2xl;
+  @apply flex flex-col fixed z-[1002] w-[95%] resize overflow-hidden lg:w-auto min-w-96 max-w-full max-h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 p-0 m-0 bg-white dark:bg-gray-650 rounded shadow-2xl;
   backface-visibility: hidden;
 }
 .mf3-modal .mf3-modal__header {
