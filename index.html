@@ -83,19 +83,44 @@
             }
         }
         pre .string {
-            @apply text-lime-600 dark:text-lime-300
+            --tw-text-opacity: 1;
+            color: rgb(101 163 13 / var(--tw-text-opacity));
+        }
+        :is(.darkness pre .string) {
+            --tw-text-opacity: 1;
+            color: rgb(190 242 100 / var(--tw-text-opacity));
         }
         pre .number {
-            @apply text-orange-600 dark:text-orange-300
+            --tw-text-opacity: 1;
+            color: rgb(234 88 12 / var(--tw-text-opacity));
+        }
+        :is(.darkness pre .number) {
+            --tw-text-opacity: 1;
+            color: rgb(253 186 116 / var(--tw-text-opacity));
         }
         pre .boolean {
-            @apply text-blue-600 dark:text-blue-300
+            --tw-text-opacity: 1;
+            color: rgb(70 102 229 / var(--tw-text-opacity));
+        }
+        :is(.darkness pre .boolean) {
+            --tw-text-opacity: 1;
+            color: rgb(165 193 252 / var(--tw-text-opacity));
         }
         pre .null {
-            @apply text-fuchsia-600 dark:text-fuchsia-300
+            --tw-text-opacity: 1;
+            color: rgb(192 38 211 / var(--tw-text-opacity));
+        }
+        :is(.darkness pre .null) {
+            --tw-text-opacity: 1;
+            color: rgb(240 171 252 / var(--tw-text-opacity));
         }
         pre .key {
-            @apply text-purple-600 dark:text-purple-300
+            --tw-text-opacity: 1;
+            color: rgb(147 51 234 / var(--tw-text-opacity));
+        }
+        :is(.darkness pre .key) {
+            --tw-text-opacity: 1;
+            color: rgb(216 180 254 / var(--tw-text-opacity));
         }
     </style>
 </head>
