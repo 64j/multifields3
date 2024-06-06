@@ -31,6 +31,7 @@ export default {
       }
       this.$refs.modal.addEventListener('mousemove', this.onMousemove)
       this.$refs.modal.addEventListener('mouseup', this.onMouseup)
+      this.$refs.modal.classList.add('mf3-modal__resizable')
       window.onselectstart = () => false
     },
     onMousemove (event) {
@@ -55,6 +56,7 @@ export default {
     onMouseup () {
       this.$refs.modal.removeEventListener('mousemove', this.onMousemove)
       this.$refs.modal.removeEventListener('mouseup', this.onMouseup)
+      this.$refs.modal.classList.remove('mf3-modal__resizable')
       window.onselectstart = null
     },
     onClose () {
@@ -91,6 +93,9 @@ export default {
 .mf3-modal {
   @apply flex flex-col fixed z-[1002] w-[95%] resize overflow-hidden lg:w-auto min-w-96 max-w-full max-h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 p-0 m-0 bg-white dark:bg-gray-650 rounded shadow-2xl;
   backface-visibility: hidden;
+}
+.mf3-modal.mf3-modal__resizable {
+  @apply opacity-50
 }
 .mf3-modal .mf3-modal__header {
   @apply z-20 flex items-center w-full h-7 px-2 py-1 rounded-t bg-slate-50 cursor-all-scroll dark:bg-gray-600
