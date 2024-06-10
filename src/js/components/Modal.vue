@@ -71,16 +71,18 @@ export default {
 <template>
   <Teleport to="body">
     <transition name="fade">
-      <div v-if="open" class="mf3 mf3-modal" :style="style" ref="modal">
-        <div class="mf3-modal__header" @mousedown="onMousedown">
-          <div class="mf3-modal__title">{{ title ?? opener?.['@title'] }}</div>
-          <button class="mf3-modal__close" @mousedown.stop="onClose">
-            <i/>
-            <i/>
-          </button>
-        </div>
-        <div class="mf3-modal__content">
-          <component :is="component || opener['$slots'].default"/>
+      <div v-if="open">
+        <div class="mf3 mf3-modal" :style="style" ref="modal">
+          <div class="mf3-modal__header" @mousedown="onMousedown">
+            <div class="mf3-modal__title">{{ title ?? opener?.['@title'] }}</div>
+            <button class="mf3-modal__close" @mousedown.stop="onClose">
+              <i/>
+              <i/>
+            </button>
+          </div>
+          <div class="mf3-modal__content">
+            <component :is="component || opener['$slots'].default"/>
+          </div>
         </div>
         <div class="mf3-modal__mask" @click="onClose"/>
       </div>
