@@ -21,6 +21,13 @@ export default {
         this.dataEl.value = elements.length ? JSON.stringify(this.setData(elements)) : ''
       },
       deep: true
+    },
+    'modal.open' (value) {
+      if (value) {
+        document.documentElement.style.overflow = 'hidden'
+      } else {
+        document.documentElement.style.overflow = null
+      }
     }
   },
   created () {
