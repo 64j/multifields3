@@ -91,7 +91,7 @@ export default {
 <style scoped>
 @tailwind base;
 .mf3-modal {
-  @apply flex flex-col fixed z-[1002] w-[95%] resize overflow-hidden lg:w-auto min-w-96 max-w-full max-h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 p-0 m-0 bg-white dark:bg-gray-650 rounded shadow-2xl;
+  @apply flex flex-col fixed z-[1002] w-[95%] resize overflow-hidden lg:w-auto min-w-96 max-w-full min-h-8 max-h-full left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 scale-100 p-0 m-0 bg-white dark:bg-gray-650 rounded shadow-2xl;
   backface-visibility: hidden;
 }
 .mf3-modal.mf3-modal__resizable {
@@ -119,7 +119,7 @@ export default {
   @apply absolute w-3 h-0.5 bg-rose-500 rotate-45 last:-rotate-45
 }
 .mf3-modal .mf3-modal__content {
-  @apply z-20 p-1.5
+  @apply z-20 p-1.5 grow overflow-auto
 }
 .mf3-modal__mask {
   @apply fixed z-10 left-0 top-0 right-0 bottom-0 scale-[10]
