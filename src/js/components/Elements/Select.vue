@@ -16,7 +16,6 @@ export default {
   data () {
     return {
       data: this.values && Object.values(this.values).length ? [this.values] : [],
-      loading: false,
       load: false,//this.multiple || this.size > 1,
       focus: false
     }

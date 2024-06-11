@@ -15,12 +15,6 @@ export default {
       default: 3
     }
   },
-  data () {
-    return {
-      data: this.elements ? [] : null,
-      loading: false
-    }
-  },
   watch: {
     data: {
       handler (data) {
@@ -37,45 +31,6 @@ export default {
       get () {
         return this.value
       }
-    }
-  },
-  created () {
-    if (this.elements) {
-      if (typeof this.elements === 'object') {
-        if (Array.isArray(this.elements)) {
-          this.data = this.elements
-        } else {
-          for (const i in this.elements) {
-            if (typeof this.elements[i] === 'object') {
-              this.data.push({ key: i, ...this.elements[i] })
-            } else {
-              this.data.push({ key: i, value: this.elements[i] })
-            }
-          }
-        }
-
-        return
-      }
-
-      if (this.elements[0] === '@') {
-        this.loading = true
-        axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
-          this.data = data
-          this.$nextTick(this.initDatepicker)
-        }).finally(() => this.loading = false)
-
-        return
-      }
-
-      this.elements.split('||').forEach(i => {
-        let key = i.split('==')[0] ?? null
-        let value = i.split('==')[1] ?? null
-
-        this.data.push({
-          key: key,
-          value: value ?? key
-        })
-      })
     }
   },
   methods: {
