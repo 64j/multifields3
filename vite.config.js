@@ -31,7 +31,7 @@ export default {
     rollupOptions: {
       external: ['vue'],
       output: {
-        dir: './dist/mf',
+        //dir: './dist/mf',
         format: 'umd',
         globals: {
           vue: 'Vue'
@@ -40,9 +40,9 @@ export default {
         entryFileNames: '[name].js',
         assetFileNames: '[name].[extname]'
       },
-      input: [
-        './src/js/mf.js'
-      ]
+      // input: [
+      //   './src/js/mf.js'
+      // ]
     }
   },
   plugins: [

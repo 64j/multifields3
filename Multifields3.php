@@ -43,10 +43,18 @@ class Multifields3
             $out .= '<script type="module" src="' . $hot . '/@vite/client"></script>';
             $out .= '<script type="module" src="' . $hot . '/src/js/mf.js"></script>';
         } else {
-            $script = $path . '/dist/mf/mf.js';
-            $v = '?v=' . filemtime(MODX_BASE_PATH . $script);
-            $out .= '<link rel="modulepreload" href="' . MODX_SITE_URL . $script . $v . '">';
-            $out .= '<script type="module" src="' . MODX_SITE_URL . $script . $v . '"></script>';
+            if (file_exists($manifest = __DIR__ . '/dist/manifest.json')) {
+                $manifest = json_decode(file_get_contents($manifest), true);
+
+                foreach ($manifest as $value) {
+                    if (!empty($value['isEntry'])) {
+                        $script = $path . '/dist/' . $value['file'];
+                        $v = '?v=' . filemtime(MODX_BASE_PATH . $script);
+                        $out .= '<link rel="modulepreload" href="' . MODX_SITE_URL . $script . $v . '">';
+                        $out .= '<script type="module" src="' . MODX_SITE_URL . $script . $v . '"></script>';
+                    }
+                }
+            }
         }
 
         return $out;

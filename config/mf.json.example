@@ -1,153 +1,153 @@
 {
   "templates": [
     {
-      "key": "row",
       "name": "row",
+      "element": "row",
       "title": "Row"
     },
     {
-      "key": "date",
-      "name": "input",
+      "name": "date",
+      "element": "input",
       "title": "Date",
       "type": "date"
     },
     {
-      "key": "datetime",
-      "name": "input",
+      "name": "datetime",
+      "element": "input",
       "title": "Datetime",
       "type": "datetime-local"
     },
     {
-      "key": "week",
-      "name": "input",
+      "name": "week",
+      "element": "input",
       "title": "Week",
       "type": "week"
     },
     {
-      "key": "month",
-      "name": "input",
+      "name": "month",
+      "element": "input",
       "title": "Month",
       "type": "month"
     },
     {
-      "key": "time",
-      "name": "input",
+      "name": "time",
+      "element": "input",
       "title": "Time",
       "type": "time"
     },
     {
-      "key": "email",
-      "name": "input",
+      "name": "email",
+      "element": "input",
       "title": "Email",
       "type": "email"
     },
     {
-      "key": "number",
-      "name": "input",
+      "name": "number",
+      "element": "input",
       "title": "Number",
       "type": "number"
     },
     {
-      "key": "text",
-      "name": "input",
+      "name": "text",
+      "element": "input",
       "title": "Text",
       "type": "text"
     },
     {
-      "key": "color",
-      "name": "input",
+      "name": "color",
+      "element": "input",
       "title": "Color",
       "type": "color"
     },
     {
-      "key": "file",
-      "name": "input",
+      "name": "file",
+      "element": "input",
       "title": "File",
       "type": "file"
     },
     {
-      "key": "hidden",
-      "name": "input",
+      "name": "hidden",
+      "element": "input",
       "title": "Hidden",
       "type": "hidden"
     },
     {
-      "key": "range",
-      "name": "input",
+      "name": "range",
+      "element": "input",
       "title": "Range",
       "type": "range"
     },
     {
-      "key": "url",
-      "name": "input",
+      "name": "url",
+      "element": "input",
       "title": "Url",
       "type": "url"
     },
     {
-      "key": "checkbox",
-      "name": "input",
+      "name": "checkbox",
+      "element": "input",
       "title": "Checkbox",
       "type": "checkbox",
       "elements": "1==qwe||2==asd||3==zxc"
     },
     {
-      "key": "checkbox one",
-      "name": "input",
+      "name": "checkbox one",
+      "element": "input",
       "title": "Checkbox One",
       "type": "checkbox",
       "label": "Checkbox"
     },
     {
-      "key": "radio",
-      "name": "input",
+      "name": "radio",
+      "element": "input",
       "title": "Radio",
       "type": "radio"
     },
     {
-      "key": "dropdown",
       "name": "dropdown",
+      "element": "dropdown",
       "title": "Dropdown",
       "type": "dropdown",
       "elements": "@SELECT id, message FROM [+PREFIX+]manager_log"
     },
     {
-      "key": "listbox",
       "name": "listbox",
+      "element": "listbox",
       "title": "Listbox",
       "type": "listbox",
       "elements": "@SELECT id, message FROM [+PREFIX+]manager_log"
     },
     {
-      "key": "listbox:multiple",
       "name": "listbox:multiple",
+      "element": "listbox:multiple",
       "title": "Listbox:multiple",
       "type": "listbox-multiple",
       "elements": "@SELECT id, message FROM [+PREFIX+]manager_log"
     },
     {
-      "key": "select",
       "name": "select",
+      "element": "select",
       "title": "Select",
       "type": "select",
       "elements": "@SELECT id, message FROM [+PREFIX+]manager_log"
     },
     {
-      "key": "select:multiple",
-      "name": "select",
+      "name": "select:multiple",
+      "element": "select",
       "title": "Select:multiple",
       "type": "select",
       "elements": "@SELECT id, message FROM [+PREFIX+]manager_log",
       "multiple": true
     },
     {
-      "key": "c-image",
-      "name": "image",
+      "name": "c-image",
+      "element": "image",
       "title": "Изображение",
       "type": "image"
     },
     {
-      "key": "c-file",
-      "name": "file",
+      "name": "c-file",
+      "element": "file",
       "title": "Файл",
       "type": "file"
     }
