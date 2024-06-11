@@ -18,6 +18,10 @@ switch (evo()->event->name) {
             evo()->event->addOutput(Multifields3::getInstance()->getStartScripts());
         }
 
+        if (in_array(evo()->getManagerApi()->action, [300, 301])) {
+            evo()->event->addOutput(Multifields3::getInstance()->tmplvarScripts());
+        }
+
 //        if (in_array(evo()->getManagerApi()->action, [300, 301])) {
 //            evo()->event->addOutput(Multifields3::getInstance()->jsonEditorScripts());
 //        }

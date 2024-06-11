@@ -43,12 +43,12 @@ class Multifields3
             $out .= '<script type="module" src="' . $hot . '/@vite/client"></script>';
             $out .= '<script type="module" src="' . $hot . '/src/js/mf.js"></script>';
         } else {
-            if (file_exists($manifest = __DIR__ . '/dist/manifest.json')) {
+            if (file_exists($manifest = __DIR__ . '/dist/mf/manifest.json')) {
                 $manifest = json_decode(file_get_contents($manifest), true);
 
                 foreach ($manifest as $value) {
                     if (!empty($value['isEntry'])) {
-                        $script = $path . '/dist/' . $value['file'];
+                        $script = $path . '/dist/mf/' . $value['file'];
                         $v = '?v=' . filemtime(MODX_BASE_PATH . $script);
                         $out .= '<link rel="modulepreload" href="' . MODX_SITE_URL . $script . $v . '">';
                         $out .= '<script type="module" src="' . MODX_SITE_URL . $script . $v . '"></script>';
@@ -144,6 +144,16 @@ class Multifields3
 
             exit;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function tmplvarScripts(): string
+    {
+        $path = MODX_SITE_URL . str_replace(MODX_BASE_PATH, '', str_replace(DIRECTORY_SEPARATOR, '/', __DIR__));
+
+        return '<script src="' . $path . '/dist/tmplvar.init.js"></script>';
     }
 
     /**
