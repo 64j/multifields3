@@ -267,21 +267,26 @@
                         <a>Доступные параметры для всех элементов:</a>
                     </h5>
 
-                    <table class="table table-sm table-striped table-hover table-borderless table-responsive small">
+                    <table class="table table-sm table-striped table-borderless table-responsive small">
                         <thead>
                         <tr>
-                            <th>Название</th>
-                            <th>Тип</th>
-                            <th>Значение по умолчанию</th>
-                            <th>Описание</th>
+                            <th class="text-muted">Название</th>
+                            <th class="text-muted">Тип</th>
+                            <th class="text-muted">Значение по умолчанию</th>
+                            <th class="text-muted">Описание</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <th><code>key</code></th>
+                            <th><code>name</code></th>
                             <td>строка</td>
                             <td></td>
                             <td>уникальный ключ</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Уникальный ключ элемента, по которому можно обратиться при обработке данных
+                            </td>
                         </tr>
                         <tr>
                             <th><code>element</code></th>
@@ -290,10 +295,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Название элемента
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>title</code></th>
                             <td>строка</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Заголовок (так же используется в выпадающем списке)
+                            </td>
                         </tr>
                         <tr>
                             <th><code>label</code></th>
@@ -302,10 +317,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Лейбл элемента (описание)
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>placeholder</code></th>
                             <td>строка</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Плейсхолдер
+                            </td>
                         </tr>
                         <tr>
                             <th><code>help</code></th>
@@ -314,10 +339,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Подсказка
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>value</code></th>
                             <td>строка | число | булево | массив</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Начальное значение
+                            </td>
                         </tr>
                         <tr>
                             <th><code>elements</code></th>
@@ -326,10 +361,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Возможные значения
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>actions</code></th>
                             <td>булево | массив</td>
                             <td>['add', 'move', 'del']</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Доступные действия
+                            </td>
                         </tr>
                         <tr>
                             <th><code>required</code></th>
@@ -338,10 +383,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Обязательный
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>readonly</code></th>
                             <td>булево</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Только для чтения
+                            </td>
                         </tr>
                         <tr>
                             <th><code>disabled</code></th>
@@ -350,10 +405,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Отключен
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>default</code></th>
                             <td>строка | число | массив</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Значение по умолчанию
+                            </td>
                         </tr>
                         <tr>
                             <th><code>hidden</code></th>
@@ -362,10 +427,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Скрытый
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>items</code></th>
                             <td>массив</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Дочерние элементы
+                            </td>
                         </tr>
                         <tr>
                             <th><code>attr</code></th>
@@ -374,10 +449,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Атрибуты обёртки элемента
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>item.attr</code></th>
                             <td>объект</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Атрибуты элемента
+                            </td>
                         </tr>
                         <tr>
                             <th><code>item.class</code></th>
@@ -386,10 +471,20 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Класс элемента
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>item.style</code></th>
                             <td>строка | объект</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Стиль CSS элемента
+                            </td>
                         </tr>
                         <tr>
                             <th><code>items.attr</code></th>
@@ -398,16 +493,31 @@
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Атрибуты обёртки дочерних элементов
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>items.class</code></th>
                             <td>строка | массив</td>
                             <td>неопределенно</td>
                             <td></td>
                         </tr>
                         <tr>
+                            <td colspan="4" class="small text-muted">
+                                Класс обёртки дочерних элементов
+                            </td>
+                        </tr>
+                        <tr>
                             <th><code>items.style</code></th>
                             <td>строка | объект</td>
                             <td>неопределенно</td>
                             <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Стиль CSS обёртки дочерних элементов
+                            </td>
                         </tr>
                         </tbody>
                     </table>
@@ -424,13 +534,13 @@
                                 <a>Дополнительные параметры:</a>
                             </h5>
 
-                            <table class="table table-sm table-striped table-hover table-borderless table-responsive small">
+                            <table class="table table-sm table-striped table-borderless table-responsive small">
                                 <thead>
                                 <tr>
-                                    <th>Название</th>
-                                    <th>Тип</th>
-                                    <th>Значение по умолчанию</th>
-                                    <th>Описание</th>
+                                    <th class="text-muted">Название</th>
+                                    <th class="text-muted">Тип</th>
+                                    <th class="text-muted">Значение по умолчанию</th>
+                                    <th class="text-muted">Описание</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -439,6 +549,11 @@
                                     <td>булево | массив</td>
                                     <td>true</td>
                                     <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Имена ключей шаблонов, для показа их в списке выбора элемента
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -582,13 +697,13 @@
                                 <a>Дополнительные параметры:</a>
                             </h5>
 
-                            <table class="table table-sm table-striped table-hover table-borderless table-responsive small">
+                            <table class="table table-sm table-striped table-borderless table-responsive small">
                                 <thead>
                                 <tr>
-                                    <th>Название</th>
-                                    <th>Тип</th>
-                                    <th>Значение по умолчанию</th>
-                                    <th>Описание</th>
+                                    <th class="text-muted">Название</th>
+                                    <th class="text-muted">Тип</th>
+                                    <th class="text-muted">Значение по умолчанию</th>
+                                    <th class="text-muted">Описание</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -599,10 +714,20 @@
                                     <td></td>
                                 </tr>
                                 <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Тип элемента
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th><code>pattern</code></th>
                                     <td>строка</td>
                                     <td>неопределенно</td>
                                     <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Паттерн
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><code>trueValue</code></th>
@@ -611,10 +736,20 @@
                                     <td>Только для чекбокса</td>
                                 </tr>
                                 <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Значение если элемент выбран
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th><code>falseValue</code></th>
                                     <td>строка | число | булево</td>
                                     <td>неопределенно</td>
                                     <td>Только для чекбокса</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Значение если элемент не выбран
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><code>min</code></th>
@@ -623,10 +758,20 @@
                                     <td></td>
                                 </tr>
                                 <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Минимальное значение
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th><code>max</code></th>
                                     <td>строка | число</td>
                                     <td>неопределенно</td>
                                     <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Максимальное значение
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><code>minlength</code></th>
@@ -635,10 +780,20 @@
                                     <td></td>
                                 </tr>
                                 <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Минимальное количество символов
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th><code>maxlength</code></th>
                                     <td>строка | число</td>
                                     <td>неопределенно</td>
                                     <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Максимальное количество символов
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th><code>size</code></th>
@@ -647,10 +802,20 @@
                                     <td></td>
                                 </tr>
                                 <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Ширина текстового поля
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th><code>step</code></th>
                                     <td>строка | число</td>
                                     <td>неопределенно</td>
                                     <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Шаг значения
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -1207,13 +1372,13 @@
                                 <a>Дополнительные параметры:</a>
                             </h5>
 
-                            <table class="table table-sm table-striped table-hover table-borderless table-responsive small">
+                            <table class="table table-sm table-striped table-borderless table-responsive small">
                                 <thead>
                                 <tr>
-                                    <th>Название</th>
-                                    <th>Тип</th>
-                                    <th>Значение по умолчанию</th>
-                                    <th>Описание</th>
+                                    <th class="text-muted">Название</th>
+                                    <th class="text-muted">Тип</th>
+                                    <th class="text-muted">Значение по умолчанию</th>
+                                    <th class="text-muted">Описание</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -1222,6 +1387,11 @@
                                     <td>строка | число</td>
                                     <td>3</td>
                                     <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Высота поля в строках текста
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
