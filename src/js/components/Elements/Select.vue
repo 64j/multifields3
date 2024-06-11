@@ -10,13 +10,16 @@ export default {
   extends: Element,
   components: { Loader, Actions },
   props: {
-    multiple: Boolean,
+    multiple: {
+      type: Boolean,
+      default: undefined
+    },
     size: Number
   },
   data () {
     return {
       data: this.values && Object.values(this.values).length ? [this.values] : [],
-      load: false,//this.multiple || this.size > 1,
+      load: this.multiple ?? false,
       focus: false
     }
   },
@@ -26,29 +29,8 @@ export default {
         this.$emit('update:value', value, { ...this.data.filter(i => i.key === value)[0] || {} })
       },
       get () {
-        // if (this.multiple) {
-        //   if (this.elements) {
-        //     if (this.value === undefined) {
-        //       return []
-        //     }
-        //
-        //     return Array.isArray(this.value) ? this.value : [this.value]
-        //   } else {
-        //     if (this.value !== undefined) {
-        //       return Array.isArray(this.value) ? this.value.toString() : this.value
-        //     }
-        //   }
-        // }
-
         return this.value
       }
-    }
-  },
-  created () {
-    if (this.load) {
-      this.getData()
-    } else {
-      this.getOptions()
     }
   },
   methods: {
@@ -139,7 +121,10 @@ export default {
 .mf3-item select option {
   @apply checked:bg-blue-600 checked:text-white
 }
+.mf3-items {
+  @apply items-center
+}
 .mf3-loader {
-  @apply absolute left-2 top-2.5
+  @apply absolute left-3.5
 }
 </style>

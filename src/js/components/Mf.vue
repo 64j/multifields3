@@ -220,6 +220,7 @@ export default {
           if (![
             'name',
             'value',
+            'values',
             'items'
           ].concat(append).includes(i)) {
             delete element[i]

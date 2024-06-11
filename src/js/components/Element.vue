@@ -28,6 +28,7 @@ export default {
         return props.default
       }
     },
+    values: [null, Array, Object],
     elements: [String, Object, Array],
     placeholder: [String, Number],
     required: Boolean,
@@ -53,7 +54,8 @@ export default {
     return {
       id: 'v-' + crypto.getRandomValues(new Uint32Array(1))[0].toString(36),
       data: this.elements ? [] : null,
-      loading: false
+      loading: false,
+      load: true
     }
   },
   created () {
@@ -75,11 +77,13 @@ export default {
       }
 
       if (this.elements[0] === '@') {
-        this.loading = true
-        axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
-          this.data = data
-          this.$nextTick(this.initDatepicker)
-        }).finally(() => this.loading = false)
+        if (this.load) {
+          this.loading = true
+          axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
+            this.data = data
+            this.$nextTick(this.initDatepicker)
+          }).finally(() => this.loading = false)
+        }
 
         return
       }

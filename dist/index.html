@@ -356,13 +356,24 @@
                         </tr>
                         <tr>
                             <th><code>elements</code></th>
-                            <td>массив</td>
+                            <td>строка | массив</td>
                             <td>неопределенно</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td colspan="4" class="small text-muted">
-                                Возможные значения
+                                Возможные значения (поддерживает привязку данных с использованием @-команд)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><code>default</code></th>
+                            <td>строка | число | массив</td>
+                            <td>неопределенно</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Значение по умолчанию (поддерживает привязку данных с использованием @-команд)
                             </td>
                         </tr>
                         <tr>
@@ -407,17 +418,6 @@
                         <tr>
                             <td colspan="4" class="small text-muted">
                                 Отключен
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><code>default</code></th>
-                            <td>строка | число | массив</td>
-                            <td>неопределенно</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="small text-muted">
-                                Значение по умолчанию
                             </td>
                         </tr>
                         <tr>
@@ -1429,6 +1429,98 @@
                                 <a>Config: <strong>textarea</strong></a>
                             </h5>
                             <pre id="textarea-textarea-config" class="border p-2 rounded"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 id="mf3:select">
+                        <a><strong>select</strong></a>
+                    </h3>
+
+                    <div>
+                        <div class="mb-5">
+                            <h5 id="mf3:select:options">
+                                <a>Дополнительные параметры:</a>
+                            </h5>
+
+                            <table class="table table-sm table-striped table-borderless table-responsive small">
+                                <thead>
+                                <tr>
+                                    <th class="text-muted">Название</th>
+                                    <th class="text-muted">Тип</th>
+                                    <th class="text-muted">Значение по умолчанию</th>
+                                    <th class="text-muted">Описание</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th><code>multiple</code></th>
+                                    <td>булево</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Позволяет одновременно выбирать сразу несколько элементов списка
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><code>size</code></th>
+                                    <td>строка | число</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Устанавливает высоту списка
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mb-5">
+                            <h4 id="mf3:select:select">
+                                <a><strong>select</strong></a>
+                            </h4>
+
+                            <script>
+                              window['mf3Config']['select-select'] = {
+                                templates: {
+                                  item: {
+                                    element: 'select',
+                                    label: 'Item',
+                                    title: 'Item',
+                                    placeholder: '...',
+                                    elements: '1==Item 1||2==Item 2||3==Item 3'
+                                  },
+                                  multiple: {
+                                    element: 'select',
+                                    label: 'Multiple',
+                                    title: 'Multiple',
+                                    placeholder: '...',
+                                    elements: '1==Item 1||2==Item 2||3==Item 3',
+                                    multiple: true
+                                  },
+                                  ajax: {
+                                    element: 'select',
+                                    label: 'Ajax',
+                                    title: 'Ajax',
+                                    placeholder: '...',
+                                    elements: '@SELECT id, message FROM [+PREFIX+]manager_log LIMIT 10'
+                                  },
+                                }
+                              }
+                            </script>
+                            <textarea name="select-select" class="mf3-data" data-tv-id="select-select"
+                                      data-tv-name="select-select"
+                                      rows="2"></textarea>
+
+                            <h5 id="mf3:select:select:config">
+                                <a>Config: <strong>select</strong></a>
+                            </h5>
+                            <pre id="select-select-config" class="border p-2 rounded"></pre>
                         </div>
                     </div>
                 </div>
