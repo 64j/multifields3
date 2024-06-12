@@ -93,11 +93,11 @@ export default {
             tag: 'div',
             list: elements,
             itemKey: a => a,
-            class: ['mf3-items', element?.['items.class']],
-            style: element?.['items.style'],
+            class: ['mf3-items', element?.itemsAttrs?.class],
             handle: '.mf3-actions__move',
             ghostClass: 'mf3-draggable__active',
-            chosenClass: 'mf3-draggable__chosen'
+            chosenClass: 'mf3-draggable__chosen',
+            ...(element?.itemsAttrs ?? {})
           },
           {
             item: ({ element, index }) => this.getElement(element, index, elements)
@@ -113,12 +113,11 @@ export default {
       }
 
       const renderElement = {}
-      const props = Object.keys(mf3Elements[name]?.['props'] || {}).
-          concat(Object.keys(mf3Elements[name]?.extends?.['props'] || {})).
-          concat(['class', 'style'])
+      const props = Object.assign({}, mf3Elements[name]?.extends?.['props'] || {}, mf3Elements[name]?.['props'] || {})
+      const propsKeys = Object.keys(props).concat(['class', 'style'])
 
       for (const i in element) {
-        if (props.includes(i)) {
+        if (propsKeys.includes(i)) {
           renderElement[i] = element[i]
         }
       }

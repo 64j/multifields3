@@ -81,9 +81,8 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item mf3-thumb" :class="`mf3-${element}__${type}`"
-       :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }"
-       v-bind="attr">
+  <div class="mf3-item mf3-thumb" :class="className" v-bind="attrs"
+       :style="{ backgroundImage: value ? 'url(../' + value + ')' : null }">
     <actions @action="action" :actions="actions"/>
     <button type="button" @click.stop="select">
       <i/>
@@ -95,7 +94,7 @@ export default {
 
 <style scoped>
 .mf3-item {
-  @apply w-24 min-w-24 flex grow-0 basis-auto items-center justify-center bg-no-repeat;
+  @apply w-24 min-w-24 flex grow-0 basis-auto items-center justify-center bg-no-repeat !border;
   background-size: 0;
 }
 .mf3-item::before {
@@ -106,16 +105,16 @@ export default {
 .darkness .mf3-item::before {
   @apply bg-transparent
 }
-.mf3-thumb__thumb button {
+.mf3-thumb button {
   @apply absolute flex items-center justify-center w-8 h-8 p-0 bg-white/50 rounded-full border-none opacity-65 hover:opacity-85
 }
-.mf3-thumb__thumb button i {
+.mf3-thumb button i {
   @apply flex relative justify-center w-4 h-4 bg-cyan-200  rounded-[2px] border border-solid border-black
 }
-.mf3-thumb__thumb button i::before {
+.mf3-thumb button i::before {
   @apply content-[""] absolute left-0.5 top-1 w-3.5 h-0.5 outline-1 outline outline-black bg-black -rotate-45
 }
-.mf3-thumb__thumb button i::after {
+.mf3-thumb button i::after {
   @apply content-[""] absolute top-2.5 -left-0.5 w-0 h-0 border-[3px] border-transparent border-solid border-t-black rotate-45
 }
 .mf3-thumb__image button {

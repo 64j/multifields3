@@ -42,11 +42,10 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-item" :class="[`mf3-${element}__${type}`, !actions ? 'mf3-item__without-actions' : '']"
-       v-bind="attr">
+  <div class="mf3-item" :class="className" v-bind="attrs">
     <actions @action="action" :actions="actions"/>
 
-    <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">
+    <div class="mf3-items" v-bind="itemsAttrs">
       <template v-if="data">
         <div v-if="label">
           <span>{{ label }}</span>
@@ -60,8 +59,7 @@ export default {
                 :readonly="readonly"
                 :disabled="disabled"
                 :placeholder="placeholder"
-                :class="$props['item.class']"
-                v-bind="$props['item.attr']"
+                v-bind="itemAttrs"
                 v-model="i.value"
                 :rows="rows"/>
 
@@ -79,8 +77,7 @@ export default {
             :readonly="readonly"
             :disabled="disabled"
             :placeholder="placeholder"
-            :class="$props['item.class']"
-            v-bind="$props['item.attr']"
+            v-bind="itemAttrs"
             v-model="model"
             :rows="rows"/>
 

@@ -2,7 +2,6 @@
 import Element from '../Element.vue'
 import Actions from '../Actions.vue'
 import Templates from '../Templates.vue'
-import { console } from 'vuedraggable/src/util/console'
 
 export default {
   name: 'mf:row',
@@ -30,8 +29,7 @@ export default {
 </script>
 
 <template>
-  <div class="mf3-row mf3-group mf3-item" :class="[`mf3-${element}`, !actions ? 'mf3-item__without-actions' : '']"
-       v-bind="attr">
+  <div class="mf3-row mf3-group mf3-item" :class="className" v-bind="attrs">
     <actions @action="action" :actions="actions"/>
     <templates :data="templates" @select:template="selectTemplate"/>
     <div v-if="value !== false" class="mf3-row__value">

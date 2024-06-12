@@ -453,7 +453,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th><code>item.attr</code></th>
+                            <th><code>itemAttrs</code></th>
                             <td>объект</td>
                             <td>неопределенно</td>
                             <td></td>
@@ -464,29 +464,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th><code>item.class</code></th>
-                            <td>строка | массив</td>
-                            <td>неопределенно</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="small text-muted">
-                                Класс элемента
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><code>item.style</code></th>
-                            <td>строка | объект</td>
-                            <td>неопределенно</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="small text-muted">
-                                Стиль CSS элемента
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><code>items.attr</code></th>
+                            <th><code>itemsAttrs</code></th>
                             <td>объект</td>
                             <td>неопределенно</td>
                             <td></td>
@@ -494,28 +472,6 @@
                         <tr>
                             <td colspan="4" class="small text-muted">
                                 Атрибуты обёртки дочерних элементов
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><code>items.class</code></th>
-                            <td>строка | массив</td>
-                            <td>неопределенно</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="small text-muted">
-                                Класс обёртки дочерних элементов
-                            </td>
-                        </tr>
-                        <tr>
-                            <th><code>items.style</code></th>
-                            <td>строка | объект</td>
-                            <td>неопределенно</td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="small text-muted">
-                                Стиль CSS обёртки дочерних элементов
                             </td>
                         </tr>
                         </tbody>
@@ -1157,7 +1113,7 @@
                                     label: 'Item checked',
                                     title: 'Item checked',
                                     value: 1,
-                                    'item.attr': {
+                                    itemAttrs: {
                                       'true-value': 1,
                                       'false-value': 0
                                     }
@@ -1187,6 +1143,15 @@
                                 <a>Config: <strong>checkbox</strong></a>
                             </h5>
                             <pre id="input-checkbox-config" class="border p-2 rounded"></pre>
+
+                            <div>
+                                Для установки своих значений у чекбокосов:
+                                <pre>
+"itemAttrs": {
+    "true-value": 1,
+    "false-value": 0
+}</pre>
+                            </div>
                         </div>
 
                         <div class="mb-5">
@@ -1508,6 +1473,14 @@
                                     title: 'Ajax',
                                     placeholder: '...',
                                     elements: '@SELECT id, message FROM [+PREFIX+]manager_log LIMIT 10'
+                                  },
+                                  ajaxUrl: {
+                                    element: 'select',
+                                    label: 'ajaxUrl',
+                                    title: 'ajaxUrl',
+                                    placeholder: '...',
+                                    url: 'https://jsonplaceholder.typicode.com/users',
+                                    method: 'get'
                                   },
                                 }
                               }

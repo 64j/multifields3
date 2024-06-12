@@ -1,5 +1,4 @@
 <script>
-import axios from 'axios'
 import Actions from '../Actions.vue'
 import Loader from '../Loader.vue'
 import Element from '../Element.vue'
@@ -29,7 +28,7 @@ export default {
         this.$emit('update:value', value, { ...this.data.filter(i => i.key === value)[0] || {} })
       },
       get () {
-        return this.value
+        return this.value || (this.multiple ? [] : null)
       }
     }
   },
@@ -38,69 +37,28 @@ export default {
       this.$emit('action', action)
     },
     getOptions () {
-      if (this?.elements?.[0] === '@') {
+      if (this?.elements?.[0] === '@' || this.url) {
         if (!this.focus && !this.load) {
           this.getData()
         }
       } else {
         this.data = this.parseData(this.elements)
       }
-    },
-    getData () {
-      this.loading = true
-      this.data = []
-      axios.post('?a=mf3&action=elements', { elements: this.elements }).then(({ data }) => {
-        this.data = this.parseData(data)
-      }).finally(() => this.loading = false)
-    },
-    parseData (data) {
-      if (!data) {
-        return []
-      }
-
-      if (Array.isArray(data)) {
-        return data.map(i => {
-          if (typeof i === 'string') {
-            i = {
-              key: i,
-              value: i
-            }
-          }
-
-          return i
-        })
-      }
-
-      const options = []
-
-      for (const i of data.split('||')) {
-        const key = i.split('==')[0] ?? null
-        const value = i.split('==')[1] ?? null
-
-        options.push({
-          key: key ?? value,
-          value: value ?? key,
-          selected: (this.value ?? this.default) === (key ?? value)
-        })
-      }
-
-      return options
     }
   }
 }
 </script>
 
 <template>
-  <div class="mf3-item" :class="[`mf3-${element}`, !actions ? 'mf3-item__without-actions' : '']" v-bind="attr">
+  <div class="mf3-item" :class="className" v-bind="attrs">
     <actions @action="action" :actions="actions"/>
 
-    <div class="mf3-items" :class="$props['items.class']" :style="$props['items.style']" v-bind="$props['items.attr']">
+    <div class="mf3-items" v-bind="itemsAttrs">
       <loader v-if="loading" class="mf3-loader"/>
       <select v-model="model"
               :size="multiple ? (size || 8) : (size || 1)"
               :multiple="multiple"
-              :class="$props['item.class']"
-              v-bind="$props['item.attr']"
+              v-bind="itemAttrs"
               @mousedown="getOptions"
               @focus="() => focus = true"
               @blur="() => focus = false">
@@ -113,7 +71,7 @@ export default {
 
 <style scoped>
 .mf3-item select {
-  @apply w-full
+  @apply w-full min-h-7
 }
 .mf3-item select:not([size="1"]) {
   @apply h-auto
@@ -125,6 +83,6 @@ export default {
   @apply items-center
 }
 .mf3-loader {
-  @apply absolute left-3.5
+  @apply absolute left-3.5 top-3.5
 }
 </style>
