@@ -517,15 +517,17 @@
                         <div class="mb-5">
                             <script>
                               window['mf3Config']['row'] = {
-                                templates: {
-                                  row: {
+                                templates: [
+                                  {
+                                    name: 'row',
                                     element: 'row',
                                     title: 'Row',
                                     label: 'Row',
                                     placeholder: '...'
                                   },
 
-                                  rowWithItems: {
+                                  {
+                                    name: 'rowWithItems',
                                     element: 'row',
                                     title: 'Row With Items',
                                     label: 'Description for items',
@@ -545,33 +547,39 @@
                                     ]
                                   },
 
-                                  rowWithTemplates: {
+                                  {
+                                    name: 'rowWithTemplates',
                                     element: 'row',
                                     title: 'Row With Templates',
                                     placeholder: '...',
                                     templates: ['rowImage']
                                   },
-                                  rowImage: {
+                                  {
+                                    name: 'rowImage',
                                     element: 'input',
                                     type: 'image',
                                     hidden: true
                                   },
 
-                                  rowSlider: {
+                                  {
+                                    name: 'rowSlider',
                                     element: 'row',
                                     title: 'Slider',
                                     placeholder: 'Slider description',
                                     templates: ['rowSliderImage']
                                   },
-                                  rowSliderImage: {
+                                  {
+                                    name: 'rowSliderImage',
                                     hidden: true,
                                     element: 'thumb',
                                     title: '{value}',
-                                    'items.style': {
-                                      display: 'grid',
-                                      'align-items': 'start',
-                                      'grid-column-gap': '0.5rem',
-                                      'grid-template-columns': '10rem'
+                                    itemsAttrs: {
+                                      style: {
+                                        display: 'grid',
+                                        'align-items': 'start',
+                                        'grid-column-gap': '0.5rem',
+                                        'grid-template-columns': '10rem'
+                                      }
                                     },
                                     items: [
                                       {
@@ -580,9 +588,11 @@
                                         type: 'image',
                                         actions: null,
                                         input: 'rowSliderImage',
-                                        style: {
-                                          width: '100%',
-                                          'grid-area': '1 / 1 / 5 / 2'
+                                        attrs: {
+                                          style: {
+                                            width: '100%',
+                                            'grid-area': '1 / 1 / 5 / 2'
+                                          }
                                         }
                                       },
                                       {
@@ -592,8 +602,10 @@
                                         label: 'Название',
                                         placeholder: 'Название',
                                         help: 'Введите название',
-                                        style: {
-                                          'grid-area': '1 / 2 / 2 / 3'
+                                        attrs: {
+                                          style: {
+                                            'grid-area': '1 / 2 / 2 / 3'
+                                          }
                                         }
                                       },
                                       {
@@ -601,8 +613,10 @@
                                         element: 'textarea',
                                         actions: null,
                                         label: 'Описание',
-                                        style: {
-                                          'grid-area': '2 / 2 / 3 / 3'
+                                        attrs: {
+                                          style: {
+                                            'grid-area': '2 / 2 / 3 / 3'
+                                          }
                                         }
                                       },
                                       {
@@ -610,8 +624,10 @@
                                         element: 'input',
                                         actions: null,
                                         label: 'Дополнительно',
-                                        style: {
-                                          'grid-area': '3 / 2 / 4 / 3'
+                                        attrs: {
+                                          style: {
+                                            'grid-area': '3 / 2 / 4 / 3'
+                                          }
                                         }
                                       },
                                       {
@@ -621,13 +637,15 @@
                                         actions: null,
                                         label: 'Показывать',
                                         default: true,
-                                        style: {
-                                          'grid-area': '4 / 2 / 5 / 3'
+                                        attrs: {
+                                          style: {
+                                            'grid-area': '4 / 2 / 5 / 3'
+                                          }
                                         }
                                       }
                                     ]
                                   }
-                                }
+                                ]
                               }
                             </script>
                             <textarea name="row" class="mf3-data" data-tv-id="row" data-tv-name="row"
