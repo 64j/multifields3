@@ -8,7 +8,10 @@ import Modal from './Modal.vue'
 export default {
   name: 'mf',
   components: { Templates, Actions, draggable, Modal },
-  props: ['dataEl', 'config'],
+  props: {
+    dataEl: Object,
+    config: Object
+  },
   data () {
     return {
       elements: [],
@@ -31,6 +34,10 @@ export default {
     }
   },
   created () {
+    if (Array.isArray(this.config.templates)) {
+      this.config.templates = Object.fromEntries(this.config.templates.map(i => [i.key || i.name, i]))
+    }
+
     try {
       this.elements = Object.values(JSON.parse(this.dataEl.value))
     } catch (errors) {

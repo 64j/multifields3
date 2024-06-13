@@ -273,21 +273,10 @@
                             <th class="text-muted">Название</th>
                             <th class="text-muted">Тип</th>
                             <th class="text-muted">Значение по умолчанию</th>
-                            <th class="text-muted">Описание</th>
+                            <th class="text-muted">Возможные значения</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <th><code>name</code></th>
-                            <td>строка</td>
-                            <td></td>
-                            <td>уникальный ключ</td>
-                        </tr>
-                        <tr>
-                            <td colspan="4" class="small text-muted">
-                                Уникальный ключ элемента, по которому можно обратиться при обработке данных
-                            </td>
-                        </tr>
                         <tr>
                             <th><code>element</code></th>
                             <td>строка</td>
@@ -296,13 +285,24 @@
                         </tr>
                         <tr>
                             <td colspan="4" class="small text-muted">
-                                Название элемента
+                                Название элемента (обязательный параметр)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><code>name</code></th>
+                            <td>строка</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Уникальный ключ элемента, по которому можно обратиться при обработке данных
                             </td>
                         </tr>
                         <tr>
                             <th><code>title</code></th>
                             <td>строка</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -313,7 +313,7 @@
                         <tr>
                             <th><code>label</code></th>
                             <td>строка</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -324,7 +324,7 @@
                         <tr>
                             <th><code>placeholder</code></th>
                             <td>строка</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -335,7 +335,7 @@
                         <tr>
                             <th><code>help</code></th>
                             <td>строка</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -346,7 +346,7 @@
                         <tr>
                             <th><code>value</code></th>
                             <td>строка | число | булево | массив</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -357,7 +357,7 @@
                         <tr>
                             <th><code>elements</code></th>
                             <td>строка | массив</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -368,7 +368,7 @@
                         <tr>
                             <th><code>default</code></th>
                             <td>строка | число | массив</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -390,7 +390,7 @@
                         <tr>
                             <th><code>required</code></th>
                             <td>булево</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -401,7 +401,7 @@
                         <tr>
                             <th><code>readonly</code></th>
                             <td>булево</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -412,7 +412,7 @@
                         <tr>
                             <th><code>disabled</code></th>
                             <td>булево</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -423,7 +423,7 @@
                         <tr>
                             <th><code>hidden</code></th>
                             <td>булево</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -434,7 +434,7 @@
                         <tr>
                             <th><code>items</code></th>
                             <td>массив</td>
-                            <td>неопределенно</td>
+                            <td></td>
                             <td></td>
                         </tr>
                         <tr>
@@ -443,7 +443,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th><code>attr</code></th>
+                            <th><code>attrs</code></th>
                             <td>объект</td>
                             <td>{}</td>
                             <td></td>
@@ -456,7 +456,7 @@
                         <tr>
                             <th><code>itemAttrs</code></th>
                             <td>объект</td>
-                            <td>неопределенно</td>
+                            <td>{}</td>
                             <td></td>
                         </tr>
                         <tr>
@@ -467,12 +467,34 @@
                         <tr>
                             <th><code>itemsAttrs</code></th>
                             <td>объект</td>
-                            <td>неопределенно</td>
+                            <td>{}</td>
                             <td></td>
                         </tr>
                         <tr>
                             <td colspan="4" class="small text-muted">
                                 Атрибуты обёртки дочерних элементов
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><code>url</code></th>
+                            <td>строка</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Адрес по которому можно получить возможные значения
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><code>method</code></th>
+                            <td>строка</td>
+                            <td>post</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="small text-muted">
+                                Метод запроса
                             </td>
                         </tr>
                         </tbody>
@@ -483,6 +505,10 @@
                     <h3 id="mf3:row">
                         <a><strong>row</strong></a>
                     </h3>
+
+                    <div>
+                        Контейнер для дочерних элементов
+                    </div>
 
                     <div>
                         <div class="mb-5">
@@ -496,7 +522,7 @@
                                     <th class="text-muted">Название</th>
                                     <th class="text-muted">Тип</th>
                                     <th class="text-muted">Значение по умолчанию</th>
-                                    <th class="text-muted">Описание</th>
+                                    <th class="text-muted">Возможные значения</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -518,15 +544,17 @@
                         <div class="mb-5">
                             <script>
                               window['mf3Config']['row'] = {
-                                templates: {
-                                  row: {
+                                templates: [
+                                  {
+                                    name: 'row',
                                     element: 'row',
                                     title: 'Row',
                                     label: 'Row',
                                     placeholder: '...'
                                   },
 
-                                  rowWithItems: {
+                                  {
+                                    name: 'rowWithItems',
                                     element: 'row',
                                     title: 'Row With Items',
                                     label: 'Description for items',
@@ -546,33 +574,39 @@
                                     ]
                                   },
 
-                                  rowWithTemplates: {
+                                  {
+                                    name: 'rowWithTemplates',
                                     element: 'row',
                                     title: 'Row With Templates',
                                     placeholder: '...',
                                     templates: ['rowImage']
                                   },
-                                  rowImage: {
+                                  {
+                                    name: 'rowImage',
                                     element: 'input',
                                     type: 'image',
                                     hidden: true
                                   },
 
-                                  rowSlider: {
+                                  {
+                                    name: 'rowSlider',
                                     element: 'row',
                                     title: 'Slider',
                                     placeholder: 'Slider description',
                                     templates: ['rowSliderImage']
                                   },
-                                  rowSliderImage: {
+                                  {
+                                    name: 'rowSliderImage',
                                     hidden: true,
                                     element: 'thumb',
                                     title: '{value}',
-                                    'items.style': {
-                                      display: 'grid',
-                                      'align-items': 'start',
-                                      'grid-column-gap': '0.5rem',
-                                      'grid-template-columns': '10rem'
+                                    itemsAttrs: {
+                                      style: {
+                                        display: 'grid',
+                                        'align-items': 'start',
+                                        'grid-column-gap': '0.5rem',
+                                        'grid-template-columns': '10rem'
+                                      }
                                     },
                                     items: [
                                       {
@@ -581,9 +615,11 @@
                                         type: 'image',
                                         actions: null,
                                         input: 'rowSliderImage',
-                                        style: {
-                                          width: '100%',
-                                          'grid-area': '1 / 1 / 5 / 2'
+                                        attrs: {
+                                          style: {
+                                            width: '100%',
+                                            'grid-area': '1 / 1 / 5 / 2'
+                                          }
                                         }
                                       },
                                       {
@@ -593,8 +629,10 @@
                                         label: 'Название',
                                         placeholder: 'Название',
                                         help: 'Введите название',
-                                        style: {
-                                          'grid-area': '1 / 2 / 2 / 3'
+                                        attrs: {
+                                          style: {
+                                            'grid-area': '1 / 2 / 2 / 3'
+                                          }
                                         }
                                       },
                                       {
@@ -602,8 +640,10 @@
                                         element: 'textarea',
                                         actions: null,
                                         label: 'Описание',
-                                        style: {
-                                          'grid-area': '2 / 2 / 3 / 3'
+                                        attrs: {
+                                          style: {
+                                            'grid-area': '2 / 2 / 3 / 3'
+                                          }
                                         }
                                       },
                                       {
@@ -611,8 +651,10 @@
                                         element: 'input',
                                         actions: null,
                                         label: 'Дополнительно',
-                                        style: {
-                                          'grid-area': '3 / 2 / 4 / 3'
+                                        attrs: {
+                                          style: {
+                                            'grid-area': '3 / 2 / 4 / 3'
+                                          }
                                         }
                                       },
                                       {
@@ -622,13 +664,15 @@
                                         actions: null,
                                         label: 'Показывать',
                                         default: true,
-                                        style: {
-                                          'grid-area': '4 / 2 / 5 / 3'
+                                        attrs: {
+                                          style: {
+                                            'grid-area': '4 / 2 / 5 / 3'
+                                          }
                                         }
                                       }
                                     ]
                                   }
-                                }
+                                ]
                               }
                             </script>
                             <textarea name="row" class="mf3-data" data-tv-id="row" data-tv-name="row"
@@ -659,7 +703,7 @@
                                     <th class="text-muted">Название</th>
                                     <th class="text-muted">Тип</th>
                                     <th class="text-muted">Значение по умолчанию</th>
-                                    <th class="text-muted">Описание</th>
+                                    <th class="text-muted">Возможные значения</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -677,7 +721,7 @@
                                 <tr>
                                     <th><code>pattern</code></th>
                                     <td>строка</td>
-                                    <td>неопределенно</td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -686,31 +730,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th><code>trueValue</code></th>
-                                    <td>строка | число | булево</td>
-                                    <td>неопределенно</td>
-                                    <td>Только для чекбокса</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="small text-muted">
-                                        Значение если элемент выбран
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th><code>falseValue</code></th>
-                                    <td>строка | число | булево</td>
-                                    <td>неопределенно</td>
-                                    <td>Только для чекбокса</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="4" class="small text-muted">
-                                        Значение если элемент не выбран
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th><code>min</code></th>
                                     <td>строка | число</td>
-                                    <td>неопределенно</td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -721,7 +743,7 @@
                                 <tr>
                                     <th><code>max</code></th>
                                     <td>строка | число</td>
-                                    <td>неопределенно</td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -732,7 +754,7 @@
                                 <tr>
                                     <th><code>minlength</code></th>
                                     <td>строка | число</td>
-                                    <td>неопределенно</td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -743,7 +765,7 @@
                                 <tr>
                                     <th><code>maxlength</code></th>
                                     <td>строка | число</td>
-                                    <td>неопределенно</td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -754,7 +776,7 @@
                                 <tr>
                                     <th><code>size</code></th>
                                     <td>строка | число</td>
-                                    <td>неопределенно</td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -765,7 +787,7 @@
                                 <tr>
                                     <th><code>step</code></th>
                                     <td>строка | число</td>
-                                    <td>неопределенно</td>
+                                    <td></td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -803,7 +825,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-text" class="mf3-data" data-tv-id="input-text" data-tv-name="input-text"
+                            <textarea name="input-text" class="mf3-data" data-tv-id="input-text"
+                                      data-tv-name="input-text"
                                       rows="2">[{"key":"item"},{"key":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:text:config">
@@ -838,7 +861,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-number" class="mf3-data" data-tv-id="input-number" data-tv-name="input-number"
+                            <textarea name="input-number" class="mf3-data" data-tv-id="input-number"
+                                      data-tv-name="input-number"
                                       rows="2">[{"key":"item"},{"key":"items","value":[0,0,0]}]</textarea>
 
                             <h5 id="mf3:input:number:config">
@@ -908,7 +932,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-email" class="mf3-data" data-tv-id="input-email" data-tv-name="input-email"
+                            <textarea name="input-email" class="mf3-data" data-tv-id="input-email"
+                                      data-tv-name="input-email"
                                       rows="2">[{"key":"item"},{"key":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:email:config">
@@ -978,7 +1003,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-date" class="mf3-data" data-tv-id="input-date" data-tv-name="input-date"
+                            <textarea name="input-date" class="mf3-data" data-tv-id="input-date"
+                                      data-tv-name="input-date"
                                       rows="2">[{"key":"item"},{"key":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:date:config">
@@ -1013,7 +1039,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-time" class="mf3-data" data-tv-id="input-time" data-tv-name="input-time"
+                            <textarea name="input-time" class="mf3-data" data-tv-id="input-time"
+                                      data-tv-name="input-time"
                                       rows="2">[{"key":"item"},{"key":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:time:config">
@@ -1048,7 +1075,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-datetime" class="mf3-data" data-tv-id="input-datetime" data-tv-name="input-datetime"
+                            <textarea name="input-datetime" class="mf3-data" data-tv-id="input-datetime"
+                                      data-tv-name="input-datetime"
                                       rows="2">[{"key":"item"},{"key":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:datetime:config">
@@ -1085,7 +1113,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-datepicker" class="mf3-data" data-tv-id="input-datepicker" data-tv-name="input-datepicker"
+                            <textarea name="input-datepicker" class="mf3-data" data-tv-id="input-datepicker"
+                                      data-tv-name="input-datepicker"
                                       rows="2">[{"key":"item"},{"key":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:datepicker:config">
@@ -1137,7 +1166,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-checkbox" class="mf3-data" data-tv-id="input-checkbox" data-tv-name="input-checkbox"
+                            <textarea name="input-checkbox" class="mf3-data" data-tv-id="input-checkbox"
+                                      data-tv-name="input-checkbox"
                                       rows="2">[{"key":"item"},{"value":1,"key":"item_checked"},{"key":"items"},{"value":[1,2,3],"key":"items_checked"}]</textarea>
 
                             <h5 id="mf3:input:checkbox:config">
@@ -1174,7 +1204,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-radio" class="mf3-data" data-tv-id="input-radio" data-tv-name="input-radio"
+                            <textarea name="input-radio" class="mf3-data" data-tv-id="input-radio"
+                                      data-tv-name="input-radio"
                                       rows="2">[{"value":2,"key":"items"}]</textarea>
 
                             <h5 id="mf3:input:radio:config">
@@ -1209,7 +1240,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-color" class="mf3-data" data-tv-id="input-color" data-tv-name="input-color"
+                            <textarea name="input-color" class="mf3-data" data-tv-id="input-color"
+                                      data-tv-name="input-color"
                                       rows="2">[{"key":"item"},{"key":"items","value":["#0091ff","#ff004c","#ffbb00"]}]</textarea>
 
                             <h5 id="mf3:input:color:config">
@@ -1245,7 +1277,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-range" class="mf3-data" data-tv-id="input-range" data-tv-name="input-range"
+                            <textarea name="input-range" class="mf3-data" data-tv-id="input-range"
+                                      data-tv-name="input-range"
                                       rows="2">[{"value":0,"key":"item"},{"key":"items","value":["0","50","100"]}]</textarea>
 
                             <h5 id="mf3:input:range:config">
@@ -1280,7 +1313,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-image" class="mf3-data" data-tv-id="input-image" data-tv-name="input-image"
+                            <textarea name="input-image" class="mf3-data" data-tv-id="input-image"
+                                      data-tv-name="input-image"
                                       rows="2">[{"key":"item"},{"key":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:image:config">
@@ -1315,7 +1349,8 @@
                                 }
                               }
                             </script>
-                            <textarea name="input-file" class="mf3-data" data-tv-id="input-file" data-tv-name="input-file"
+                            <textarea name="input-file" class="mf3-data" data-tv-id="input-file"
+                                      data-tv-name="input-file"
                                       rows="2">[{"key":"item"},{"key":"items","value":["","",""]}]</textarea>
 
                             <h5 id="mf3:input:file:config">
@@ -1343,7 +1378,7 @@
                                     <th class="text-muted">Название</th>
                                     <th class="text-muted">Тип</th>
                                     <th class="text-muted">Значение по умолчанию</th>
-                                    <th class="text-muted">Описание</th>
+                                    <th class="text-muted">Возможные значения</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -1415,7 +1450,7 @@
                                     <th class="text-muted">Название</th>
                                     <th class="text-muted">Тип</th>
                                     <th class="text-muted">Значение по умолчанию</th>
-                                    <th class="text-muted">Описание</th>
+                                    <th class="text-muted">Возможные значения</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -1481,8 +1516,10 @@
                                     title: 'ajaxUrl',
                                     placeholder: '...',
                                     url: 'https://jsonplaceholder.typicode.com/users',
-                                    method: 'get'
-                                  },
+                                    method: 'get',
+                                    nameKey: 'id',
+                                    nameValue: 'name'
+                                  }
                                 }
                               }
                             </script>
@@ -1494,6 +1531,174 @@
                                 <a>Config: <strong>select</strong></a>
                             </h5>
                             <pre id="select-select-config" class="border p-2 rounded"></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 id="mf3:thumb">
+                        <a><strong>thumb</strong></a>
+                    </h3>
+
+                    <div>
+                        Элемент может показывать превью выбранного изображения или служить контейнером для дочерних
+                        элементов
+                    </div>
+
+                    <div>
+                        <div class="mb-5">
+                            <h5 id="mf3:thumb:options">
+                                <a>Дополнительные параметры:</a>
+                            </h5>
+
+                            <table class="table table-sm table-striped table-borderless table-responsive small">
+                                <thead>
+                                <tr>
+                                    <th class="text-muted">Название</th>
+                                    <th class="text-muted">Тип</th>
+                                    <th class="text-muted">Значение по умолчанию</th>
+                                    <th class="text-muted">Доступные значения</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th><code>type</code></th>
+                                    <td>строка</td>
+                                    <td>thumb</td>
+                                    <td>thumb | image</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Тип элемента
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><code>multi</code></th>
+                                    <td>булево</td>
+                                    <td>false</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Включает множественный выбор в файл-менеджере
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th><code>input</code></th>
+                                    <td>строка</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="4" class="small text-muted">
+                                        Ключ поля в которое дублируется значение при выборе, в рамках родительского
+                                        блока
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mb-5">
+                            <h4 id="mf3:thumb:thumb">
+                                <a><strong>thumb</strong></a>
+                            </h4>
+
+                            <script>
+                              window['mf3Config']['thumb-thumb'] = {
+                                templates: {
+                                  item: {
+                                    element: 'thumb',
+                                    type: 'image',
+                                    title: 'Thumb image',
+                                  },
+
+                                  thumbWithChildren: {
+                                    element: 'thumb',
+                                    title: 'Thumb {value}',
+                                    itemsAttrs: {
+                                      style: {
+                                        display: 'grid',
+                                        alignItems: 'start',
+                                        gridColumnGap: '0.5rem',
+                                        gridTemplateColumns: '10rem'
+                                      }
+                                    },
+                                    items: [
+                                      {
+                                        name: 'thumb',
+                                        element: 'thumb',
+                                        type: 'image',
+                                        actions: null,
+                                        input: 'thumbWithChildren',
+                                        attrs: {
+                                          style: {
+                                            width: '100%',
+                                            gridArea: '1 / 1 / 5 / 2'
+                                          }
+                                        }
+                                      },
+                                      {
+                                        name: 'title',
+                                        element: 'input',
+                                        actions: null,
+                                        label: 'Название',
+                                        placeholder: 'Название',
+                                        help: 'Введите название',
+                                        attrs: {
+                                          style: {
+                                            gridArea: '1 / 2 / 2 / 3'
+                                          }
+                                        }
+                                      },
+                                      {
+                                        name: 'content',
+                                        element: 'textarea',
+                                        actions: null,
+                                        label: 'Описание',
+                                        attrs: {
+                                          style: {
+                                            gridArea: '2 / 2 / 3 / 3'
+                                          }
+                                        }
+                                      },
+                                      {
+                                        name: 'added',
+                                        element: 'input',
+                                        actions: null,
+                                        label: 'Дополнительно',
+                                        attrs: {
+                                          style: {
+                                            gridArea: '3 / 2 / 4 / 3'
+                                          }
+                                        }
+                                      },
+                                      {
+                                        name: 'show',
+                                        element: 'input',
+                                        type: 'checkbox',
+                                        actions: null,
+                                        label: 'Показывать',
+                                        default: true,
+                                        attrs: {
+                                          style: {
+                                            gridArea: '4 / 2 / 5 / 3'
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                }
+                              }
+                            </script>
+                            <textarea name="thumb-thumb" class="mf3-data" data-tv-id="thumb-thumb"
+                                      data-tv-name="thumb-thumb"
+                                      rows="2"></textarea>
+
+                            <h5 id="mf3:thumb:thumb:config">
+                                <a>Config: <strong>thumb</strong></a>
+                            </h5>
+                            <pre id="thumb-thumb-config" class="border p-2 rounded"></pre>
                         </div>
                     </div>
                 </div>
@@ -1663,22 +1868,34 @@
         crossorigin="anonymous"></script>
 
 <script>
-  var dpOffset = -10;
-  var dpformat = 'dd-mm-YYYY hh:mm:00';
-  var dpdayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'];
-  var dpmonthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-  var dpstartDay = 1;
-  var DatePickers = document.querySelectorAll('input.DatePicker');
-  if(DatePickers) {
-    for(var i = 0; i < DatePickers.length; i++) {
-      let format = DatePickers[i].getAttribute("data-format");
+  var dpOffset = -10
+  var dpformat = 'dd-mm-YYYY hh:mm:00'
+  var dpdayNames = ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота']
+  var dpmonthNames = [
+    'Январь',
+    'Февраль',
+    'Март',
+    'Апрель',
+    'Май',
+    'Июнь',
+    'Июль',
+    'Август',
+    'Сентябрь',
+    'Октябрь',
+    'Ноябрь',
+    'Декабрь']
+  var dpstartDay = 1
+  var DatePickers = document.querySelectorAll('input.DatePicker')
+  if (DatePickers) {
+    for (var i = 0; i < DatePickers.length; i++) {
+      let format = DatePickers[i].getAttribute('data-format')
       new DatePicker(DatePickers[i], {
         yearOffset: dpOffset,
         format: format !== null ? format : dpformat,
         dayNames: dpdayNames,
         monthNames: dpmonthNames,
         startDay: dpstartDay
-      });
+      })
     }
   }
 </script>

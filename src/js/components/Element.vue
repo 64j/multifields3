@@ -155,8 +155,8 @@ export default {
           }
 
           return {
-            key: i[this.nameKey] ?? i.id,
-            value: i[this.nameValue] ?? i.name ?? i.title
+            key: i[this.nameKey],
+            value: i[this.nameValue]
           }
         })
       }
