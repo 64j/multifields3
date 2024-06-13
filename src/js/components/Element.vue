@@ -92,15 +92,15 @@ export default {
     if (typeof this.elements === 'string') {
       this.elements.split('||').forEach((i, k) => {
         let key = i.split('==')[0] ?? null
-        let value = i.split('==')[1] ?? null
+        let value = i.split('==')[1] ?? key
 
         if (!['radio', 'checkbox'].includes(this.type) && this.value?.[k] !== undefined) {
           value = this.value[k]
         }
 
         this.data.push({
-          key,
-          value: value ?? key
+          key: key,
+          value: value
         })
       })
     }
@@ -144,7 +144,7 @@ export default {
       }
 
       if (Array.isArray(data)) {
-        return data.map(i => {
+        return data.map((i, k) => {
           if (typeof i === 'string') {
             i = {
               key: i,
@@ -156,7 +156,7 @@ export default {
 
           return {
             key: i[this.nameKey],
-            value: i[this.nameValue]
+            value: this?.value?.[k] ?? i[this.nameValue]
           }
         })
       }
