@@ -54,6 +54,10 @@ export default {
     <actions @action="action" :actions="actions"/>
 
     <div class="mf3-items" v-bind="itemsAttrs">
+      <label v-if="label" :for="id">
+        <span>{{ label }}</span>
+        <i v-if="help" data-tooltip :title="help" class="fa far fa-question-circle"/>
+      </label>
       <loader v-if="loading" class="mf3-loader"/>
       <select v-model="model"
               :size="multiple ? (size || 8) : (size || 1)"
@@ -70,6 +74,9 @@ export default {
 </template>
 
 <style scoped>
+.mf3-item label {
+  @apply m-0
+}
 .mf3-item select {
   @apply w-full min-h-7
 }

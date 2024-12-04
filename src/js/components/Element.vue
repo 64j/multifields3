@@ -94,7 +94,8 @@ export default {
         let key = i.split('==')[0] ?? null
         let value = i.split('==')[1] ?? key
 
-        if (!['radio', 'checkbox'].includes(this.type) && this.value?.[k] !== undefined) {
+        if (!['radio', 'checkbox'].includes(this.type) && typeof this.value === 'object' && this.value?.[k] !==
+            undefined) {
           value = this.value[k]
         }
 
@@ -154,9 +155,17 @@ export default {
             return i
           }
 
+          let key = i[this.nameKey]
+          let value = i[this.nameValue]
+
+          if (!['radio', 'checkbox'].includes(this.type) && typeof this.value === 'object' && this.value?.[k] !==
+              undefined) {
+            value = this.value[k]
+          }
+
           return {
-            key: i[this.nameKey],
-            value: this?.value?.[k] ?? i[this.nameValue]
+            key: key,
+            value: value
           }
         })
       }

@@ -5,7 +5,7 @@ export default {
     title: String,
     open: Boolean,
     opener: Object,
-    component: Object
+    component: [Object, Function]
   },
   data () {
     return {
@@ -63,6 +63,9 @@ export default {
       if (this.$root['modal']['open']) {
         this.$root['modal']['open'] = false
       }
+    },
+    onUpdateValue () {
+      this.$emit('updateValue', ...arguments)
     }
   }
 }
@@ -81,7 +84,7 @@ export default {
             </button>
           </div>
           <div class="mf3-modal__content">
-            <component :is="component || opener['$slots'].default"/>
+            <component :is="component || opener['$slots'].default" @updateValue="onUpdateValue"/>
           </div>
         </div>
         <div class="mf3-modal__mask" @click="onClose"/>
