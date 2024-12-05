@@ -6,13 +6,17 @@ export default {
     title: String,
     open: Boolean,
     opener: Object,
-    component: [Object, Function]
+    component: [Object, Function],
+    btnConfirm: Boolean,
+    btnClose: {
+      type: Boolean,
+      default: true
+    }
   },
   data () {
     return {
       style: {},
-      position: {},
-      closeCallback: null
+      position: {}
     }
   },
   updated () {
@@ -85,10 +89,10 @@ export default {
         <div class="mf3 mf3-modal" :style="style" ref="modal">
           <div class="mf3-modal__header" @mousedown="onMousedown">
             <div class="mf3-modal__title">{{ title ?? opener?.['@title'] }}</div>
-            <button class="mf3-modal__confirm" @mousedown.stop="onConfirm">
+            <button v-if="btnConfirm" class="mf3-modal__confirm" @mousedown.stop="onConfirm">
               <i class="fa fa-save"/>
             </button>
-            <button class="mf3-modal__close" @mousedown.stop="onClose">
+            <button v-if="btnClose" class="mf3-modal__close" @mousedown.stop="onClose">
               <i/>
               <i/>
             </button>

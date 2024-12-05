@@ -2,12 +2,13 @@
 import Element from '../Element.vue'
 import Actions from '../Actions.vue'
 import Loader from '../Loader.vue'
+import draggable from 'vuedraggable'
 
 export default {
   name: 'mf:table',
   __isStatic: true,
   extends: Element,
-  components: { Loader, Actions },
+  components: { Loader, Actions, draggable },
   props: {
     columns: Array,
     toolbar: Array,
@@ -17,8 +18,8 @@ export default {
   },
   data () {
     return {
-      data: this.$attrs['data'] ?? [],
-      templateItems: null
+      templateItems: null,
+      data: this.$attrs['data'] ?? []
     }
   },
   computed: {
@@ -65,7 +66,7 @@ export default {
     action (action) {
       this.$emit('action', action)
     },
-    toolbarNew (event) {
+    toolbarNew () {
       this.modalOpen()
     },
     toolbarExport () {
@@ -75,10 +76,12 @@ export default {
 
     },
     toolbarClear () {
-
+      this.updateData([])
     },
     modalOpen (data = {}, k) {
       this.templateItems = JSON.parse(JSON.stringify(this.template.items)).map(i => {
+        i.actions = false
+
         if (data[i.name] !== undefined) {
           i.value = data[i.name]
         }
@@ -89,6 +92,7 @@ export default {
       this.$root['modal'] = {
         component: this.$root.getElements(this.templateItems),
         open: true,
+        btnConfirm: true,
         onConfirm: () => {
           if (!this.data) {
             this.data = []
@@ -102,9 +106,19 @@ export default {
             this.data.push(data)
           }
 
-          this.$emit('update:props', 'data', this.data)
+          this.updateData()
         }
       }
+    },
+    updateData (data) {
+      if (data) {
+        this.data = data
+      }
+
+      this.$emit('update:props', 'data', this.data)
+    },
+    onRemove (i) {
+      this.data.splice(i, 1)
     }
   }
 }
@@ -127,39 +141,43 @@ export default {
     </div>
 
     <div class="mf3-items table-responsive" v-bind="itemsAttrs">
-      <table class="table data nowrap" style="table-layout: fixed;">
-        <thead>
-        <tr v-if="columns">
+      <table class="table table-sm data nowrap" style="table-layout: fixed;">
+        <thead v-if="columns">
+        <tr>
+          <th style="width: 4rem"></th>
           <th style="width: 3rem">#</th>
-          <th v-for="i in columns">
+          <th v-for="i in columns" :style="{ ...(i['style'] ?? {}) }">
             {{ i['title'] }}
           </th>
         </tr>
-        <tr v-else-if="items?.[0]">
-          <th style="width: 3rem">#</th>
-          <th v-for="i in items[0]">
-            {{ i }}
-          </th>
-        </tr>
         </thead>
-        <tbody v-if="data?.length">
-        <tr v-for="(i, k) in data" @click="modalOpen(i, k)">
-          <template v-if="columns">
-            <th>{{ k + 1 }}</th>
-            <td v-for="j in columns">
-              <div class="text-truncate">
-                {{ i[j['key']] }}
-              </div>
-            </td>
+        <draggable
+            v-model="data"
+            group="people"
+            @end="updateData()"
+            item-key="id"
+            handle=".fa-bars"
+            tag="tbody">
+          <template #item="{element, index}">
+            <tr @click="modalOpen(element, index)">
+              <th>
+                <i class="fa fa-bars mx-1"/>
+                <i class="fa fa-trash mx-1 text-danger" @click.stop="onRemove(index)"/>
+              </th>
+              <th>{{ index + 1 }}</th>
+              <template v-if="columns">
+                <td v-for="i in columns">
+                  <div class="text-truncate">{{ element[i.key] }}</div>
+                </td>
+              </template>
+              <template v-else>
+                <td v-for="j in element">
+                  <div class="text-truncate">{{ j }}</div>
+                </td>
+              </template>
+            </tr>
           </template>
-          <template v-else>
-            <th>{{ k + 1 }}</th>
-            <td v-for="j in i">
-              <div class="text-truncate">{{ j }}</div>
-            </td>
-          </template>
-        </tr>
-        </tbody>
+        </draggable>
       </table>
     </div>
   </div>
