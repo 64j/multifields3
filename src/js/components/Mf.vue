@@ -121,7 +121,7 @@ export default {
 
       const renderElement = {}
       const props = Object.assign({}, mf3Elements[name]?.extends?.['props'] || {}, mf3Elements[name]?.['props'] || {})
-      const propsKeys = Object.keys(props).concat(['class', 'style'])
+      const propsKeys = Object.keys(props).concat(['class', 'style', 'data'])
 
       for (const i in element) {
         if (propsKeys.includes(i)) {
@@ -135,6 +135,7 @@ export default {
             ...renderElement,
             'onAction': (action, ...args) => this.action(action, elements, index, ...args),
             'onUpdate:value': (...args) => this.updateValue(element, elements, ...args),
+            'onUpdate:props': (...args) => this.updateProps(element, ...args),
             'onSelect:template': (...args) => this.selectTemplate(element, ...args)
           },
           slots
@@ -178,6 +179,9 @@ export default {
           }
         })
       }
+    },
+    updateProps (element, key, value) {
+      element[key] = value
     },
     selectTemplate (element, id) {
       const template = structuredClone(this.config.templates[id || element])
@@ -227,7 +231,8 @@ export default {
             'name',
             'value',
             'values',
-            'items'
+            'items',
+            'data'
           ].concat(append).includes(i)) {
             delete element[i]
           }
