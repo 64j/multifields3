@@ -71,19 +71,17 @@ class Multifields3
             $config = $tv['elements'];
         } elseif (file_exists($path = __DIR__ . '/config/' . $tv['name'] . '.json')) {
             $config = file_get_contents($path);
-        } else {
-            $config = null;
         }
 
-        return $config;
+        return $config ?? '';
     }
 
     /**
      * @param $input
      *
-     * @return array|mixed|string
+     * @return array
      */
-    protected function getElements($input)
+    protected function getElements($input): array
     {
         if (!$input) {
             return [];
